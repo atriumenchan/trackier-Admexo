@@ -20,8 +20,23 @@ export function usingPostgres() {
   return Boolean(process.env.DATABASE_URL);
 }
 
+function supabaseUrl() {
+  return (process.env.SUPABASE_URL || "").replace(/\/$/, "");
+}
+
+function supabaseKey() {
+  return process.env.SUPABASE_ANON_KEY || "";
+}
+
+function driver() {
+  if (process.env.VERCEL && supabaseUrl() && supabaseKey()) return "supabase";
+  if (process.env.DATABASE_URL) return "postgres";
+  if (supabaseUrl() && supabaseKey()) return "supabase";
+  return "sqlite";
+}
+
 export function istDay(column: string) {
-  if (usingPostgres()) return `((${column}::timestamp + interval '330 minutes')::date)::text`;
+  if (driver() !== "sqlite") return `((${column}::timestamp + interval '330 minutes')::date)::text`;
   return `date(${column}, '+330 minutes')`;
 }
 
@@ -50,12 +65,50 @@ async function initSqlite() {
 function ensure() {
   if (!globalForDb.trackierReady) {
     globalForDb.trackierReady = (async () => {
-      if (usingPostgres()) await initPostgres();
-      else if (process.env.VERCEL) throw new Error("DATABASE_URL is not set.");
+      const kind = driver();
+      if (kind === "postgres") await initPostgres();
+      else if (kind === "supabase") return;
+      else if (process.env.VERCEL) throw new Error("Supabase is not connected.");
       else await initSqlite();
     })();
   }
   return globalForDb.trackierReady;
+}
+
+function quoteParam(value: Param) {
+  if (value == null) return "NULL";
+  if (typeof value === "number") return Number.isFinite(value) ? String(value) : "NULL";
+  return `'${String(value).replace(/'/g, "''")}'`;
+}
+
+function bind(sql: string, params: Param[]) {
+  let index = 0;
+  return sql.replace(/\?/g, () => quoteParam(params[index++]));
+}
+
+async function supabaseRows(statement: string) {
+  const response = await fetch(`${supabaseUrl()}/rest/v1/rpc/app_query`, {
+    method: "POST",
+    headers: {
+      apikey: supabaseKey(),
+      Authorization: `Bearer ${supabaseKey()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ statement }),
+  });
+  const text = await response.text();
+  if (!response.ok) {
+    let message = text;
+    try {
+      const parsed = JSON.parse(text) as { message?: string };
+      if (parsed.message) message = parsed.message;
+    } catch {
+      message = text;
+    }
+    throw new Error(message);
+  }
+  const data = text ? JSON.parse(text) : [];
+  return Array.isArray(data) ? data : [];
 }
 
 function placeholders(sql: string) {
@@ -87,7 +140,12 @@ function pgClient() {
 
 export async function all<T>(sql: string, ...params: Param[]): Promise<T[]> {
   await ensure();
-  if (!usingPostgres()) return sqlite().prepare(sql).all(...params) as T[];
+  const kind = driver();
+  if (kind === "sqlite") return sqlite().prepare(sql).all(...params) as T[];
+  if (kind === "supabase") {
+    const rows = await supabaseRows(bind(sql, params));
+    return rows.map((row) => shapeRow(row as T));
+  }
   const rows = await pgClient().unsafe(placeholders(sql), params as never[]);
   return rows.map((row) => shapeRow(row as T));
 }
@@ -99,9 +157,19 @@ export async function one<T>(sql: string, ...params: Param[]): Promise<T | undef
 
 export async function run(sql: string, ...params: Param[]) {
   await ensure();
-  if (!usingPostgres()) {
+  const kind = driver();
+  if (kind === "sqlite") {
     const result = sqlite().prepare(sql).run(...params);
     return { id: Number(result.lastInsertRowid), changes: Number(result.changes) };
+  }
+  if (kind === "supabase") {
+    const insert = /^\s*insert\s+/i.test(sql);
+    const skipReturning = /into\s+(settings|blocked_ips)\b/i.test(sql);
+    const statement = insert && !/returning\s+/i.test(sql) && !skipReturning ? `${sql} RETURNING id` : sql;
+    const rows = await supabaseRows(bind(statement, params));
+    const rawId = rows[0] && typeof rows[0] === "object" ? (rows[0] as { id?: unknown }).id : 0;
+    const id = typeof rawId === "number" ? rawId : Number(rawId || 0);
+    return { id: Number.isFinite(id) ? id : 0, changes: rows.length };
   }
   const insert = /^\s*insert\s+/i.test(sql);
   const skipReturning = /into\s+(settings|blocked_ips)\b/i.test(sql);
@@ -127,7 +195,8 @@ export async function putSetting(key: string, value: string) {
 
 export async function transaction<T>(fn: () => Promise<T>) {
   await ensure();
-  if (!usingPostgres()) {
+  if (driver() === "supabase") return fn();
+  if (driver() !== "postgres") {
     const db = sqlite();
     db.exec("BEGIN IMMEDIATE");
     try {
