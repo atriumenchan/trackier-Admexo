@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
-import { login } from "@/lib/actions";
 import { currentUser, homeFor } from "@/lib/auth";
 import { Banner, btn, inputClass } from "@/components/ui";
 
 export const metadata = { title: "Sign in" };
+export const dynamic = "force-dynamic";
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const user = await currentUser();
@@ -11,7 +11,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const { error } = await searchParams;
   return (
     <main className="grid min-h-screen place-items-center px-4">
-      <form action={login} className="surface-card w-full max-w-md p-6">
+      <form action="/api/login" method="post" className="surface-card w-full max-w-md p-6">
         <p className="font-display text-2xl text-ink">ADMEXO Track</p>
         <p className="mt-1 text-sm text-muted">Sign in to the tracking desk.</p>
         <div className="mt-5"><Banner error={error} /></div>

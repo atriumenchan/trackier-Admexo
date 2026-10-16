@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { logout } from "@/lib/actions";
 
 export type NavGroup = { label: string; items: { href: string; label: string }[] };
 
@@ -19,7 +18,7 @@ export function Shell({ user, groups, children }: { user: { name: string; email:
           </div>
           <div className="flex items-center gap-3">
             <Clock />
-            <form action={logout} className="md:hidden">
+            <form action="/api/logout" method="post" className="md:hidden">
               <button className="text-sm text-muted">Sign out</button>
             </form>
           </div>
@@ -47,7 +46,7 @@ export function Shell({ user, groups, children }: { user: { name: string; email:
             </div>
           ))}
         </nav>
-        <form action={logout} className="hidden border-t border-border px-3 py-3 md:block">
+        <form action="/api/logout" method="post" className="hidden border-t border-border px-3 py-3 md:block">
           <p className="truncate px-2 text-[12px] text-muted">{user.name}</p>
           <p className="truncate px-2 text-[11px] text-faint">{user.email}</p>
           <button className="mt-2 px-2 text-left text-sm text-muted hover:text-ink">Sign out</button>
