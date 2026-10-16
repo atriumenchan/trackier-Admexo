@@ -1,7 +1,21 @@
 import { randomBytes } from "crypto";
 
+export function roundMoney(value: number) {
+  return Math.round(value * 100) / 100;
+}
+
+export function ledgerBalance(lines: { amount: number }[]) {
+  return roundMoney(lines.reduce((sum, line) => sum + line.amount, 0));
+}
+
 export function nowUtc() {
   return new Date().toISOString().slice(0, 19).replace("T", " ");
+}
+
+export function istDate(stamp: string) {
+  const date = new Date(stamp.includes("T") ? stamp : `${stamp.replace(" ", "T")}Z`);
+  if (Number.isNaN(date.getTime())) return istToday();
+  return istToday(date);
 }
 
 export function istToday(date = new Date()) {

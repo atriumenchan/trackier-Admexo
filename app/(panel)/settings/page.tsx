@@ -1,4 +1,5 @@
-import { saveSettings } from "@/lib/actions";
+import { rotateApiToken, saveSettings } from "@/lib/actions";
+import { requireAdmin } from "@/lib/auth";
 import { Banner, PageHeader, TextInput, btn, inputClass } from "@/components/ui";
 import { setting } from "@/lib/db";
 import { blockedIpText } from "@/lib/queries";
@@ -7,6 +8,7 @@ export const metadata = { title: "Settings" };
 
 export default async function SettingsPage({ searchParams }: { searchParams: Promise<{ error?: string; ok?: string }> }) {
   const sp = await searchParams;
+  const admin = await requireAdmin();
   return (
     <div>
       <PageHeader title="Settings" description="The tracking domain is what affiliates and advertisers see in copied links. Point it at this app before live traffic." />
@@ -27,6 +29,11 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
           <textarea className={inputClass} name="blocked_ips" rows={5} defaultValue={(await blockedIpText())} placeholder="One IP per line" />
         </label>
         <button className={btn}>Save settings</button>
+      </form>
+      <form action={rotateApiToken} className="surface-card mt-4 p-4 sm:p-5">
+        <p className="text-sm font-medium">API token</p>
+        <p className="mt-1 break-all font-mono text-[12px]">{admin.api_token || "No token yet."}</p>
+        <button className={`${btn} mt-3`}>{admin.api_token ? "Replace token" : "Create token"}</button>
       </form>
     </div>
   );

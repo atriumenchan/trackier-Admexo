@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "transparencyParam": "redirection_url",
+  "forceParam": "force_transparent",
+  "nonForeignParams": ["click_id", "campaign_id"],
+  "certifiedPaths": ["/t/:code", "/s/:code"],
+  "ownedDomains": ["trackier-admexo.vercel.app"],
+  "changelog": [
+    { "version": "1", "note": "notify Google before deploying" }
+  ]
+}

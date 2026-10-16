@@ -1,0 +1,770 @@
+Product	Company	Certified Domains
+2Performant	2Performant Network SA	2performant.com
+3F	3F Solutions	fff.com.vn
+6Sense	6Sense Insights, Inc	t.6sc.co
+A.I.AD	DimageShare Inc.	rcv.ixd.dmm.com
+A.I.AD	DimageShare Inc.	clt.ixd.dmm.com
+A.I.AD	DimageShare Inc.	clt.ixd.fanza.jp
+A.I.AD	DimageShare Inc.	rcv.ixd.fanza.jp
+A.I.AD	DimageShare Inc.	rcv.ixd.dmm.co.jp
+A.I.AD	DimageShare Inc.	clt.ixd.dmm.co.jp
+A.I.AD	DimageShare Inc.	clt.johren.net
+A.I.AD	DimageShare Inc.	clt.johren.games
+A.I.AD	DimageShare Inc.	rcv.johren.net
+A.I.AD	DimageShare Inc.	rcv.johren.games
+ADEBiS	YRGLM Inc	ac.ebis.ne.jp
+ADSPLAY INTERNATIONAL	ADSPLAY INTERNATIONAL	track.adsplay.in
+AE Tracker	Ads Ever Media	cl.adsever.in
+AIO	AIO SOFTWARE - FZCO	aiotrack.org
+AIO	AIO SOFTWARE - FZCO	ai-track.net
+AIO	AIO SOFTWARE - FZCO	ai-trk.com
+AMT	AndroMobi	cl1.andromobi.com
+AMT	AndroMobi	cl4.andromobi.com
+AMT	AndroMobi	cl3.andromobi.com
+AMT	AndroMobi	cl5.andromobi.com
+AMT	AndroMobi	click.andromobi.com
+AMT	AndroMobi	cl2.andromobi.com
+ANSLATION LLC	ANSLATION LLC	ads.ads-astra.com
+Actionpay	Adonweb Brasil Marketing de Rede Ltda	ad.actionpay.com.br
+Active Agent Clicktracker	Virtual Minds	adition.com
+AdCounty Media	AdCounty Media India Limited	mememasti.com
+AdCounty Media	AdCounty Media India Limited	bulletinweb.com
+AdCounty Media	AdCounty Media India Limited	breaknewz.com
+AdCounty Media	AdCounty Media India Limited	techtubebox.com
+AdCounty Media	AdCounty Media India Limited	khelgali.com
+AdCounty Media	AdCounty Media India Limited	crickcounty.com
+AdCounty Media	AdCounty Media India Limited	travellercounty.com
+Adapty	Adapty Tech Inc.	api-ua.adapty.io
+Adaxx Tracking	ADAXX ADTECH & MEDIA LLP	adaxxcloud.com
+Adbrix	IGAWORKS Inc.	ab-x.link
+Adbrix	IGAWORKS Inc.	ap1.adtouch.dfinery.io
+Adbrix	IGAWORKS Inc.	adtouch.adbrix.io
+Adcell | Firstlead	ADCELL | Firstlead GmbH	t.adcell.com
+Addrevenue	Addrevenue AB	addrevenue.io
+Adflowtracker	ClearPier Inc	adflowtracker.com
+Adform Clicktracker	ADFORM A/S	seadform.net
+Adform Clicktracker	ADFORM A/S	adform.net
+Adform Clicktracker	ADFORM A/S	adform.com
+Adjust	Adjust GmbH	adjust.com
+Adlucent	Adlucent	adlucent.com
+Admitad	admitad GmbH	tjzuh.com
+Admitad	admitad GmbH	ad.admitad.com
+Adobe Audience Manager	Adobe Systems Inc	unilever2.demdex.net
+Adobe Audience Manager	Adobe Systems Inc	unilever3.demdex.net
+Adobe Audience Manager	Adobe Systems Inc	unileverbrazil.demdex.net
+Adobe Audience Manager	Adobe Systems Inc	unilever.demdex.net
+Adobe Media Click Optimizer	Adobe Systems Inc	sync-tm.everesttech.net
+Adobe Media Click Optimizer	Adobe Systems Inc	pixel.everesttech.net
+Adora Tracker	Adora Technologies, Inc.	click.adora-ai.com
+Adosiz	Oneplace Web Solution Pvt Ltd	cl.adosiz.net
+Adosiz	Oneplace Web Solution Pvt Ltd	adosiz.io
+Adpump Click Tracker	ECHIDNA LLC	ad.adpump.com
+AdsPlus Tracker	VIET NAM GATE ADVERTISING JOINT STOCK COMPANY	adsplusmetrics.com
+AdsPlus Tracker	VIET NAM GATE ADVERTISING JOINT STOCK COMPANY	adsplustracker.com
+AdsPlus Tracker	VIET NAM GATE ADVERTISING JOINT STOCK COMPANY	trackwithadsplus.com
+AdsPlus Tracker	VIET NAM GATE ADVERTISING JOINT STOCK COMPANY	adsplusgrowth.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track2.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track1.adsdolf.in
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track.adsdolf.in
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track2.adsdolf.in
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track3.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track4.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track4.adsdolf.in
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track1.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track3.adsdolf.in
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track5.adsdolfin.com
+Adsdolfin Tracker	AD MEDIA NETWORK LLP	track5.adsdolf.in
+Adstage	NBase Corp	adg.im
+Adtraction	Adtraction AB	track.adtraction.com
+Adverticum AdServer	Adverticum	ad.adverticum.net
+Advertium Tracker	Advertium Technologies CO. L.L.C	jump.votuya.com
+Advertium Tracker	Advertium Technologies CO. L.L.C	jump.soesii.com
+Advertium Tracker	Advertium Technologies CO. L.L.C	jump.penziu.com
+Advertium Tracker	Advertium Technologies CO. L.L.C	jump.yqnurg.com
+Adwary	Modular Minds GmbH	awmonitor.com
+Adzflyer	Mobilogi Technologies Private Limited	track.adzflyer.com
+Aff44 ClickTracker	Aff44 sp. z o.o.	aff44.com
+Aff44 ClickTracker	Aff44 sp. z o.o.	affiliate44.com
+AffTrek	Affnads Solutions Pvt Ltd	mtrid.com
+Affalliances Click Tracker	Affiliate Alliances Network	tracking24x7.com
+Affalliances Click Tracker	Affiliate Alliances Network	linkstrackar.com
+Affelios ClickTracker	Affelios Limited	trk.affapp.io
+Affiliate Future Clicktracker	IBG Ltd t/a Affiliate Future	scripts.affiliatefuture.com
+Affiliate Port	5DM.cz, s.r.o.	tracking.affiliateport.eu
+Affiliate Window Clicktracker	Awin AG	awin1.com
+Affiliates Netbet.GR	NETBET ENTERPRISES LIMITED	banners.netbet.gr
+Affilired Clicktracker	Affilired	affilired.com
+Affilired Clicktracker	Affilired	ct.paidmediatrk.com
+Affilka	Zellero Ltd	trk19.affilkatrack.com
+Affilka	Zellero Ltd	trk12.affilkatrack.com
+Affilka	Zellero Ltd	trk9.affilkatrack.com
+Affilka	Zellero Ltd	trk20.affilkatrack.com
+Affilka	Zellero Ltd	trk15.affilkatrack.com
+Affilka	Zellero Ltd	trk4.affilkatrack.com
+Affilka	Zellero Ltd	trk6.affilkatrack.com
+Affilka	Zellero Ltd	trk16.affilkatrack.com
+Affilka	Zellero Ltd	trk8.affilkatrack.com
+Affilka	Zellero Ltd	trk2.affilkatrack.com
+Affilka	Zellero Ltd	trk1.affilkatrack.com
+Affilka	Zellero Ltd	trk5.affilkatrack.com
+Affilka	Zellero Ltd	trk14.affilkatrack.com
+Affilka	Zellero Ltd	trk3.affilkatrack.com
+Affilka	Zellero Ltd	trk17.affilkatrack.com
+Affilka	Zellero Ltd	trk10.affilkatrack.com
+Affilka	Zellero Ltd	trk7.affilkatrack.com
+Affilka	Zellero Ltd	trk11.affilkatrack.com
+Affilka	Zellero Ltd	trk13.affilkatrack.com
+Affilka	Zellero Ltd	trk18.affilkatrack.com
+Affise	Affise Technologies Ltd.	trk.affattr1.com
+Affise	Affise Technologies Ltd.	trk.affattr.com
+Affise	Affise Technologies Ltd.	trk.g4trk.com
+Affmantra	Affmantra Advertising	takmertok.com
+Affnet Tracker	Affnet Marketing Media Pvt. Ltd	tracker.offersfollow.com
+Aftrad	Bidex Media SaaS S.L	trk008.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk002.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk010.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk007.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk004.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk006.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk009.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk001.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk010.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk003.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk007.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk005.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk008.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk005.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk009.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk002.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk001.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk003.goaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk006.gaftrad.com
+Aftrad	Bidex Media SaaS S.L	trk004.goaftrad.com
+Aggregate Knowledge Clicktracker	Neustar, Inc.	d.agkn.com
+AiX	PROXIMA BETA PTE. LIMITED	hermesad.deltaverse-intl.com
+AiX	PROXIMA BETA PTE. LIMITED	faix.levelinfinite.com
+AiX	PROXIMA BETA PTE. LIMITED	track.aix.levelinfinite.com
+Airbridge	AB180 Inc.	deeplink.page
+Airbridge	AB180 Inc.	abr.ge
+Alphabyte	Alphabyte Internet Services Private Limited	alphabyte.co.in
+Amaretads	WEBMEDIARM	trkjkamaret.com
+Amazon Advertising Clicktracker	A9.com, Inc., Amazon Europe Core SARL	amazon-adsystem.com
+Amazon Advertising Clicktracker	A9.com, Inc., Amazon Europe Core SARL	amazon-value-service.com
+Appcast Clicktracker	Appcast, Inc.	click.appcast.io
+Appsflyer	AppsFlyer Ltd	onelink.me
+Appsflyer	AppsFlyer Ltd	engagements.appsflyer.com
+Appsflyer	AppsFlyer Ltd	onelnk.com
+Appsflyer	AppsFlyer Ltd	app.appsflyer.com
+Appstack	Appstack Tech, Inc.	appstack.link
+Atrilyx	Ai Media Group LLC	aiproxies.com
+Attribution & Analytics	Eulerian Technologies SAS	ew3.io
+AudienceOne®	Hakuhodo DY ONE Inc.	penta.a.one.impact-ad.jp
+Audiencelab	Geeklab	router.geeklab.app
+Aweb	Aweb sp. z o.o.	globalclicklab.com
+AwebOptimise	TOV Aweb	awebopt.com
+Basis Technologies	Basis Technologies	clickserv.sitescout.com
+Beaconsoft	Beaconsoft Ltd	beacon.bcn.to
+Belboon GmbH	belboon GmbH	luna.r.lafamo.com
+Belboon GmbH	belboon GmbH	janus.r.jakuli.com
+Belboon GmbH	belboon GmbH	atlas.r.akipam.com
+Belboon GmbH	belboon GmbH	pluto.r.powuta.com
+Belboon GmbH	belboon GmbH	neso.r.niwepa.com
+Bending Spoons	Bending Spoons S.p.A	bndspn.com
+Bending Spoons	Bending Spoons S.p.A	x.bndspn.com
+Blend AI	Blend A.I. Pty Ltd	tracker.blend-ai.com
+Blue Media	Blue Media Services LTDA	bluems.com
+Bluekai	Oracle Data Cloud	bluekai.com
+Branch Metrics	Branch Metrics	app.link
+CENARIO METRICS	CENARIO CAPITAL LTDA	go.cenarioconsulta.com.br
+CJ	Commission Junction LLC	cjads.com
+CPV Lab	Uptechvision Solutions SRL	cpvcld.com
+CPV Lab	Uptechvision Solutions SRL	cpvtrk.com
+CPV One	Uptechvision Solutions SRL	trk.clptrk.com
+CPV One	Uptechvision Solutions SRL	trk.rdrclp.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	link.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk1.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk2.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk4.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk5.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk5.crossway.rocks
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk3.crosswayrocks.com
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk2.crossway.rocks
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	link.crossway.rocks
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk1.crossway.rocks
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk4.crossway.rocks
+CR	CROSSWAY ROCKS MEDIA (HK) LIMITED	lnk3.crossway.rocks
+Campaign Manager 360	Google, Inc.	ad.doubleclick.net
+Channel Pilot	Channel Pilot Solutions	cptrack.de
+ChannelSight Ltd	ChannelSight Ltd	click.channelsight.com
+Claritas Clicktracker	Claritas, LLC	trkn.us
+Claritas Clicktracker	Claritas, LLC	arttrk.com
+ClearTrust	Botman Networks Pvt Ltd	admd.ink
+ClearTrust	Botman Networks Pvt Ltd	fst.ink
+ClearTrust	Botman Networks Pvt Ltd	botman.ninja
+ClearTrust	Botman Networks Pvt Ltd	spxl.ink
+Click	Derbysoft Inc.	linkcenter.derbysoftca.com
+ClickCease	ClickCease by CHEQ	clickcease.com
+ClickExpose	ClickExpose LTD	clickexpose.com
+ClickFortify	Click Fortify	tracker.clickfortify.com
+ClickPatrol.com	ClickPatrol.com	clck-001.clickpatrol.com
+ClickPatrol.com	ClickPatrol.com	clckptrl.com
+ClickSambo	ClickSambo OÜ	ping.clicksambo.com
+Clickdefense	ClickDefense S.L	clickdefense.cc
+Clickguard	ClickGUARD	io.clickguard.com
+Clickguard	ClickGUARD	pulse.clickguard.com
+Clickguard	ClickGUARD	tracker.clickguard.com
+Clicks Buster	Iconic Code	clicksbuster.com
+Clickwise Clicktracker	Afventures Network S.L.	t.clickwise.net
+Clixtell	Clixtell LLC	track.clixtell.com
+Clixtell	Clixtell LLC	tracker.clixtell.com
+Collectcent Tracker	Collectcent LLC	securewebmetrics.com
+Collectcent Tracker	Collectcent LLC	userlinx.com
+Collectcent Tracker	Collectcent LLC	auth-analytix.com
+Collectcent Tracker	Collectcent LLC	trackercc.com
+Collectcent Tracker	Collectcent LLC	usrlnx.com
+Collectcent Tracker	Collectcent LLC	auth-analytics.com
+Collectcent Tracker	Collectcent LLC	secwebmetrics.com
+Collectcent Tracker	Collectcent LLC	trkrcc.com
+Commanders Act	Fjord Technologies S.A.S	commander1.com
+Commission Factory	Commission Factory Pty Ltd	t.cfjump.com
+CommunicationAds	communicationAds GmbH & Co. KG	cadsutb.net
+Connexity	Connexity LLC	rd.bizrate.com
+ContextWeb Inc.	PulsePoint, Inc.	contextweb.com
+Conversant	Epsilon Data Management, LLC	mediaplex.com
+ConvertSocial	Convertsocial FZ-LLC	mobcs.com
+ConvertSocial	Convertsocial FZ-LLC	whoozy.co
+ConvertSocial	Convertsocial FZ-LLC	creatorsmob.co
+Convertup	Convertup Media Pvt Ltd	trk.outbizz.com
+Convertup	Convertup Media Pvt Ltd	trk.zaptk.com
+Convertup	Convertup Media Pvt Ltd	trk.vibebusi.com
+Convertup	Convertup Media Pvt Ltd	trk.grdhub.com
+Convertup	Convertup Media Pvt Ltd	trk.effiflw.com
+Convertup	Convertup Media Pvt Ltd	trk.concthub.com
+Convertup	Convertup Media Pvt Ltd	trk.flexitrck.com
+Convertup	Convertup Media Pvt Ltd	trk.jetstrms.com
+Convertup	Convertup Media Pvt Ltd	tk.dsptmedia.com
+Convertup	Convertup Media Pvt Ltd	trk.wavezw.com
+Convertup	Convertup Media Pvt Ltd	trk.innodsk.com
+Crealytics	crealytics GmbH	crealytics.com
+Creative Clicks B.V.	Creative Clicks B.V.	trkccgl.com
+Creators House Limited	Creators House Limited	track.creatorshouse.ai
+Cuelinks	Parity Cube Private Limited	linksredirect.com
+Cuelinks	Parity Cube Private Limited	lnks.co.in
+D-EDGE	D-EDGE SAS	d-edgeconnect.media
+D-EDGE	D-EDGE SAS	secure-hotel-booking.com
+D-EDGE	D-EDGE SAS	book-secure.com
+DECODE CLICK TRACKER	Decode	day24.online
+Daisycon	Daisycon B.V.	pla.daisycon.io
+De Quanta Fi Media Pvt Ltd	De Quanta Fi Media Pvt Ltd	gotravelholidays.com
+De Quanta Fi Media Pvt Ltd	De Quanta Fi Media Pvt Ltd	impulseonline.shop
+DeltaX	AdBox Software Pvt Ltd.	adx.io
+Delupe	Delupe A/S	tracking.delupe.net
+Demandesk Tracker	ADSFUSION MEDIAWORKS LLP	lnk.demandesk.com
+Dentsu Taiwan	Dentsu Taiwan Inc.	amnet.tw
+Despegar	Despegar.com, Inc .	trackeame.com
+DocID	8awake GmbH	8awake.com
+DocID	8awake GmbH	docid.pro
+Dognet Affiliate Network	Lead Media sro	go.dognet.com
+DriveMetaData(DMD)	Oneplace Web Solution Pvt Ltd	drivemetadata.io
+DriveMetaData(DMD)	Oneplace Web Solution Pvt Ltd	dmd.mobi
+Dynamic 1001	Dynamic 1001 GmbH	media01.eu
+EMMA Tracker	EMMA MOBILE SOLUTIONS SL	eat.emmasolutions.net
+EXONMEDIA LTD	EXONMEDIA LTD	bestchoice.com
+EcomAccess	EcomAccess Inc.	eacdn.com
+EffWW Tracker	Efficacy Worldwide Private Limited	eonlnm.com
+EffWW Tracker	Efficacy Worldwide Private Limited	eonlnx.com
+EffWW Tracker	Efficacy Worldwide Private Limited	eonlnv.com
+EffWW Tracker	Efficacy Worldwide Private Limited	eonlnq.com
+Elevarix Click Tracker	Elevarix Media Private Limited	affilmanage.com
+Etracker	etracker GmbH	etracker.de
+Everflow	Everflow Technologies Inc.	gametlk1.com
+Everflow	Everflow Technologies Inc.	gametlk3.com
+Everflow	Everflow Technologies Inc.	gfl85trk.com
+Everflow	Everflow Technologies Inc.	gametlk2.com
+Everflow	Everflow Technologies Inc.	ib0ftrk.com
+Exactag Clicktracker	Exactag GmbH	exactag.com
+FK Tracker	Flickstree Productions Pvt Ltd	tracker.secretdealstoday.com
+FK Tracker	Flickstree Productions Pvt Ltd	tracker.internet24marketing.com
+Financequality	Netzeffekt	c.neqty.net
+Flashtalking Clicktracker	Mediaocean, LLC	servedby.flashtalking.com
+Flashtalking Clicktracker	Mediaocean, LLC	servedby-us.flashtalking.com
+Foresight Intelligence	Discovery Design Limited	protect.foresightintelligence.io
+Fraud Blocker	Fraud Blocker	monitor.fraudblocker.com
+Fraud0 Click Tracker	fraud0 GmbH	click-eu.fraud0.net
+Fraud0 Click Tracker	fraud0 GmbH	click.fraud0.io
+Fraud0 Click Tracker	fraud0 GmbH	click.fraud0.net
+Fraud0 Click Tracker	fraud0 GmbH	click.fraud0.com
+Frozen Tracks	Frozen Tracks Technologies GmbH	trck.fttrck.net
+Gamesight	Gamesight Inc.	gsght.com
+Genie Shopping	Genie Ventures	trk.genieshopping.com
+Genie Shopping	Genie Ventures	trk2.genieshopping.com
+Getblue	OliveiraCelso Consultoria e Participações LTDA.	clicktracker.getblue.io
+Glitch	Invirtu Labs, Inc	l.glitch.fun
+Globerada	Global Decibel SL	globerada.com
+Globerada	Global Decibel SL	tracking.globerada.com
+Globerada	Global Decibel SL	trk.globerada.com
+Glopss	Glopss Media Private Limited	tracker.glopss.com
+Gomobupps.com	Mobupps	link.mobupps.com
+Gomobupps.com	Mobupps	go.gomobupps.com
+Haus Byrå AS	Haus Byrå AS	track.hausbyra.eu
+Hearts&Science Clicktracker	Hearts&Science GmbH	a.nonstoppartner.net
+Hitprobe	Chalkboard Software Limited	click.hitprobe.com
+Hotmart	Launch Pad Tecnologia, Serviços e Pagamentos Ltda.	go.hotmart.com
+Hubpeople	Hubpeople Limited	c.hubz.pl
+Hueads Tracker	Hueads, Inc.	blissoffer.com
+Hunt Ads	Hunt Digital Media	ck.hdm3.in
+Hurra Clicktracker	Hurra Communications GmbH	ssl.hurra.com
+Hurra Clicktracker	Hurra Communications GmbH	cdn.adsdefender.com
+Hype Digital	Hype Consulting LLC	proxy.hypedigital.us
+Hype Digital	Hype Consulting LLC	proxy.gym-offers.com
+Hype Digital	Hype Consulting LLC	proxy.af-promo.com
+Hype Digital	Hype Consulting LLC	proxy.alloy-promo.com
+IBRA Trackers	IBRA Digital Branding Services LLC	trk.ibratrk.com
+IBRA Trackers	IBRA Digital Branding Services LLC	trk.trktrackier.com
+ICast	인크로스	t.dawin.tv
+IM-DMP / IM-CDP / IM-UID	Intimate Merger, Inc.	clk.im-apps.net
+INIS sp. z o.o.	INIS sp. z o.o.	system360.inistrack.net
+ITGreen	CÔNG TY TNHH PHÁT TRIỂN GIẢI PHÁP TIN HỌC BỀN VỮNG ITGREEN	itgreen.com.vn
+ITGreen	CÔNG TY TNHH PHÁT TRIỂN GIẢI PHÁP TIN HỌC BỀN VỮNG ITGREEN	google.itgreen.com.vn
+Impact Radius	Impact Radius	pxf.io
+Impact Radius	Impact Radius	sjv.io
+Improvely	Awio Web Services LLC	iljmp.com
+Imwave	imwave, inc.	aclk.org
+Imwave	imwave, inc.	5-aclk.net
+Imwave	imwave, inc.	7-aclk.net
+Imwave	imwave, inc.	1-aclk.net
+Imwave	imwave, inc.	3-aclk.net
+Imwave	imwave, inc.	9-aclk.net
+Imwave	imwave, inc.	bidminer.com
+Imwave	imwave, inc.	8-aclk.net
+Imwave	imwave, inc.	4-aclk.net
+Imwave	imwave, inc.	2-aclk.net
+Imwave	imwave, inc.	6-aclk.net
+Ingenious Technologies AG	Ingenious Technologies	rubsy.ingenious.cloud
+Intelliad Clicktracker	intelliAd Media GmbH	intelliad.de
+JVT Tracker	JVT TECHNOLOGIES PRIVATE LIMITED	click.advertisemedia.pro
+Kelkoo	Kelkoo SA	kelkoogroup.net
+Keyade	Keyade	mt-k.madmetrics.com
+Keyade	Keyade	k.keyade.com
+Keyade	Keyade	k.madmetrics.com
+Knorex	Knorex Pte. Ltd.	sv.brand-display.com
+Kochava	Kochava Inc.	control.kochava.com
+Kochava	Kochava Inc.	smart.link
+Kochava	Kochava Inc.	adsmeasurement.com
+Koddi	Koddi, Inc.	koddi.com
+LINKBEST	LINKBEST TECH LIMITED	track.linkbest.com
+LINKBEST	LINKBEST TECH LIMITED	track.izhuama.com
+LeadIntel.io Click Tracker	Magnetise Solutions Limited	magnetise.io
+LeadIntel.io Click Tracker	Magnetise Solutions Limited	leadintel.io
+Leadgid	Smart City OÜ	go.leadgid.com
+Leadgid	Smart City OÜ	go.leadgid.eu
+Lean Digital Media	EIMS Ltd	track.leandigitalmedia.com
+Letmeads Click Tracker	ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ МЕРЕЖА ПАРТНЕРСЬКИХ ПРОГРАМ «ЛЕТМІЕДС»	pdl.letmeads.com
+LiAD	LiTV (TAIWAN) INC.	adsv.svc.litv.tv
+Lifesight Clicktracker	Lifesight Pte. Ltd.	pixel.ad.lifesight.io
+LinkConnector Corporation	LinkConnector Corporation	linksconnector.com
+LinkConnector Corporation	LinkConnector Corporation	linkconnector.co
+LinkConnector Corporation	LinkConnector Corporation	linkconnector.us
+LinkConnector Corporation	LinkConnector Corporation	linkconnector.com
+LinkConnector Corporation	LinkConnector Corporation	linkconnector.net
+LinkConnector Corporation	LinkConnector Corporation	linkconnector.org
+Linkinon	Linkinon Inc.	offer.omg789.com
+Linkwise	LINKWISE IKE	go.linkwi.se
+LivePartners	Global Interactive Marketing On-line Limited	777nl.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	betfirst.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	netbetfr.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	netbet.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	777es.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	netbetit.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	777ch.livepartners.com
+LivePartners	Global Interactive Marketing On-line Limited	banners.livepartners.com
+Ln{Track}	LnData Inc.	lndata.com
+LocaliQ	LocaliQ	localbusinesses.services
+LocaliQ	LocaliQ	services.dental
+LocaliQ	LocaliQ	reachlocal.com
+LocaliQ	LocaliQ	homerl.services
+LocaliQ	LocaliQ	homesrvcs.com
+LocaliQ	LocaliQ	healthresources.co
+LocaliQ	LocaliQ	localrl.com
+LocaliQ	LocaliQ	dentalservices.biz
+LocaliQ	LocaliQ	professionalsrvcs.com
+LocaliQ	LocaliQ	purchasenow.us
+LocaliQ	LocaliQ	localservicerl.com.au
+LocaliQ	LocaliQ	autorl.parts
+LocaliQ	LocaliQ	smrtlnk.com
+LocaliQ	LocaliQ	legalservices.help
+LocaliQ	LocaliQ	realestatesrvs.com
+LocaliQ	LocaliQ	localrl.com.au
+LocaliQ	LocaliQ	attorneyandlegal.com
+LocaliQ	LocaliQ	homeresource.online
+LocaliQ	LocaliQ	myplumber.co
+LocaliQ	LocaliQ	learning.school
+LocaliQ	LocaliQ	rtrk.com
+LocaliQ	LocaliQ	autoresource.online
+LocaliQ	LocaliQ	rtrk.co.uk
+LocaliQ	LocaliQ	rtrk.com.au
+LocaliQ	LocaliQ	localhomeservices.biz
+LocaliQ	LocaliQ	personalservices.biz
+LocaliQ	LocaliQ	acandheating.co
+LocaliQ	LocaliQ	rtrk.co.nz
+LocaliQ	LocaliQ	homeservices.company
+LocaliQ	LocaliQ	autopurchase.us
+LocaliQ	LocaliQ	construccionrl.com
+LocaliQ	LocaliQ	healthservices.help
+LocaliQ	LocaliQ	rtrk.ca
+LocaliQ	LocaliQ	localbusuiness.com
+LocaliQ	LocaliQ	reservationnow.us
+LocaliQ	LocaliQ	automotive.services
+LocaliQ	LocaliQ	shopnearme.us
+LocaliQ	LocaliQ	healthservicesrl.com.au
+LocaliQ	LocaliQ	rtrk5.com
+LocaliQ	LocaliQ	findschools.ca
+Lotame Spherical Platform	Lotame Solutions Inc.	bcp.crwdcntrl.net
+Lotlinx	Lotlinx Inc.	autos.lotlinx.com
+Lunio	PPC Protect Limited	ppcprotect.com
+Lunio	PPC Protect Limited	lunio.ai
+MIC Tracker	MICCREATIVE., JSC	tracker.miccreative.vn
+MTrack	MMADS Technologies Pvt. Ltd	clk.simulation-technology.com
+Marketing Via Digital	Marketing Via Digital	trace.marketingviadigital.com
+MasOffer	VIMARKET VIET NAM JOINT STOCK COMPANY	flexctk.com
+MasOffer	VIMARKET VIET NAM JOINT STOCK COMPANY	linknhanh.org
+MaxBounty	MaxBounty ULC	afflat3x.com
+MaxBounty	MaxBounty ULC	afflat3s1.com
+MaxBounty	MaxBounty ULC	afflat3s3.com
+MaxBounty	MaxBounty ULC	afflat3s2.com
+MaxConv	Byte Oceans Limited	mcclk.com
+MaxConv	Byte Oceans Limited	click.maxconv.com
+Maxpoint Transparent Click Tracker	VIETNAM MAXPOINT MEDIA JOINT STOCK COMPANY	track.maxpointmedia.com
+Measurement	InMarket Media LLC	lciapi.ninthdecimal.com
+Media.net Click Shield	Media.Net Advertising FZ-LLC	verify.link
+Media.net Click Shield	Media.Net Advertising FZ-LLC	launch.link
+Media.net Click Shield	Media.Net Advertising FZ-LLC	url.link
+Media.net Click Shield	Media.Net Advertising FZ-LLC	go.media.net
+Mediamath	MediaMath, Inc.	mathtag.com
+Mediascopy	Mediascopy Digital Solutions	mediascopy.com
+Mediascopy	Mediascopy Digital Solutions	adworks-media.com
+Mediascopy	Mediascopy Digital Solutions	media-box.co.in
+Mediascopy	Mediascopy Digital Solutions	ad-zilla.com
+Mediazotic	Mediazotic Solutions	mediazotic.net
+Merkle	Merkle, Inc.	o-s.io
+Metricsverse	GVR International, LLC	app.metricsverse.com
+MikMak	MikMak LLC	retail.mikmak.ai
+Mino	Mino AI Limited.	minotracker.com
+Mino	Mino AI Limited.	eclicktracker.fr
+Mino	Mino AI Limited.	mino.org
+Mo Meditation	Mo Meditation Inc.	link.momeditation.app
+Mobiotics OTT Tracker	Mobiotics IT Solution Pvt. Ltd.	wetrack.online
+Mobiotics OTT Tracker	Mobiotics IT Solution Pvt. Ltd.	mobiotud.com
+Mobiotics OTT Tracker	Mobiotics IT Solution Pvt. Ltd.	mobiotsd.com
+Mobiotics OTT Tracker	Mobiotics IT Solution Pvt. Ltd.	mobiothd.com
+Muypil	Cyber Defense Yazılım Teknolojileri Anonim Şirketi	muypil.com
+Muypil	Cyber Defense Yazılım Teknolojileri Anonim Şirketi	trc.adsfoni.com
+N.Rich	N.Rich Technologies Oy	serve.nrich.ai
+N.Rich	N.Rich Technologies Oy	us-serve.nrich.ai
+NOMADZ DIGITAL AND INNOVATION	NOMADZ DIGITAL AND INNOVATION PRIVATE LIMITED	trk.nomadzdigital.com
+Neory	NEORY GmbH	t.neory-tm.net
+Neural One	Artificial Intelligence for Marketing S.L	neural17.cdnwebcloud.com
+Newzoo	Newzoo	nwzo.io
+Nexinsight Click Tracker	LLC "NEXINSIGHT"	c.nexinsight.com.ua
+Next Level Defend	Next Level S.L.	nextleveldefend.com
+Next Level Defend	Next Level S.L.	worx.io
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	nextagmedia.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	trk.alwaysthing.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	track.paisaking.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	trk1.nextagmedia.in
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	track.couponzparking.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	trk.nextagmedia.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	trk1.nextagmedia.com
+Nextagmedia	U1 TECHNOLOGIES PRIVATE LIMITED	trk2.nextagmedia.in
+Nielsen (Audience Measurement Platform) Clicktracker	Nielsen	myvisualiq.net
+Novaon AutoAds	Novaon AutoAds	fcd.autoads.asia
+Novaon AutoAds	Novaon AutoAds	autoads.asia
+Numberly	Numberly	mmtro.com
+OR TRKR	Offer Robo	t2.go2robo.com
+OR TRKR	Offer Robo	t3.offerrobo.in
+OR TRKR	Offer Robo	t1.go2robo.com
+OR TRKR	Offer Robo	t5.offerrobo.in
+OR TRKR	Offer Robo	t5.go2robo.com
+OR TRKR	Offer Robo	t4.offerrobo.in
+OR TRKR	Offer Robo	t1.offerrobo.in
+OR TRKR	Offer Robo	t4.offerrobo.com
+OR TRKR	Offer Robo	t3.offerrobo.com
+OR TRKR	Offer Robo	go2robo.com
+OR TRKR	Offer Robo	t2.offerrobo.in
+OR TRKR	Offer Robo	t4.go2robo.com
+OR TRKR	Offer Robo	t1.offerrobo.com
+OR TRKR	Offer Robo	t2.offerrobo.com
+OR TRKR	Offer Robo	t5.offerrobo.com
+OR TRKR	Offer Robo	t3.go2robo.com
+Offer18 ClickTracker	Offer18 Tracking Platform Private Limited	track.clicks18.com
+Oneklix Tracker	Indoleads Platform (M) SDN BHD	trk.oneklix.com
+Opticks Security	OPTICKS SECURITY, S.L.	opticksprotection.com
+Optimise Click Tracker	Optimise Media Group Limited	track.omguk.com
+PDL-Profit	COREVALUES LTD	tds.pdl-profit.com
+PPC Shield	WeMarket LLC	ppcshield.io
+PPCSecure	PPCSecure (A Division of ProfitBuilder Websites, Inc.)	ppcsecure.com
+Paid On Results	Paid On Results Limited	portgk.com
+Paid On Results	Paid On Results Limited	paidonresults.net
+Partner-ads Network	Partner-ads ApS	partner-ads.com
+Partnerize	Performance Horizon Group Limited	prf.hn
+Permate	Permate Global JSC	pmcloud1.com
+Permate	Permate Global JSC	clearpmf.com
+Permate	Permate Global JSC	pmrevo.com
+Phoenix	Phoenix Advanced Softwares Pvt. Ltd	phoenixads.net
+PixelMe	Carbon6 Technologies, Inc.	pixamz.com
+Pixeltrack	Ventes Avenues PTE LTD	lms.pixeltrack.co.in
+Placed Clicktracker	Placed, Inc.	placed.com
+Pricespider	Pricespider	gethatch.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc2.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc4.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc8.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc1.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc4.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc2.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc7.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc5.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc3.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc1.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc4.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc3.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc6.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc2.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc9.g2prof.net
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc3.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc1.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc5.proffcus.com
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc5.proffcus.in
+Proffcus Tracker	AD MEDIA NETWORK LLP	gc10.g2prof.net
+Profitshare	Conversion Marketing SRL	profitshare.bg
+Propelbon	PROPELBON, S.L.	propelbon.com
+Prudigital Media	Prudigital Media Private Limited	track.prudigital.in
+QuanticMind	QuanticMind Inc.	staticiv.com
+Quartile Attribution	Quartile LLC	tracker.quartileattribution.com
+RETChat	RETChat Inc. (香港商樂愛創新科技有公司)	mabelle.retchat.com
+Raffesia TrackingAdz	Raffesia Technologies Private Limited	tracking.raffesia.com
+Raffesia TrackingAdz	Raffesia Technologies Private Limited	click.trackingadz.com
+Rakuten GAP	Rakuten, Inc.	grp08.ias.rakuten.co.jp
+Rakuten Taiwan	TAIWAN RAKUTEN ICHIBA INC.	affiliate.api.rakuten.com.tw
+Rally Inside	Rally Inc.	r.insd.co
+RavenTrack	Palsar Capital Limited (RavenTrack)	ravn.click
+Recruitics Programmatic Advertising	Recruitics	jsv3.recruitics.com
+Redbrain	Redbrain Ltd	click2.redbrain.com
+Redbrain	Redbrain Ltd	click.redbrain.com
+RetailAds	retailAds GmbH & Co. KG	retads.net
+RevJet	RevJet LLC.	ads.revjet.com
+Reverb Ads Tracker	Adsreverb Technologies	xprrtupdate.com
+S-Communication Services	S-Communication Services GmbH	oc.sparkasse.de
+SFX	Symphony Talent, LLC	d.hodes.com
+SLVRbullet	Bullet Group Inc.	tr.slvrbullet.com
+SPACE ADSERVER Click Tracker	SPACE TECNOLOGIA E INTELIGÊNCIA LTDA	00px.net
+SROVNAME.CZ	SROVNAME, s.r.o.	click.selltorro.com
+Sadang	human digital solutions co.,ltd	api.sg.sadangattribution.com
+Safeads	AGENCIA DE MARKETING DIGITAL E PROVEDORES CHAMLET LTDA	trackingsafeads.com
+Safeads	AGENCIA DE MARKETING DIGITAL E PROVEDORES CHAMLET LTDA	safeads.com.br
+SalesDoubler ClickTracker	LIMITED LIABILITY COMPANY SALESDOUBLER (SALESDOUBLER LLC)	sdprl.com
+Salesforce DMP	salesforce.com, Inc.	krxd.net
+Salesoar	Salesoar Srl	trk2.salesoar.com
+Salesoar	Salesoar Srl	trk.salesoar.com
+Salesoar	Salesoar Srl	trk3.salesoar.com
+Sam Media Click Tracker	Sam Media B.V.	adtrackgate.com
+Sam Media Click Tracker	Sam Media B.V.	track-gads.com
+Sam Media Click Tracker	Sam Media B.V.	adlinkrouter.com
+Sam Media Click Tracker	Sam Media B.V.	tracking.sam-media.com
+Search Ads 360	Google, Inc.	clickserve.dartsearch.net
+SearchPad	Yahoo Ad Tech LLC	searchpad.com
+Second Stage TRACKS	Second Stage GmbH	s.trcks2s.com
+Semantic Labs	Semantic Labs LLP	srvto.com
+ShareASale	ShareASale.com, Inc.	shareasale-analytics.com
+ShareASale	ShareASale.com, Inc.	shareasale.com
+Shareaprofit	Couponorg Digital Media	linksshift.com
+Shareaprofit	Couponorg Digital Media	linkspasson.com
+Shareaprofit	Couponorg Digital Media	linkmybrand.com
+Shareaprofit	Couponorg Digital Media	shareaprofit.com
+ShopForward	ShopForward B.V.	sfanalyse.com
+Shoparize	Kiesproduct BV	tracker.shoparize.com
+Shopello	Martech International AB	trk.shopello.se
+Shoppingfeed	SAS Shopping Flux	shopping-feed.com
+Short.io	Short.cm Inc	transparentlink.co
+Short.io	Short.cm Inc	v.short.gy
+Singoo Clou	Shanghai Xinggu Information Technology Co., Ltd.	click.singoo.cc
+Singular Labs	Singular Labs Inc.	sng.link
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	track.mfilter.net
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	trk.mfilterit.net
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	pass.mfilterit.net
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	clk.mfilterit.net
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	click.mfilter.net
+Sixdee Click Tracker	Six Dee Netad Solutions Pvt Ltd	clk.mfilter.net
+Skai	Kenshoo	xg4ken.com
+SmartMail Boost	Innovative Marketing Direct, Inc.	smartmailboost.com
+Smarter Advertising	Smarter Advertising (Along with Not Just Websites)	clickfrauddefender.com
+Solarengine	Mobvista International Technology Limited	receive-us.solar-engine.io
+Spider AF	Spider Labs, Ltd.	sp-rdr.com
+Spider AF	Spider Labs, Ltd.	eu.sp-trk.com
+Spider AF	Spider Labs, Ltd.	sp-trk.com
+Spider AF	Spider Labs, Ltd.	sp-clk.com
+Spot Tracker	Kolmind ltd	trackerjourney.com
+SpursAdConnect	TechnoSpurs Inc.	nxthops.com
+Stendia	Stendia A marketplace search engine	stendia.co.uk
+Streamwise Audience Platform	Streamwise srl	tra.neodatagroup.com
+Streamwise Audience Platform	Streamwise srl	tracker.neodatagroup.com
+Streamwise Audience Platform	Streamwise srl	trz.neodatagroup.com
+Stretch	Memob Plus FZ LLC	pxl.stretchtag.ai
+SuperPages	SuperPages Pty Ltd	superpages.com
+Swaarm	Swaarm Tech GmbH	gswaarm.com
+Swaarm	Swaarm Tech GmbH	gtrcking.com
+Sync	SYNC MARKETING - FZCO	track.sync.deals
+TE Lesta Games	Lesta Games Agency LLC	adnt.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	cltr.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	red.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	redir.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	cpm.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	trck.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	rdr.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	adn.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	clk.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	clc.lesta.ru
+TE Lesta Games	Lesta Games Agency LLC	clck.lesta.ru
+TE Wargaming	Wargaming Group Limited	redir.wargaming.net
+TE Wargaming	Wargaming Group Limited	clk.wargaming.net
+TE Wargaming	Wargaming Group Limited	trck.wargaming.net
+TE Wargaming	Wargaming Group Limited	rdr.wargaming.net
+TE Wargaming	Wargaming Group Limited	clck.wargaming.net
+TE Wargaming	Wargaming Group Limited	clc.wargaming.net
+TE Wargaming	Wargaming Group Limited	cltr.wargaming.net
+TE Wargaming	Wargaming Group Limited	adn.wargaming.net
+TE Wargaming	Wargaming Group Limited	cpm.wargaming.net
+TE Wargaming	Wargaming Group Limited	adnt.wargaming.net
+TE Wargaming	Wargaming Group Limited	red.wargaming.net
+TRIPTEASE	TRIPTEASE LIMITED	onboard.triptease.io
+TSE Track	The Social Eye	track.tsetrack.com
+TUNE, Inc	TUNE, Inc	go2jump.org
+TUNE, Inc	TUNE, Inc	go2cloud.org
+TailTarget Clicktracker	Tail Target Tecnologia de Informação Ltda	tailtarget.com
+Takeads	Takeads FZ-LLC	tatrck.com
+Tapper	Itlinksto, Inc.	tapper.ai
+Tenjin	Tenjin	track.tenjin.io
+Tenjin	Tenjin	track.tenjin.com
+TinyTrk	N1mbleFive Media	glnk.me
+Tracify	Tracify GmbH	redirect.tracify.ai
+TrackOG	Kytra Tech Private Limited	trackog.net
+TrackOG	Kytra Tech Private Limited	g2trkog.net
+TrackOG	Kytra Tech Private Limited	g2trkog.com
+Trackdesk	Trackdesk s.r.o.	trkdsk.com
+Trackier	Cloudstuff Inc.	click.trackier.io
+Trackier	Cloudstuff Inc.	gotrackier.com
+Tracking Tool	Ppc Trace Media	tracker.ppctrace.com
+Tracking Tool	Ppc Trace Media	links.ppctrace.com
+TrackingBee	OOMCOMMERCE INC	t.amobeez.com
+Trackony	Dealism Digital Media	trackerrs.com
+Trackony	Dealism Digital Media	trackerspath.com
+Trackony	Dealism Digital Media	trakerrs.com
+Trackony	Dealism Digital Media	trackony.com
+Tradable Bits	Tradable	virtual.tradablebits.com
+Tradable Bits	Tradable	tradablebits.com
+Tradable Bits	Tradable	tbits.me
+TradeDoubler	Tradedoubler AB	gads.tradedoubler.com
+TradeTracker.com	TradeTracker International B.V.	tc.tradetracker.net
+TrafficGuard	TrafficGuard Pty Ltd	track.trafficguard.ai
+TrafficManager	Traffic Manager Group S.R.L.	traffic-man.com
+Trakaff	Trakaff	godev.trakaff.net
+TriMax Media	TriMax Media, LLC	6-aclk.co
+TriMax Media	TriMax Media, LLC	10-aclk.co
+TriMax Media	TriMax Media, LLC	4-aclk.co
+TriMax Media	TriMax Media, LLC	iaurl.io
+TriMax Media	TriMax Media, LLC	3-aclk.co
+TriMax Media	TriMax Media, LLC	2-aclk.co
+TriMax Media	TriMax Media, LLC	5-aclk.co
+TriMax Media	TriMax Media, LLC	1aurl.net
+TriMax Media	TriMax Media, LLC	aclk.co
+TriMax Media	TriMax Media, LLC	aclk.io
+TriMax Media	TriMax Media, LLC	1-aclk.co
+TriMax Media	TriMax Media, LLC	1aurl.io
+TriMax Media	TriMax Media, LLC	7-aclk.co
+TriMax Media	TriMax Media, LLC	9-aclk.co
+TriMax Media	TriMax Media, LLC	8-aclk.co
+Trucliks	TRUCLIKS MARKETING PRIVATE LIMITED	tracking.tracktolast.com
+Trucliks	TRUCLIKS MARKETING PRIVATE LIMITED	tracking.nextotrack.com
+Trucliks	TRUCLIKS MARKETING PRIVATE LIMITED	tracking.minetracking.com
+Trucliks	TRUCLIKS MARKETING PRIVATE LIMITED	tracking.trucliks.com
+UCLIQ	UCLIQ s.r.o.	affds3.com
+UCLIQ	UCLIQ s.r.o.	affds1.com
+UCLIQ	UCLIQ s.r.o.	affds2.com
+Unibots	Somo Media LLC	track.informedechoes.com
+Untold Review	Greenrootz Media	trk.grmcart.com
+VCDM Tracker	VC Digital Media Pte. Ltd.	c.inrasx.com
+VCDM Tracker	VC Digital Media Pte. Ltd.	click.juyyba.com
+VCDM Tracker	VC Digital Media Pte. Ltd.	r.hosvuy.com
+VCDM Tracker	VC Digital Media Pte. Ltd.	trakr.ivuzus.com
+VCDM Tracker	VC Digital Media Pte. Ltd.	rdt.hosmeo.com
+Vaudit	BlokID Inc.	vaudit.com
+Vaudit	BlokID Inc.	tracker.vaudit.com
+Viralpitch	Viralpitch Technologies Pvt. Ltd	insurancedray.com
+Viralpitch	Viralpitch Technologies Pvt. Ltd	retagos.com
+Viralpitch	Viralpitch Technologies Pvt. Ltd	clicksmedias.com
+Voltage Search Media	Voltage Search Media, Inc.	voltagesearch.com
+Voluum	Commerce Media Tech sp. z o.o.	voluumredirect.com
+Voluum	Commerce Media Tech sp. z o.o.	voluumlink.com
+Voluum	Commerce Media Tech sp. z o.o.	voluumclick.com
+Voluum	Commerce Media Tech sp. z o.o.	vlmclick.com
+Voluum	Commerce Media Tech sp. z o.o.	vlmredirect.com
+WeDare	WeDare Sp. z o.o.	gct.dashboard.wedare.pl
+Webgains Click tracker	Webgains Ltd	assets.ikhnaie.link
+Webgains Click tracker	Webgains Ltd	track.webgains.com
+Weborama Clicktracker	Weborama SA	weborama.fr
+Website comparison	Priceza Co., Ltd.	priceza.com
+Wehaa Design LLC	Wehaa Design LLC	analytics-prd.aws.wehaa.net
+Wewe Media	Wewe Media Group Pte. Ltd.	swagtrk.com
+Wewo Media Tracker	Wewo Media Sp. z o.o.	trk.wewotrk.com
+Wooconn	Redtag Media LLC	go.wooconn.com
+YellowBook	Hibu Inc.	yellowbook.com
+YepAds	Yep Ads B.V	tt.ggtefns.com
+YepAds	Yep Ads B.V	yytrxgenz.com
+YepAds	Yep Ads B.V	introyygg.com
+YepAds	Yep Ads B.V	yytrxgenc.com
+YepAds	Yep Ads B.V	trxevlink.com
+YepAds	Yep Ads B.V	ggtefns.com
+YepAds	Yep Ads B.V	yytrxgenb.com
+Zone Media	Zone Media	remarktag.com
+afb	For it Inc.	t.afi-b.com
+attriXus	attriXus GmbH	tm.attrxs.de
+attriXus	attriXus GmbH	tm.simptrack.com
+bdash	株式会社データX	bdash-tracking.com
+c360	Automated Analytics Limited	attribution.uk.customer360.co
+c360	Automated Analytics Limited	attribution.usa.customer360.co
+eMaS	eMarketingSolutions, Online Marketing S.L	uintertool.com
+eMaS	eMarketingSolutions, Online Marketing S.L	uinterbox.com
+easy.Tracking	Easy Marketing GmbH	trck.easy-m.de
+guenstiger.de	guenstiger.de GmbH	nextag.de
+iPromote Clicktracker	2KDirect Inc.	i.ipromote.com
+lead alliance	lead alliance GmbH	lacmp.net
+leadHOOP	leadHOOP LLC	t.trkhoop.com
+mediacode solutions S.à r.l.	mediacode solutions S.à r.l.	checker.budget-guard.com
+mediacode solutions S.à r.l.	mediacode solutions S.à r.l.	checker.budgetguard.lu
+mediacode solutions S.à r.l.	mediacode solutions S.à r.l.	checker.budgetguard.de
+mediaintelligence.de	Amnet GmbH	mediaintelligence.de
+oKube	e-retail development	audience-api.wts-okube.com
+solute Clicktracker	solute GmbH	cmodul.solutenetwork.com
+threeate	株式会社sizebook	tr.threeate.jp
+vCommission	vCommission Media Pte. Ltd.	tracker.urgya.com
+vCommission	vCommission Media Pte. Ltd.	tracker.ysnib.com
+vCommission	vCommission Media Pte. Ltd.	tracker.vigiqe.com
+vCommission	vCommission Media Pte. Ltd.	tracker.vuivy.com
+vCommission	vCommission Media Pte. Ltd.	tracker.vuijia.com
+vFulfill	VCFL Express Private Limited	serve.wigolg.com
+vFulfill	VCFL Express Private Limited	tracker.unuves.com
+vFulfill	VCFL Express Private Limited	serve.ytlyng.com
+vFulfill	VCFL Express Private Limited	tracker.ylsorg.com
+vFulfill	VCFL Express Private Limited	tracker.qywube.com
+СlickDealer	DMS CD (Netherlands) B.V.	ecomclk.com
+СlickDealer	DMS CD (Netherlands) B.V.	ecomdmsclk.com
+СlickDealer	DMS CD (Netherlands) B.V.	clickecomdms.com
+СlickDealer	DMS CD (Netherlands) B.V.	clkdms.com
+СlickDealer	DMS CD (Netherlands) B.V.	smartclkdms.com
+うちでのこづち	E-Grant Inc.	crm-measure.com

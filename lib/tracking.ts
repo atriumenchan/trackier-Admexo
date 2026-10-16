@@ -1,9 +1,15 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { all, one, run, setting, transaction } from "@/lib/db";
 import { clip, dayStartUtc, nowUtc, shortCode } from "@/lib/format";
+import { runAfterResponse } from "@/lib/defer";
+import { decideClickFraud, decideConversionFraud, pauseAffiliate } from "@/lib/fraud";
+import { postLedger } from "@/lib/ledger";
+import { addRollup, rollupDay } from "@/lib/rollup";
+import { attributionOpen, scheduleOpen } from "@/lib/rules";
+import { assertPublicHttpUrl } from "@/lib/safe-url";
 import type { Affiliate, Click, Conversion, Offer, OfferAccess, OfferGoal, SmartLink } from "@/lib/types";
 
-const MACROS = ["click_id", "affiliate_id", "affiliate_name", "offer_id", "offer_name", "payout", "revenue", "txid", "status", "goal", "sub1", "sub2", "sub3", "sub4", "sub5", "source"];
+export const MACROS = ["click_id", "affiliate_id", "affiliate_name", "offer_id", "offer_name", "payout", "revenue", "txid", "status", "goal", "sub1", "sub2", "sub3", "sub4", "sub5", "sub6", "sub7", "sub8", "sub9", "sub10", "source"];
 
 export async function publicBase() {
   const configured = (await setting("base_url", "")).replace(/\/$/, "");
@@ -49,10 +55,6 @@ export function countryAllowed(offer: Offer, country: string) {
   return offer.country_mode === "allow" ? has : !has;
 }
 
-function windowStart(minutes: number) {
-  return new Date(Date.now() - minutes * 60 * 1000).toISOString().slice(0, 19).replace("T", " ");
-}
-
 export async function clickCapHit(offer: Offer) {
   if (!offer.daily_click_cap) return false;
   const row = (await one<{ n: number }>(
@@ -62,6 +64,23 @@ export async function clickCapHit(offer: Offer) {
     dayStartUtc(),
   ));
   return (row?.n ?? 0) >= offer.daily_click_cap;
+}
+
+export async function publisherClickCapHit(offer: Offer, affiliateId: number) {
+  const access = (await one<OfferAccess>(
+    "SELECT * FROM offer_access WHERE offer_id = ? AND affiliate_id = ?",
+    offer.id,
+    affiliateId,
+  ));
+  if (!access?.daily_click_cap) return false;
+  const row = (await one<{ n: number }>(
+    `SELECT COUNT(*) AS n FROM clicks
+     WHERE offer_id = ? AND affiliate_id = ? AND created_at >= ? AND blocked_reason = '' AND fraud_flag = 0`,
+    offer.id,
+    affiliateId,
+    dayStartUtc(),
+  ));
+  return (row?.n ?? 0) >= access.daily_click_cap;
 }
 
 async function ratesFor(offer: Offer, affiliateId: number, goalName: string): Promise<{ error: string } | { payout: number; revenue: number; goal?: OfferGoal }> {
@@ -141,7 +160,7 @@ function readContext(req: Request): ClickContext {
   const ip = forwarded || req.headers.get("x-real-ip") || "";
   const country = (req.headers.get("cf-ipcountry") || req.headers.get("x-vercel-ip-country") || "").toUpperCase();
   const subs: Record<string, string> = {};
-  for (const key of ["sub1", "sub2", "sub3", "sub4", "sub5"]) subs[key] = clip(url.searchParams.get(key) || "", 200);
+  for (let index = 1; index <= 10; index += 1) subs[`sub${index}`] = clip(url.searchParams.get(`sub${index}`) || "", 200);
   return {
     ip: clip(ip, 80),
     userAgent: clip(req.headers.get("user-agent") || "", 400),
@@ -255,25 +274,18 @@ async function finishClick(input: {
   if (!(await affiliateCanRun(affiliate, offer))) blocked = "not-approved";
   else if (!deviceAllowed(offer, device)) blocked = "device";
   else if (!countryAllowed(offer, ctx.country)) blocked = "country";
+  else if (!scheduleOpen({ days: offer.schedule_days || "", startHour: offer.schedule_start_hour, endHour: offer.schedule_end_hour })) blocked = "schedule";
   else if (ctx.ip && (await one("SELECT ip FROM blocked_ips WHERE ip = ?", ctx.ip))) {
     fraud = 1;
     fraudReason = "blocked-ip";
     blocked = "fraud";
-  } else if ((await clickCapHit(offer))) blocked = "click-cap";
-  else if (ctx.ip) {
-    const limit = Number((await setting("fraud_click_limit", "30"))) || 30;
-    const minutes = Number((await setting("fraud_window_minutes", "10"))) || 10;
-    const burst = (await one<{ n: number }>(
-      `SELECT COUNT(*) AS n FROM clicks WHERE ip = ? AND offer_id = ? AND created_at >= ?`,
-      ctx.ip,
-      offer.id,
-      windowStart(minutes),
-    ))?.n ?? 0;
-    if (burst >= limit) {
-      fraud = 1;
-      fraudReason = "click-burst";
-      if ((await setting("block_fraud_clicks", "0")) === "1") blocked = "fraud";
-    }
+  } else if ((await clickCapHit(offer)) || (await publisherClickCapHit(offer, affiliate.id))) blocked = "click-cap";
+  else {
+    const decision = (await decideClickFraud({ ip: ctx.ip, userAgent: ctx.userAgent, offerId: offer.id }));
+    fraud = decision.fraud;
+    fraudReason = decision.reason;
+    if (decision.blocked) blocked = decision.blocked;
+    if (decision.pause) (await pauseAffiliate(affiliate.id));
   }
 
   const destination = blocked
@@ -300,35 +312,45 @@ async function finishClick(input: {
     ...ctx.subs,
   }) : "";
 
-  (await run(
-    `INSERT INTO clicks (
-      id, link_id, smart_link_id, offer_id, affiliate_id, ip, user_agent, country, device, os, referrer,
-      sub1, sub2, sub3, sub4, sub5, fraud_flag, fraud_reason, blocked_reason, destination, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    clickId,
-    input.linkId,
-    input.smartLinkId,
-    offer.id,
-    affiliate.id,
-    ctx.ip,
-    ctx.userAgent,
-    ctx.country,
-    device,
-    os,
-    ctx.referrer,
-    ctx.subs.sub1 || "",
-    ctx.subs.sub2 || "",
-    ctx.subs.sub3 || "",
-    ctx.subs.sub4 || "",
-    ctx.subs.sub5 || "",
-    fraud,
-    fraudReason,
-    blocked,
-    finalDestination,
-    nowUtc(),
-  ));
+  const saved = runAfterResponse(async () => {
+    const createdAt = nowUtc();
+    (await run(
+      `INSERT INTO clicks (
+        id, link_id, smart_link_id, offer_id, affiliate_id, ip, user_agent, country, device, os, referrer,
+        sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, fraud_flag, fraud_reason, blocked_reason, destination, created_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      clickId,
+      input.linkId,
+      input.smartLinkId,
+      offer.id,
+      affiliate.id,
+      ctx.ip,
+      ctx.userAgent,
+      ctx.country,
+      device,
+      os,
+      ctx.referrer,
+      ctx.subs.sub1 || "",
+      ctx.subs.sub2 || "",
+      ctx.subs.sub3 || "",
+      ctx.subs.sub4 || "",
+      ctx.subs.sub5 || "",
+      ctx.subs.sub6 || "",
+      ctx.subs.sub7 || "",
+      ctx.subs.sub8 || "",
+      ctx.subs.sub9 || "",
+      ctx.subs.sub10 || "",
+      fraud,
+      fraudReason,
+      blocked,
+      finalDestination,
+      createdAt,
+    ));
+    if (!blocked && !fraud) (await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 }));
+  }, (task) => after(() => task));
 
   if (blocked) {
+    (await saved);
     if (offer.fallback_url && blocked !== "fraud") return redirectTo(offer.fallback_url);
     return unavailable(ctx.origin);
   }
@@ -355,6 +377,9 @@ export async function recordConversion(input: ConversionInput) {
   if (!offer) return (await finishLog(input, click, 400, "Offer is missing."));
   if (input.advertiserId && offer.advertiser_id !== input.advertiserId) {
     return (await finishLog(input, click, 403, "This postback token does not belong to the offer."));
+  }
+  if (!attributionOpen(click.created_at, offer.attribution_hours)) {
+    return (await finishLog(input, click, 400, "This click is outside the attribution window."));
   }
 
   const txid = clip(input.txid || "", 120);
@@ -395,9 +420,27 @@ export async function recordConversion(input: ConversionInput) {
 
   if (status !== "rejected") {
     const start = dayStartUtc();
+    const access = (await one<OfferAccess>(
+      "SELECT * FROM offer_access WHERE offer_id = ? AND affiliate_id = ?",
+      offer.id,
+      click.affiliate_id,
+    ));
+    if (access?.daily_conversion_cap) {
+      const own = (await one<{ n: number }>(
+        `SELECT COUNT(*) AS n FROM conversions
+         WHERE offer_id = ? AND affiliate_id = ? AND created_at >= ? AND status IN ('approved', 'pending')`,
+        offer.id,
+        click.affiliate_id,
+        start,
+      ));
+      if ((own?.n ?? 0) >= access.daily_conversion_cap) {
+        status = "rejected";
+        reject = "conversion-cap";
+      }
+    }
     const today = (await one<{ n: number; revenue: number }>(
       `SELECT COUNT(*) AS n, COALESCE(SUM(revenue), 0) AS revenue
-       FROM conversions WHERE offer_id = ? AND created_at >= ? AND status != 'rejected'`,
+       FROM conversions WHERE offer_id = ? AND created_at >= ? AND status IN ('approved', 'pending')`,
       offer.id,
       start,
     ));
@@ -414,28 +457,41 @@ export async function recordConversion(input: ConversionInput) {
     status = "rejected";
     reject = click.fraud_reason || "fraud";
   }
+  let fraudReason = "";
+  if (status !== "rejected") {
+    const decision = (await decideConversionFraud(offer.id, click.affiliate_id));
+    if (decision.blocked) {
+      status = "rejected";
+      reject = decision.reason || "fraud";
+    } else if (decision.fraud) fraudReason = decision.reason;
+    if (decision.pause) (await pauseAffiliate(click.affiliate_id));
+  }
 
   let conversionId = 0;
+  const created = nowUtc();
+  const storedPayout = status === "rejected" ? 0 : payout;
+  const storedRevenue = status === "rejected" ? 0 : revenue;
   try {
     conversionId = await transaction(async () => {
       const inserted = await run(
         `INSERT INTO conversions (
           click_id, offer_id, affiliate_id, goal_id, goal_name, payout, revenue, currency, status,
-          reject_reason, txid, ip, postback_status, created_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'skipped', ?)`,
+          reject_reason, txid, ip, postback_status, fraud_reason, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'skipped', ?, ?)`,
         click.id,
         offer.id,
         click.affiliate_id,
         rates.goal?.id ?? null,
         goalName,
-        status === "rejected" ? 0 : payout,
-        status === "rejected" ? 0 : revenue,
+        storedPayout,
+        storedRevenue,
         offer.currency,
         status,
         reject,
         txid,
         clip(input.ip || "", 80),
-        nowUtc(),
+        fraudReason,
+        created,
       );
       return inserted.id;
     });
@@ -445,8 +501,19 @@ export async function recordConversion(input: ConversionInput) {
     return (await finishLog(input, click, 400, message));
   }
 
+  if (status === "approved") {
+    (await postLedger({
+      affiliateId: click.affiliate_id,
+      conversionId,
+      kind: "credit",
+      amount: storedPayout,
+      currency: offer.currency,
+      note: "Approved conversion",
+    }));
+    (await addRollup(rollupDay(created), offer.id, click.affiliate_id, { conversions: 1, revenue: storedRevenue, payout: storedPayout }));
+    await fireAffiliatePostback(conversionId);
+  }
   const logged = (await finishLog(input, click, 200, status === "approved" ? "OK" : status, conversionId));
-  if (status === "approved") await fireAffiliatePostback(conversionId);
   return logged;
 }
 
@@ -492,9 +559,31 @@ export async function fireAffiliatePostback(conversionId: number) {
     sub3: click?.sub3 || "",
     sub4: click?.sub4 || "",
     sub5: click?.sub5 || "",
+    sub6: click?.sub6 || "",
+    sub7: click?.sub7 || "",
+    sub8: click?.sub8 || "",
+    sub9: click?.sub9 || "",
+    sub10: click?.sub10 || "",
   });
+  let target = url;
   try {
-    const response = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(8000) });
+    target = await assertPublicHttpUrl(url);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Postback URL was blocked.";
+    (await run(
+      `INSERT INTO postback_logs (direction, click_id, conversion_id, url, status_code, body, ok, created_at)
+       VALUES ('out', ?, ?, ?, NULL, ?, 0, ?)`,
+      conversion.click_id || "",
+      conversionId,
+      clip(url, 500),
+      clip(message, 500),
+      nowUtc(),
+    ));
+    (await run("UPDATE conversions SET postback_status = 'failed' WHERE id = ?", conversionId));
+    return;
+  }
+  try {
+    const response = await fetch(target, { redirect: "manual", signal: AbortSignal.timeout(8000) });
     const body = clip(await response.text().catch(() => ""), 500);
     (await run(
       `INSERT INTO postback_logs (direction, click_id, conversion_id, url, status_code, body, ok, created_at)

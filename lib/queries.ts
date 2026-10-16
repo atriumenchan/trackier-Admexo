@@ -1,5 +1,6 @@
 import { all, istDay, one, setting } from "@/lib/db";
 import { addDays, istRange, istToday } from "@/lib/format";
+import { rollupOffers, rollupRange, rollupSeries } from "@/lib/rollup";
 import type {
   Advertiser,
   Affiliate,
@@ -71,7 +72,14 @@ export async function offerLinks(offerId: number) {
   ));
 }
 
-export async function listClicks(filters: { offerId?: number; affiliateId?: number; from?: string; to?: string; fraud?: boolean }) {
+const PAGE_SIZE = 50;
+
+function paging(page?: number) {
+  const current = Math.max(1, page || 1);
+  return { current, limit: PAGE_SIZE, offset: (current - 1) * PAGE_SIZE };
+}
+
+export async function listClicks(filters: { offerId?: number; affiliateId?: number; from?: string; to?: string; fraud?: boolean; page?: number; capped?: boolean }) {
   const where = ["1 = 1"];
   const params: Array<string | number | null> = [];
   if (filters.offerId) {
@@ -88,15 +96,18 @@ export async function listClicks(filters: { offerId?: number; affiliateId?: numb
     params.push(range.start, range.end);
   }
   if (filters.fraud) where.push("(c.fraud_flag = 1 OR c.blocked_reason != '')");
+  const page = paging(filters.page);
+  const limit = filters.capped === false ? "" : " LIMIT ? OFFSET ?";
+  if (filters.capped !== false) params.push(page.limit, page.offset);
   return (await all<Click>(
     `SELECT c.*, o.name AS offer_name, f.name AS affiliate_name
      FROM clicks c JOIN offers o ON o.id = c.offer_id JOIN affiliates f ON f.id = c.affiliate_id
-     WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC LIMIT 200`,
+     WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC${limit}`,
     ...params,
   ));
 }
 
-export async function listConversions(filters: { offerId?: number; affiliateId?: number; status?: string; from?: string; to?: string }) {
+export async function listConversions(filters: { offerId?: number; affiliateId?: number; status?: string; from?: string; to?: string; page?: number; capped?: boolean }) {
   const where = ["1 = 1"];
   const params: Array<string | number | null> = [];
   if (filters.offerId) {
@@ -116,16 +127,20 @@ export async function listConversions(filters: { offerId?: number; affiliateId?:
     where.push("c.created_at >= ? AND c.created_at < ?");
     params.push(range.start, range.end);
   }
+  const page = paging(filters.page);
+  const limit = filters.capped === false ? "" : " LIMIT ? OFFSET ?";
+  if (filters.capped !== false) params.push(page.limit, page.offset);
   return (await all<Conversion>(
     `SELECT c.*, o.name AS offer_name, f.name AS affiliate_name
      FROM conversions c JOIN offers o ON o.id = c.offer_id JOIN affiliates f ON f.id = c.affiliate_id
-     WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC LIMIT 200`,
+     WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC${limit}`,
     ...params,
   ));
 }
 
-export async function listPostbacks() {
-  return (await all<PostbackLog>("SELECT * FROM postback_logs ORDER BY id DESC LIMIT 200"));
+export async function listPostbacks(page = 1) {
+  const window = paging(page);
+  return (await all<PostbackLog>("SELECT * FROM postback_logs ORDER BY id DESC LIMIT ? OFFSET ?", window.limit, window.offset));
 }
 
 export async function listSmartLinks() {
@@ -176,109 +191,85 @@ export async function payoutConversions(id: number) {
 
 export type ReportRow = {
   bucket: string;
+  bucketId: string;
   clicks: number;
   conversions: number;
   revenue: number;
   payout: number;
 };
 
-export async function report(group: string, from: string, to: string): Promise<ReportRow[]> {
+export async function report(group: string, from: string, to: string, page?: number): Promise<ReportRow[]> {
   const range = istRange(from, to);
-  const clickBucket =
-    group === "offer"
-      ? "o.name"
-      : group === "affiliate"
-        ? "f.name"
-        : group === "country"
-          ? "CASE WHEN c.country = '' THEN 'Unknown' ELSE c.country END"
-          : group === "device"
-            ? "c.device"
-            : istDay("c.created_at");
-  const conversionBucket =
-    group === "offer"
-      ? "o.name"
-      : group === "affiliate"
-        ? "f.name"
-        : group === "country"
-          ? "(SELECT CASE WHEN country = '' THEN 'Unknown' ELSE country END FROM clicks WHERE id = c.click_id)"
-          : group === "device"
-            ? "(SELECT device FROM clicks WHERE id = c.click_id)"
-            : istDay("c.created_at");
+  const clickGroup = group === "offer"
+    ? { id: "CAST(o.id AS TEXT)", label: "o.name" }
+    : group === "affiliate"
+      ? { id: "CAST(f.id AS TEXT)", label: "f.name" }
+      : group === "country"
+        ? { id: "CASE WHEN c.country = '' THEN 'Unknown' ELSE c.country END", label: "CASE WHEN c.country = '' THEN 'Unknown' ELSE c.country END" }
+        : group === "device"
+          ? { id: "CASE WHEN c.device = '' THEN 'Unknown' ELSE c.device END", label: "CASE WHEN c.device = '' THEN 'Unknown' ELSE c.device END" }
+          : { id: istDay("c.created_at"), label: istDay("c.created_at") };
+  const conversionGroup = group === "offer"
+    ? { id: "CAST(o.id AS TEXT)", label: "o.name" }
+    : group === "affiliate"
+      ? { id: "CAST(f.id AS TEXT)", label: "f.name" }
+      : group === "country"
+        ? { id: "(SELECT CASE WHEN country = '' THEN 'Unknown' ELSE country END FROM clicks WHERE id = c.click_id)", label: "(SELECT CASE WHEN country = '' THEN 'Unknown' ELSE country END FROM clicks WHERE id = c.click_id)" }
+        : group === "device"
+          ? { id: "(SELECT CASE WHEN device = '' THEN 'Unknown' ELSE device END FROM clicks WHERE id = c.click_id)", label: "(SELECT CASE WHEN device = '' THEN 'Unknown' ELSE device END FROM clicks WHERE id = c.click_id)" }
+          : { id: istDay("c.created_at"), label: istDay("c.created_at") };
 
-  const clicks = (await all<{ bucket: string; clicks: number }>(
-    `SELECT ${clickBucket} AS bucket, COUNT(*) AS clicks
+  const clicks = (await all<{ bucket_id: string; bucket: string; clicks: number }>(
+    `SELECT ${clickGroup.id} AS bucket_id, ${clickGroup.label} AS bucket, COUNT(*) AS clicks
      FROM clicks c JOIN offers o ON o.id = c.offer_id JOIN affiliates f ON f.id = c.affiliate_id
      WHERE c.created_at >= ? AND c.created_at < ? AND c.blocked_reason = '' AND c.fraud_flag = 0
-     GROUP BY 1`,
+     GROUP BY 1, 2`,
     range.start,
     range.end,
   ));
-  const conversions = (await all<{ bucket: string; conversions: number; revenue: number; payout: number }>(
-    `SELECT ${conversionBucket} AS bucket, COUNT(*) AS conversions, COALESCE(SUM(c.revenue), 0) AS revenue, COALESCE(SUM(c.payout), 0) AS payout
+  const conversions = (await all<{ bucket_id: string; bucket: string; conversions: number; revenue: number; payout: number }>(
+    `SELECT ${conversionGroup.id} AS bucket_id, ${conversionGroup.label} AS bucket, COUNT(*) AS conversions, COALESCE(SUM(c.revenue), 0) AS revenue, COALESCE(SUM(c.payout), 0) AS payout
      FROM conversions c JOIN offers o ON o.id = c.offer_id JOIN affiliates f ON f.id = c.affiliate_id
      WHERE c.created_at >= ? AND c.created_at < ? AND c.status = 'approved'
-     GROUP BY 1`,
+     GROUP BY 1, 2`,
     range.start,
     range.end,
   ));
   const map = new Map<string, ReportRow>();
   for (const row of clicks) {
-    map.set(row.bucket || "Unknown", { bucket: row.bucket || "Unknown", clicks: row.clicks, conversions: 0, revenue: 0, payout: 0 });
+    const key = row.bucket_id || "Unknown";
+    map.set(key, { bucketId: key, bucket: row.bucket || "Unknown", clicks: row.clicks, conversions: 0, revenue: 0, payout: 0 });
   }
   for (const row of conversions) {
-    const key = row.bucket || "Unknown";
-    const current = map.get(key) || { bucket: key, clicks: 0, conversions: 0, revenue: 0, payout: 0 };
+    const key = row.bucket_id || "Unknown";
+    const current = map.get(key) || { bucketId: key, bucket: row.bucket || "Unknown", clicks: 0, conversions: 0, revenue: 0, payout: 0 };
     current.conversions = row.conversions;
     current.revenue = row.revenue;
     current.payout = row.payout;
+    if (row.bucket) current.bucket = row.bucket;
     map.set(key, current);
   }
   const rows = [...map.values()];
-  if (group === "day") return rows.sort((a, b) => a.bucket.localeCompare(b.bucket));
-  return rows.sort((a, b) => b.revenue - a.revenue || b.clicks - a.clicks);
+  const sorted = group === "day" ? rows.sort((a, b) => a.bucket.localeCompare(b.bucket)) : rows.sort((a, b) => b.revenue - a.revenue || b.clicks - a.clicks);
+  if (!page) return sorted;
+  const window = paging(page);
+  return sorted.slice(window.offset, window.offset + window.limit);
 }
 
 export async function dashboard() {
   const today = istToday();
-  const start = istRange(today, today);
   const weekFrom = addDays(today, -6);
-  const week = istRange(weekFrom, today);
-  const totals = async (from: string, to: string) => {
-    const clicks = (await one<{ n: number }>(
-      "SELECT COUNT(*) AS n FROM clicks WHERE created_at >= ? AND created_at < ? AND blocked_reason = '' AND fraud_flag = 0",
-      from,
-      to,
-    ))?.n ?? 0;
-    const money = (await one<{ n: number; revenue: number; payout: number }>(
-      `SELECT COUNT(*) AS n, COALESCE(SUM(revenue), 0) AS revenue, COALESCE(SUM(payout), 0) AS payout
-       FROM conversions WHERE created_at >= ? AND created_at < ? AND status = 'approved'`,
-      from,
-      to,
-    ));
-    return {
-      clicks,
-      conversions: money?.n ?? 0,
-      revenue: money?.revenue ?? 0,
-      payout: money?.payout ?? 0,
-    };
-  };
-  const series = [];
-  for (let i = 13; i >= 0; i -= 1) {
-    const day = addDays(today, -i);
-    const range = istRange(day, day);
-    const point = (await totals(range.start, range.end));
-    series.push({ day: day.slice(5), ...point });
-  }
   const pending = (await one<{ n: number }>("SELECT COUNT(*) AS n FROM offer_access WHERE status = 'pending'"))?.n ?? 0;
   const currency = (await setting("currency", "USD"));
+  const top = (await rollupOffers(weekFrom, today)).slice(0, 5);
   return {
-    today: (await totals(start.start, start.end)),
-    week: (await totals(week.start, week.end)),
-    series,
+    today: (await rollupRange(today, today)),
+    week: (await rollupRange(weekFrom, today)),
+    series: (await rollupSeries(14)),
     pending,
     currency,
     recent: (await listConversions({})).slice(0, 8),
-    topOffers: (await report("offer", weekFrom, today)).slice(0, 5),
+    topOffers: top.map((row) => ({ bucket: row.bucket, bucketId: row.bucket_id, clicks: row.clicks, conversions: row.conversions, revenue: row.revenue, payout: row.payout })),
   };
 }
 

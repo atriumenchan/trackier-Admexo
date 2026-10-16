@@ -94,7 +94,7 @@ async function supabaseRows(statement: string) {
       Authorization: `Bearer ${supabaseKey()}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ statement }),
+    body: JSON.stringify({ statement, gate: process.env.QUERY_GATE || "" }),
   });
   const text = await response.text();
   if (!response.ok) {
@@ -123,7 +123,7 @@ function placeholders(sql: string) {
 function shapeRow<T>(row: T): T {
   if (!row || typeof row !== "object") return row;
   const copy = { ...(row as Record<string, unknown>) };
-  const numeric = new Set(["n", "clicks", "conversions", "revenue", "payout", "profit", "amount", "weight", "status_code", "ok", "fraud_flag", "is_default", "id", "payout_id", "goal_id", "link_id", "smart_link_id", "offer_id", "affiliate_id", "advertiser_id", "custom_payout", "custom_revenue", "daily_click_cap", "daily_conversion_cap", "daily_budget_cap", "changes"]);
+  const numeric = new Set(["n", "clicks", "conversions", "revenue", "payout", "profit", "amount", "weight", "status_code", "ok", "fraud_flag", "is_default", "id", "payout_id", "goal_id", "link_id", "smart_link_id", "offer_id", "affiliate_id", "advertiser_id", "custom_payout", "custom_revenue", "daily_click_cap", "daily_conversion_cap", "daily_budget_cap", "attribution_hours", "schedule_start_hour", "schedule_end_hour", "threshold", "window_minutes", "changes", "google_strict"]);
   for (const [key, value] of Object.entries(copy)) {
     if (typeof value === "bigint") copy[key] = Number(value);
     else if (typeof value === "string" && numeric.has(key) && /^-?\d+(\.\d+)?$/.test(value)) copy[key] = Number(value);
@@ -164,7 +164,7 @@ export async function run(sql: string, ...params: Param[]) {
   }
   if (kind === "supabase") {
     const insert = /^\s*insert\s+/i.test(sql);
-    const skipReturning = /into\s+(settings|blocked_ips)\b/i.test(sql);
+    const skipReturning = /into\s+(settings|blocked_ips|google_domains)\b/i.test(sql);
     const statement = insert && !/returning\s+/i.test(sql) && !skipReturning ? `${sql} RETURNING id` : sql;
     const rows = await supabaseRows(bind(statement, params));
     const rawId = rows[0] && typeof rows[0] === "object" ? (rows[0] as { id?: unknown }).id : 0;
@@ -172,7 +172,7 @@ export async function run(sql: string, ...params: Param[]) {
     return { id: Number.isFinite(id) ? id : 0, changes: rows.length };
   }
   const insert = /^\s*insert\s+/i.test(sql);
-  const skipReturning = /into\s+(settings|blocked_ips)\b/i.test(sql);
+  const skipReturning = /into\s+(settings|blocked_ips|google_domains)\b/i.test(sql);
   const statement = insert && !/returning\s+/i.test(sql) && !skipReturning ? `${sql} RETURNING id` : sql;
   const rows = await pgClient().unsafe(placeholders(statement), params as never[]);
   const rawId = rows[0] && typeof rows[0] === "object" ? (rows[0] as { id?: unknown }).id : 0;
@@ -255,7 +255,7 @@ async function seedPostgres() {
     await exec("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO NOTHING", key, value);
   }
   const adminEmail = (process.env.ADMIN_EMAIL || "admin@admexo.com").toLowerCase();
-  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const adminPassword = requiredAdminPassword();
   await exec(
     `INSERT INTO users (email, name, password_hash, role, affiliate_id, advertiser_id, created_at)
      VALUES (?, 'ADMEXO Admin', ?, 'admin', NULL, NULL, ?)`,
@@ -315,6 +315,14 @@ async function seedPostgres() {
   await exec(`INSERT INTO smart_link_offers (smart_link_id, offer_id, weight) VALUES (?, ?, 1)`, smartId, offerId);
 }
 
+function requiredAdminPassword() {
+  const value = process.env.ADMIN_PASSWORD || "";
+  if (process.env.VERCEL && (!value || value === "admin123")) {
+    throw new Error("Set ADMIN_PASSWORD to a unique value.");
+  }
+  return value || "admin123";
+}
+
 function schemaSql() {
   return `
     CREATE TABLE IF NOT EXISTS settings (
@@ -350,6 +358,7 @@ function schemaSql() {
       role TEXT NOT NULL,
       affiliate_id INTEGER,
       advertiser_id INTEGER,
+      api_token TEXT,
       created_at TEXT NOT NULL
     );
     CREATE TABLE IF NOT EXISTS offers (
@@ -368,10 +377,16 @@ function schemaSql() {
       country_mode TEXT NOT NULL DEFAULT 'all',
       countries TEXT NOT NULL DEFAULT '',
       devices TEXT NOT NULL DEFAULT 'all',
+      attribution_hours INTEGER,
+      schedule_days TEXT NOT NULL DEFAULT '',
+      schedule_start_hour INTEGER,
+      schedule_end_hour INTEGER,
       daily_click_cap INTEGER,
       daily_conversion_cap INTEGER,
       daily_budget_cap REAL,
       fallback_url TEXT NOT NULL DEFAULT '',
+      final_url TEXT NOT NULL DEFAULT '',
+      google_strict INTEGER NOT NULL DEFAULT 0,
       external_id TEXT,
       sync_source_id INTEGER,
       created_at TEXT NOT NULL,
@@ -392,6 +407,8 @@ function schemaSql() {
       status TEXT NOT NULL DEFAULT 'approved',
       custom_payout REAL,
       custom_revenue REAL,
+      daily_click_cap INTEGER,
+      daily_conversion_cap INTEGER,
       UNIQUE(offer_id, affiliate_id)
     );
     CREATE TABLE IF NOT EXISTS tracking_links (
@@ -436,6 +453,15 @@ function schemaSql() {
       sub3 TEXT NOT NULL DEFAULT '',
       sub4 TEXT NOT NULL DEFAULT '',
       sub5 TEXT NOT NULL DEFAULT '',
+      sub6 TEXT NOT NULL DEFAULT '',
+      sub7 TEXT NOT NULL DEFAULT '',
+      sub8 TEXT NOT NULL DEFAULT '',
+      sub9 TEXT NOT NULL DEFAULT '',
+      sub10 TEXT NOT NULL DEFAULT '',
+      gclid TEXT NOT NULL DEFAULT '',
+      creative TEXT NOT NULL DEFAULT '',
+      vt_device TEXT NOT NULL DEFAULT '',
+      vt_campaign TEXT NOT NULL DEFAULT '',
       fraud_flag INTEGER NOT NULL DEFAULT 0,
       fraud_reason TEXT NOT NULL DEFAULT '',
       blocked_reason TEXT NOT NULL DEFAULT '',
@@ -458,6 +484,7 @@ function schemaSql() {
       ip TEXT NOT NULL DEFAULT '',
       payout_id INTEGER,
       postback_status TEXT NOT NULL DEFAULT 'skipped',
+      fraud_reason TEXT NOT NULL DEFAULT '',
       created_at TEXT NOT NULL
     );
     CREATE TABLE IF NOT EXISTS postback_logs (
@@ -508,11 +535,88 @@ function schemaSql() {
     CREATE INDEX IF NOT EXISTS idx_conv_payout ON conversions(payout_id);
     CREATE UNIQUE INDEX IF NOT EXISTS idx_conv_txid_unique ON conversions(offer_id, txid) WHERE txid != '';
     CREATE UNIQUE INDEX IF NOT EXISTS idx_offer_ext ON offers(advertiser_id, external_id) WHERE external_id IS NOT NULL AND external_id != '';
+    CREATE TABLE IF NOT EXISTS ledger_entries (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      affiliate_id INTEGER NOT NULL,
+      conversion_id INTEGER,
+      payout_id INTEGER,
+      kind TEXT NOT NULL,
+      amount REAL NOT NULL,
+      currency TEXT NOT NULL DEFAULT 'USD',
+      note TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS fraud_rules (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      metric TEXT NOT NULL,
+      threshold REAL NOT NULL,
+      window_minutes INTEGER NOT NULL DEFAULT 10,
+      action TEXT NOT NULL DEFAULT 'flag',
+      status TEXT NOT NULL DEFAULT 'active',
+      created_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS traffic_rollups (
+      day TEXT NOT NULL,
+      offer_id INTEGER NOT NULL,
+      affiliate_id INTEGER NOT NULL,
+      clicks INTEGER NOT NULL DEFAULT 0,
+      conversions INTEGER NOT NULL DEFAULT 0,
+      revenue REAL NOT NULL DEFAULT 0,
+      payout REAL NOT NULL DEFAULT 0,
+      PRIMARY KEY (day, offer_id, affiliate_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_ledger_aff ON ledger_entries(affiliate_id, id);
+    CREATE TABLE IF NOT EXISTS google_domains (
+      host TEXT PRIMARY KEY,
+      final_url TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'pending',
+      detail TEXT NOT NULL DEFAULT '',
+      checked_at TEXT NOT NULL DEFAULT ''
+    );
+    CREATE TABLE IF NOT EXISTS google_rejections (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      error_code TEXT NOT NULL,
+      path TEXT NOT NULL DEFAULT '',
+      host TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL
+    );
 `;
 }
 
+const COLUMN_ALTERS = [
+  "ALTER TABLE offers ADD COLUMN attribution_hours INTEGER",
+  "ALTER TABLE offers ADD COLUMN schedule_days TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE offers ADD COLUMN schedule_start_hour INTEGER",
+  "ALTER TABLE offers ADD COLUMN schedule_end_hour INTEGER",
+  "ALTER TABLE offer_access ADD COLUMN daily_click_cap INTEGER",
+  "ALTER TABLE offer_access ADD COLUMN daily_conversion_cap INTEGER",
+  "ALTER TABLE clicks ADD COLUMN sub6 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN sub7 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN sub8 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN sub9 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN sub10 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE users ADD COLUMN api_token TEXT",
+  "ALTER TABLE conversions ADD COLUMN fraud_reason TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE offers ADD COLUMN final_url TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE offers ADD COLUMN google_strict INTEGER NOT NULL DEFAULT 0",
+  "ALTER TABLE clicks ADD COLUMN gclid TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN creative TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN vt_device TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN vt_campaign TEXT NOT NULL DEFAULT ''",
+  "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_api ON users(api_token) WHERE api_token IS NOT NULL AND api_token != ''",
+];
+
 function migrate(db: DatabaseSync) {
   db.exec(schemaSql());
+  for (const statement of COLUMN_ALTERS) {
+    try {
+      db.exec(statement);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "";
+      if (!/duplicate column/i.test(message)) throw error;
+    }
+  }
 }
 
 function seed(db: DatabaseSync) {
@@ -533,7 +637,7 @@ function seed(db: DatabaseSync) {
   insertSetting.run("session_secret", shortCode(32));
 
   const adminEmail = (process.env.ADMIN_EMAIL || "admin@admexo.com").toLowerCase();
-  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const adminPassword = requiredAdminPassword();
   db.prepare(
     `INSERT INTO users (email, name, password_hash, role, affiliate_id, advertiser_id, created_at)
      VALUES (?, 'ADMEXO Admin', ?, 'admin', NULL, NULL, ?)`,

@@ -1,0 +1,5387 @@
+{
+  "trackers": [
+    {
+      "product": "2Performant",
+      "company": "2Performant Network SA",
+      "domains": [
+        "2performant.com"
+      ]
+    },
+    {
+      "product": "3F",
+      "company": "3F Solutions",
+      "domains": [
+        "fff.com.vn"
+      ]
+    },
+    {
+      "product": "6Sense",
+      "company": "6Sense Insights, Inc",
+      "domains": [
+        "t.6sc.co"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "rcv.ixd.dmm.com"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "clt.ixd.dmm.com"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "clt.ixd.fanza.jp"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "rcv.ixd.fanza.jp"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "rcv.ixd.dmm.co.jp"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "clt.ixd.dmm.co.jp"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "clt.johren.net"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "clt.johren.games"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "rcv.johren.net"
+      ]
+    },
+    {
+      "product": "A.I.AD",
+      "company": "DimageShare Inc.",
+      "domains": [
+        "rcv.johren.games"
+      ]
+    },
+    {
+      "product": "ADEBiS",
+      "company": "YRGLM Inc",
+      "domains": [
+        "ac.ebis.ne.jp"
+      ]
+    },
+    {
+      "product": "ADSPLAY INTERNATIONAL",
+      "company": "ADSPLAY INTERNATIONAL",
+      "domains": [
+        "track.adsplay.in"
+      ]
+    },
+    {
+      "product": "AE Tracker",
+      "company": "Ads Ever Media",
+      "domains": [
+        "cl.adsever.in"
+      ]
+    },
+    {
+      "product": "AIO",
+      "company": "AIO SOFTWARE - FZCO",
+      "domains": [
+        "aiotrack.org"
+      ]
+    },
+    {
+      "product": "AIO",
+      "company": "AIO SOFTWARE - FZCO",
+      "domains": [
+        "ai-track.net"
+      ]
+    },
+    {
+      "product": "AIO",
+      "company": "AIO SOFTWARE - FZCO",
+      "domains": [
+        "ai-trk.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "cl1.andromobi.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "cl4.andromobi.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "cl3.andromobi.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "cl5.andromobi.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "click.andromobi.com"
+      ]
+    },
+    {
+      "product": "AMT",
+      "company": "AndroMobi",
+      "domains": [
+        "cl2.andromobi.com"
+      ]
+    },
+    {
+      "product": "ANSLATION LLC",
+      "company": "ANSLATION LLC",
+      "domains": [
+        "ads.ads-astra.com"
+      ]
+    },
+    {
+      "product": "Actionpay",
+      "company": "Adonweb Brasil Marketing de Rede Ltda",
+      "domains": [
+        "ad.actionpay.com.br"
+      ]
+    },
+    {
+      "product": "Active Agent Clicktracker",
+      "company": "Virtual Minds",
+      "domains": [
+        "adition.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "mememasti.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "bulletinweb.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "breaknewz.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "techtubebox.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "khelgali.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "crickcounty.com"
+      ]
+    },
+    {
+      "product": "AdCounty Media",
+      "company": "AdCounty Media India Limited",
+      "domains": [
+        "travellercounty.com"
+      ]
+    },
+    {
+      "product": "Adapty",
+      "company": "Adapty Tech Inc.",
+      "domains": [
+        "api-ua.adapty.io"
+      ]
+    },
+    {
+      "product": "Adaxx Tracking",
+      "company": "ADAXX ADTECH & MEDIA LLP",
+      "domains": [
+        "adaxxcloud.com"
+      ]
+    },
+    {
+      "product": "Adbrix",
+      "company": "IGAWORKS Inc.",
+      "domains": [
+        "ab-x.link"
+      ]
+    },
+    {
+      "product": "Adbrix",
+      "company": "IGAWORKS Inc.",
+      "domains": [
+        "ap1.adtouch.dfinery.io"
+      ]
+    },
+    {
+      "product": "Adbrix",
+      "company": "IGAWORKS Inc.",
+      "domains": [
+        "adtouch.adbrix.io"
+      ]
+    },
+    {
+      "product": "Adcell",
+      "company": "Firstlead\tADCELL",
+      "domains": [
+        "t.adcell.com"
+      ]
+    },
+    {
+      "product": "Addrevenue",
+      "company": "Addrevenue AB",
+      "domains": [
+        "addrevenue.io"
+      ]
+    },
+    {
+      "product": "Adflowtracker",
+      "company": "ClearPier Inc",
+      "domains": [
+        "adflowtracker.com"
+      ]
+    },
+    {
+      "product": "Adform Clicktracker",
+      "company": "ADFORM A/S",
+      "domains": [
+        "seadform.net"
+      ]
+    },
+    {
+      "product": "Adform Clicktracker",
+      "company": "ADFORM A/S",
+      "domains": [
+        "adform.net"
+      ]
+    },
+    {
+      "product": "Adform Clicktracker",
+      "company": "ADFORM A/S",
+      "domains": [
+        "adform.com"
+      ]
+    },
+    {
+      "product": "Adjust",
+      "company": "Adjust GmbH",
+      "domains": [
+        "adjust.com"
+      ]
+    },
+    {
+      "product": "Adlucent",
+      "company": "Adlucent",
+      "domains": [
+        "adlucent.com"
+      ]
+    },
+    {
+      "product": "Admitad",
+      "company": "admitad GmbH",
+      "domains": [
+        "tjzuh.com"
+      ]
+    },
+    {
+      "product": "Admitad",
+      "company": "admitad GmbH",
+      "domains": [
+        "ad.admitad.com"
+      ]
+    },
+    {
+      "product": "Adobe Audience Manager",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "unilever2.demdex.net"
+      ]
+    },
+    {
+      "product": "Adobe Audience Manager",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "unilever3.demdex.net"
+      ]
+    },
+    {
+      "product": "Adobe Audience Manager",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "unileverbrazil.demdex.net"
+      ]
+    },
+    {
+      "product": "Adobe Audience Manager",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "unilever.demdex.net"
+      ]
+    },
+    {
+      "product": "Adobe Media Click Optimizer",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "sync-tm.everesttech.net"
+      ]
+    },
+    {
+      "product": "Adobe Media Click Optimizer",
+      "company": "Adobe Systems Inc",
+      "domains": [
+        "pixel.everesttech.net"
+      ]
+    },
+    {
+      "product": "Adora Tracker",
+      "company": "Adora Technologies, Inc.",
+      "domains": [
+        "click.adora-ai.com"
+      ]
+    },
+    {
+      "product": "Adosiz",
+      "company": "Oneplace Web Solution Pvt Ltd",
+      "domains": [
+        "cl.adosiz.net"
+      ]
+    },
+    {
+      "product": "Adosiz",
+      "company": "Oneplace Web Solution Pvt Ltd",
+      "domains": [
+        "adosiz.io"
+      ]
+    },
+    {
+      "product": "Adpump Click Tracker",
+      "company": "ECHIDNA LLC",
+      "domains": [
+        "ad.adpump.com"
+      ]
+    },
+    {
+      "product": "AdsPlus Tracker",
+      "company": "VIET NAM GATE ADVERTISING JOINT STOCK COMPANY",
+      "domains": [
+        "adsplusmetrics.com"
+      ]
+    },
+    {
+      "product": "AdsPlus Tracker",
+      "company": "VIET NAM GATE ADVERTISING JOINT STOCK COMPANY",
+      "domains": [
+        "adsplustracker.com"
+      ]
+    },
+    {
+      "product": "AdsPlus Tracker",
+      "company": "VIET NAM GATE ADVERTISING JOINT STOCK COMPANY",
+      "domains": [
+        "trackwithadsplus.com"
+      ]
+    },
+    {
+      "product": "AdsPlus Tracker",
+      "company": "VIET NAM GATE ADVERTISING JOINT STOCK COMPANY",
+      "domains": [
+        "adsplusgrowth.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track2.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track1.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track2.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track3.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track4.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track4.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track1.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track3.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track5.adsdolfin.com"
+      ]
+    },
+    {
+      "product": "Adsdolfin Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "track5.adsdolf.in"
+      ]
+    },
+    {
+      "product": "Adstage",
+      "company": "NBase Corp",
+      "domains": [
+        "adg.im"
+      ]
+    },
+    {
+      "product": "Adtraction",
+      "company": "Adtraction AB",
+      "domains": [
+        "track.adtraction.com"
+      ]
+    },
+    {
+      "product": "Adverticum AdServer",
+      "company": "Adverticum",
+      "domains": [
+        "ad.adverticum.net"
+      ]
+    },
+    {
+      "product": "Advertium Tracker",
+      "company": "Advertium Technologies CO. L.L.C",
+      "domains": [
+        "jump.votuya.com"
+      ]
+    },
+    {
+      "product": "Advertium Tracker",
+      "company": "Advertium Technologies CO. L.L.C",
+      "domains": [
+        "jump.soesii.com"
+      ]
+    },
+    {
+      "product": "Advertium Tracker",
+      "company": "Advertium Technologies CO. L.L.C",
+      "domains": [
+        "jump.penziu.com"
+      ]
+    },
+    {
+      "product": "Advertium Tracker",
+      "company": "Advertium Technologies CO. L.L.C",
+      "domains": [
+        "jump.yqnurg.com"
+      ]
+    },
+    {
+      "product": "Adwary",
+      "company": "Modular Minds GmbH",
+      "domains": [
+        "awmonitor.com"
+      ]
+    },
+    {
+      "product": "Adzflyer",
+      "company": "Mobilogi Technologies Private Limited",
+      "domains": [
+        "track.adzflyer.com"
+      ]
+    },
+    {
+      "product": "Aff44 ClickTracker",
+      "company": "Aff44 sp. z o.o.",
+      "domains": [
+        "aff44.com"
+      ]
+    },
+    {
+      "product": "Aff44 ClickTracker",
+      "company": "Aff44 sp. z o.o.",
+      "domains": [
+        "affiliate44.com"
+      ]
+    },
+    {
+      "product": "AffTrek",
+      "company": "Affnads Solutions Pvt Ltd",
+      "domains": [
+        "mtrid.com"
+      ]
+    },
+    {
+      "product": "Affalliances Click Tracker",
+      "company": "Affiliate Alliances Network",
+      "domains": [
+        "tracking24x7.com"
+      ]
+    },
+    {
+      "product": "Affalliances Click Tracker",
+      "company": "Affiliate Alliances Network",
+      "domains": [
+        "linkstrackar.com"
+      ]
+    },
+    {
+      "product": "Affelios ClickTracker",
+      "company": "Affelios Limited",
+      "domains": [
+        "trk.affapp.io"
+      ]
+    },
+    {
+      "product": "Affiliate Future Clicktracker",
+      "company": "IBG Ltd t/a Affiliate Future",
+      "domains": [
+        "scripts.affiliatefuture.com"
+      ]
+    },
+    {
+      "product": "Affiliate Port",
+      "company": "5DM.cz, s.r.o.",
+      "domains": [
+        "tracking.affiliateport.eu"
+      ]
+    },
+    {
+      "product": "Affiliate Window Clicktracker",
+      "company": "Awin AG",
+      "domains": [
+        "awin1.com"
+      ]
+    },
+    {
+      "product": "Affiliates Netbet.GR",
+      "company": "NETBET ENTERPRISES LIMITED",
+      "domains": [
+        "banners.netbet.gr"
+      ]
+    },
+    {
+      "product": "Affilired Clicktracker",
+      "company": "Affilired",
+      "domains": [
+        "affilired.com"
+      ]
+    },
+    {
+      "product": "Affilired Clicktracker",
+      "company": "Affilired",
+      "domains": [
+        "ct.paidmediatrk.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk19.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk12.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk9.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk20.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk15.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk4.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk6.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk16.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk8.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk2.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk1.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk5.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk14.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk3.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk17.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk10.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk7.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk11.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk13.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affilka",
+      "company": "Zellero Ltd",
+      "domains": [
+        "trk18.affilkatrack.com"
+      ]
+    },
+    {
+      "product": "Affise",
+      "company": "Affise Technologies Ltd.",
+      "domains": [
+        "trk.affattr1.com"
+      ]
+    },
+    {
+      "product": "Affise",
+      "company": "Affise Technologies Ltd.",
+      "domains": [
+        "trk.affattr.com"
+      ]
+    },
+    {
+      "product": "Affise",
+      "company": "Affise Technologies Ltd.",
+      "domains": [
+        "trk.g4trk.com"
+      ]
+    },
+    {
+      "product": "Affmantra",
+      "company": "Affmantra Advertising",
+      "domains": [
+        "takmertok.com"
+      ]
+    },
+    {
+      "product": "Affnet Tracker",
+      "company": "Affnet Marketing Media Pvt. Ltd",
+      "domains": [
+        "tracker.offersfollow.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk008.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk002.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk010.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk007.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk004.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk006.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk009.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk001.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk010.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk003.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk007.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk005.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk008.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk005.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk009.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk002.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk001.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk003.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk006.gaftrad.com"
+      ]
+    },
+    {
+      "product": "Aftrad",
+      "company": "Bidex Media SaaS S.L",
+      "domains": [
+        "trk004.goaftrad.com"
+      ]
+    },
+    {
+      "product": "Aggregate Knowledge Clicktracker",
+      "company": "Neustar, Inc.",
+      "domains": [
+        "d.agkn.com"
+      ]
+    },
+    {
+      "product": "AiX",
+      "company": "PROXIMA BETA PTE. LIMITED",
+      "domains": [
+        "hermesad.deltaverse-intl.com"
+      ]
+    },
+    {
+      "product": "AiX",
+      "company": "PROXIMA BETA PTE. LIMITED",
+      "domains": [
+        "faix.levelinfinite.com"
+      ]
+    },
+    {
+      "product": "AiX",
+      "company": "PROXIMA BETA PTE. LIMITED",
+      "domains": [
+        "track.aix.levelinfinite.com"
+      ]
+    },
+    {
+      "product": "Airbridge",
+      "company": "AB180 Inc.",
+      "domains": [
+        "deeplink.page"
+      ]
+    },
+    {
+      "product": "Airbridge",
+      "company": "AB180 Inc.",
+      "domains": [
+        "abr.ge"
+      ]
+    },
+    {
+      "product": "Alphabyte",
+      "company": "Alphabyte Internet Services Private Limited",
+      "domains": [
+        "alphabyte.co.in"
+      ]
+    },
+    {
+      "product": "Amaretads",
+      "company": "WEBMEDIARM",
+      "domains": [
+        "trkjkamaret.com"
+      ]
+    },
+    {
+      "product": "Amazon Advertising Clicktracker",
+      "company": "A9.com, Inc., Amazon Europe Core SARL",
+      "domains": [
+        "amazon-adsystem.com"
+      ]
+    },
+    {
+      "product": "Amazon Advertising Clicktracker",
+      "company": "A9.com, Inc., Amazon Europe Core SARL",
+      "domains": [
+        "amazon-value-service.com"
+      ]
+    },
+    {
+      "product": "Appcast Clicktracker",
+      "company": "Appcast, Inc.",
+      "domains": [
+        "click.appcast.io"
+      ]
+    },
+    {
+      "product": "Appsflyer",
+      "company": "AppsFlyer Ltd",
+      "domains": [
+        "onelink.me"
+      ]
+    },
+    {
+      "product": "Appsflyer",
+      "company": "AppsFlyer Ltd",
+      "domains": [
+        "engagements.appsflyer.com"
+      ]
+    },
+    {
+      "product": "Appsflyer",
+      "company": "AppsFlyer Ltd",
+      "domains": [
+        "onelnk.com"
+      ]
+    },
+    {
+      "product": "Appsflyer",
+      "company": "AppsFlyer Ltd",
+      "domains": [
+        "app.appsflyer.com"
+      ]
+    },
+    {
+      "product": "Appstack",
+      "company": "Appstack Tech, Inc.",
+      "domains": [
+        "appstack.link"
+      ]
+    },
+    {
+      "product": "Atrilyx",
+      "company": "Ai Media Group LLC",
+      "domains": [
+        "aiproxies.com"
+      ]
+    },
+    {
+      "product": "Attribution & Analytics",
+      "company": "Eulerian Technologies SAS",
+      "domains": [
+        "ew3.io"
+      ]
+    },
+    {
+      "product": "AudienceOne®",
+      "company": "Hakuhodo DY ONE Inc.",
+      "domains": [
+        "penta.a.one.impact-ad.jp"
+      ]
+    },
+    {
+      "product": "Audiencelab",
+      "company": "Geeklab",
+      "domains": [
+        "router.geeklab.app"
+      ]
+    },
+    {
+      "product": "Aweb",
+      "company": "Aweb sp. z o.o.",
+      "domains": [
+        "globalclicklab.com"
+      ]
+    },
+    {
+      "product": "AwebOptimise",
+      "company": "TOV Aweb",
+      "domains": [
+        "awebopt.com"
+      ]
+    },
+    {
+      "product": "Basis Technologies",
+      "company": "Basis Technologies",
+      "domains": [
+        "clickserv.sitescout.com"
+      ]
+    },
+    {
+      "product": "Beaconsoft",
+      "company": "Beaconsoft Ltd",
+      "domains": [
+        "beacon.bcn.to"
+      ]
+    },
+    {
+      "product": "Belboon GmbH",
+      "company": "belboon GmbH",
+      "domains": [
+        "luna.r.lafamo.com"
+      ]
+    },
+    {
+      "product": "Belboon GmbH",
+      "company": "belboon GmbH",
+      "domains": [
+        "janus.r.jakuli.com"
+      ]
+    },
+    {
+      "product": "Belboon GmbH",
+      "company": "belboon GmbH",
+      "domains": [
+        "atlas.r.akipam.com"
+      ]
+    },
+    {
+      "product": "Belboon GmbH",
+      "company": "belboon GmbH",
+      "domains": [
+        "pluto.r.powuta.com"
+      ]
+    },
+    {
+      "product": "Belboon GmbH",
+      "company": "belboon GmbH",
+      "domains": [
+        "neso.r.niwepa.com"
+      ]
+    },
+    {
+      "product": "Bending Spoons",
+      "company": "Bending Spoons S.p.A",
+      "domains": [
+        "bndspn.com"
+      ]
+    },
+    {
+      "product": "Bending Spoons",
+      "company": "Bending Spoons S.p.A",
+      "domains": [
+        "x.bndspn.com"
+      ]
+    },
+    {
+      "product": "Blend AI",
+      "company": "Blend A.I. Pty Ltd",
+      "domains": [
+        "tracker.blend-ai.com"
+      ]
+    },
+    {
+      "product": "Blue Media",
+      "company": "Blue Media Services LTDA",
+      "domains": [
+        "bluems.com"
+      ]
+    },
+    {
+      "product": "Bluekai",
+      "company": "Oracle Data Cloud",
+      "domains": [
+        "bluekai.com"
+      ]
+    },
+    {
+      "product": "Branch Metrics",
+      "company": "Branch Metrics",
+      "domains": [
+        "app.link"
+      ]
+    },
+    {
+      "product": "CENARIO METRICS",
+      "company": "CENARIO CAPITAL LTDA",
+      "domains": [
+        "go.cenarioconsulta.com.br"
+      ]
+    },
+    {
+      "product": "CJ",
+      "company": "Commission Junction LLC",
+      "domains": [
+        "cjads.com"
+      ]
+    },
+    {
+      "product": "CPV Lab",
+      "company": "Uptechvision Solutions SRL",
+      "domains": [
+        "cpvcld.com"
+      ]
+    },
+    {
+      "product": "CPV Lab",
+      "company": "Uptechvision Solutions SRL",
+      "domains": [
+        "cpvtrk.com"
+      ]
+    },
+    {
+      "product": "CPV One",
+      "company": "Uptechvision Solutions SRL",
+      "domains": [
+        "trk.clptrk.com"
+      ]
+    },
+    {
+      "product": "CPV One",
+      "company": "Uptechvision Solutions SRL",
+      "domains": [
+        "trk.rdrclp.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "link.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk1.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk2.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk4.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk5.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk5.crossway.rocks"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk3.crosswayrocks.com"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk2.crossway.rocks"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "link.crossway.rocks"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk1.crossway.rocks"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk4.crossway.rocks"
+      ]
+    },
+    {
+      "product": "CR",
+      "company": "CROSSWAY ROCKS MEDIA (HK) LIMITED",
+      "domains": [
+        "lnk3.crossway.rocks"
+      ]
+    },
+    {
+      "product": "Campaign Manager 360",
+      "company": "Google, Inc.",
+      "domains": [
+        "ad.doubleclick.net"
+      ]
+    },
+    {
+      "product": "Channel Pilot",
+      "company": "Channel Pilot Solutions",
+      "domains": [
+        "cptrack.de"
+      ]
+    },
+    {
+      "product": "ChannelSight Ltd",
+      "company": "ChannelSight Ltd",
+      "domains": [
+        "click.channelsight.com"
+      ]
+    },
+    {
+      "product": "Claritas Clicktracker",
+      "company": "Claritas, LLC",
+      "domains": [
+        "trkn.us"
+      ]
+    },
+    {
+      "product": "Claritas Clicktracker",
+      "company": "Claritas, LLC",
+      "domains": [
+        "arttrk.com"
+      ]
+    },
+    {
+      "product": "ClearTrust",
+      "company": "Botman Networks Pvt Ltd",
+      "domains": [
+        "admd.ink"
+      ]
+    },
+    {
+      "product": "ClearTrust",
+      "company": "Botman Networks Pvt Ltd",
+      "domains": [
+        "fst.ink"
+      ]
+    },
+    {
+      "product": "ClearTrust",
+      "company": "Botman Networks Pvt Ltd",
+      "domains": [
+        "botman.ninja"
+      ]
+    },
+    {
+      "product": "ClearTrust",
+      "company": "Botman Networks Pvt Ltd",
+      "domains": [
+        "spxl.ink"
+      ]
+    },
+    {
+      "product": "Click",
+      "company": "Derbysoft Inc.",
+      "domains": [
+        "linkcenter.derbysoftca.com"
+      ]
+    },
+    {
+      "product": "ClickCease",
+      "company": "ClickCease by CHEQ",
+      "domains": [
+        "clickcease.com"
+      ]
+    },
+    {
+      "product": "ClickExpose",
+      "company": "ClickExpose LTD",
+      "domains": [
+        "clickexpose.com"
+      ]
+    },
+    {
+      "product": "ClickFortify",
+      "company": "Click Fortify",
+      "domains": [
+        "tracker.clickfortify.com"
+      ]
+    },
+    {
+      "product": "ClickPatrol.com",
+      "company": "ClickPatrol.com",
+      "domains": [
+        "clck-001.clickpatrol.com"
+      ]
+    },
+    {
+      "product": "ClickPatrol.com",
+      "company": "ClickPatrol.com",
+      "domains": [
+        "clckptrl.com"
+      ]
+    },
+    {
+      "product": "ClickSambo",
+      "company": "ClickSambo OÜ",
+      "domains": [
+        "ping.clicksambo.com"
+      ]
+    },
+    {
+      "product": "Clickdefense",
+      "company": "ClickDefense S.L",
+      "domains": [
+        "clickdefense.cc"
+      ]
+    },
+    {
+      "product": "Clickguard",
+      "company": "ClickGUARD",
+      "domains": [
+        "io.clickguard.com"
+      ]
+    },
+    {
+      "product": "Clickguard",
+      "company": "ClickGUARD",
+      "domains": [
+        "pulse.clickguard.com"
+      ]
+    },
+    {
+      "product": "Clickguard",
+      "company": "ClickGUARD",
+      "domains": [
+        "tracker.clickguard.com"
+      ]
+    },
+    {
+      "product": "Clicks Buster",
+      "company": "Iconic Code",
+      "domains": [
+        "clicksbuster.com"
+      ]
+    },
+    {
+      "product": "Clickwise Clicktracker",
+      "company": "Afventures Network S.L.",
+      "domains": [
+        "t.clickwise.net"
+      ]
+    },
+    {
+      "product": "Clixtell",
+      "company": "Clixtell LLC",
+      "domains": [
+        "track.clixtell.com"
+      ]
+    },
+    {
+      "product": "Clixtell",
+      "company": "Clixtell LLC",
+      "domains": [
+        "tracker.clixtell.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "securewebmetrics.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "userlinx.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "auth-analytix.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "trackercc.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "usrlnx.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "auth-analytics.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "secwebmetrics.com"
+      ]
+    },
+    {
+      "product": "Collectcent Tracker",
+      "company": "Collectcent LLC",
+      "domains": [
+        "trkrcc.com"
+      ]
+    },
+    {
+      "product": "Commanders Act",
+      "company": "Fjord Technologies S.A.S",
+      "domains": [
+        "commander1.com"
+      ]
+    },
+    {
+      "product": "Commission Factory",
+      "company": "Commission Factory Pty Ltd",
+      "domains": [
+        "t.cfjump.com"
+      ]
+    },
+    {
+      "product": "CommunicationAds",
+      "company": "communicationAds GmbH & Co. KG",
+      "domains": [
+        "cadsutb.net"
+      ]
+    },
+    {
+      "product": "Connexity",
+      "company": "Connexity LLC",
+      "domains": [
+        "rd.bizrate.com"
+      ]
+    },
+    {
+      "product": "ContextWeb Inc.",
+      "company": "PulsePoint, Inc.",
+      "domains": [
+        "contextweb.com"
+      ]
+    },
+    {
+      "product": "Conversant",
+      "company": "Epsilon Data Management, LLC",
+      "domains": [
+        "mediaplex.com"
+      ]
+    },
+    {
+      "product": "ConvertSocial",
+      "company": "Convertsocial FZ-LLC",
+      "domains": [
+        "mobcs.com"
+      ]
+    },
+    {
+      "product": "ConvertSocial",
+      "company": "Convertsocial FZ-LLC",
+      "domains": [
+        "whoozy.co"
+      ]
+    },
+    {
+      "product": "ConvertSocial",
+      "company": "Convertsocial FZ-LLC",
+      "domains": [
+        "creatorsmob.co"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.outbizz.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.zaptk.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.vibebusi.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.grdhub.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.effiflw.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.concthub.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.flexitrck.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.jetstrms.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "tk.dsptmedia.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.wavezw.com"
+      ]
+    },
+    {
+      "product": "Convertup",
+      "company": "Convertup Media Pvt Ltd",
+      "domains": [
+        "trk.innodsk.com"
+      ]
+    },
+    {
+      "product": "Crealytics",
+      "company": "crealytics GmbH",
+      "domains": [
+        "crealytics.com"
+      ]
+    },
+    {
+      "product": "Creative Clicks B.V.",
+      "company": "Creative Clicks B.V.",
+      "domains": [
+        "trkccgl.com"
+      ]
+    },
+    {
+      "product": "Creators House Limited",
+      "company": "Creators House Limited",
+      "domains": [
+        "track.creatorshouse.ai"
+      ]
+    },
+    {
+      "product": "Cuelinks",
+      "company": "Parity Cube Private Limited",
+      "domains": [
+        "linksredirect.com"
+      ]
+    },
+    {
+      "product": "Cuelinks",
+      "company": "Parity Cube Private Limited",
+      "domains": [
+        "lnks.co.in"
+      ]
+    },
+    {
+      "product": "D-EDGE",
+      "company": "D-EDGE SAS",
+      "domains": [
+        "d-edgeconnect.media"
+      ]
+    },
+    {
+      "product": "D-EDGE",
+      "company": "D-EDGE SAS",
+      "domains": [
+        "secure-hotel-booking.com"
+      ]
+    },
+    {
+      "product": "D-EDGE",
+      "company": "D-EDGE SAS",
+      "domains": [
+        "book-secure.com"
+      ]
+    },
+    {
+      "product": "DECODE CLICK TRACKER",
+      "company": "Decode",
+      "domains": [
+        "day24.online"
+      ]
+    },
+    {
+      "product": "Daisycon",
+      "company": "Daisycon B.V.",
+      "domains": [
+        "pla.daisycon.io"
+      ]
+    },
+    {
+      "product": "De Quanta Fi Media Pvt Ltd",
+      "company": "De Quanta Fi Media Pvt Ltd",
+      "domains": [
+        "gotravelholidays.com"
+      ]
+    },
+    {
+      "product": "De Quanta Fi Media Pvt Ltd",
+      "company": "De Quanta Fi Media Pvt Ltd",
+      "domains": [
+        "impulseonline.shop"
+      ]
+    },
+    {
+      "product": "DeltaX",
+      "company": "AdBox Software Pvt Ltd.",
+      "domains": [
+        "adx.io"
+      ]
+    },
+    {
+      "product": "Delupe",
+      "company": "Delupe A/S",
+      "domains": [
+        "tracking.delupe.net"
+      ]
+    },
+    {
+      "product": "Demandesk Tracker",
+      "company": "ADSFUSION MEDIAWORKS LLP",
+      "domains": [
+        "lnk.demandesk.com"
+      ]
+    },
+    {
+      "product": "Dentsu Taiwan",
+      "company": "Dentsu Taiwan Inc.",
+      "domains": [
+        "amnet.tw"
+      ]
+    },
+    {
+      "product": "Despegar",
+      "company": "Despegar.com, Inc .",
+      "domains": [
+        "trackeame.com"
+      ]
+    },
+    {
+      "product": "DocID",
+      "company": "8awake GmbH",
+      "domains": [
+        "8awake.com"
+      ]
+    },
+    {
+      "product": "DocID",
+      "company": "8awake GmbH",
+      "domains": [
+        "docid.pro"
+      ]
+    },
+    {
+      "product": "Dognet Affiliate Network",
+      "company": "Lead Media sro",
+      "domains": [
+        "go.dognet.com"
+      ]
+    },
+    {
+      "product": "DriveMetaData(DMD)",
+      "company": "Oneplace Web Solution Pvt Ltd",
+      "domains": [
+        "drivemetadata.io"
+      ]
+    },
+    {
+      "product": "DriveMetaData(DMD)",
+      "company": "Oneplace Web Solution Pvt Ltd",
+      "domains": [
+        "dmd.mobi"
+      ]
+    },
+    {
+      "product": "Dynamic 1001",
+      "company": "Dynamic 1001 GmbH",
+      "domains": [
+        "media01.eu"
+      ]
+    },
+    {
+      "product": "EMMA Tracker",
+      "company": "EMMA MOBILE SOLUTIONS SL",
+      "domains": [
+        "eat.emmasolutions.net"
+      ]
+    },
+    {
+      "product": "EXONMEDIA LTD",
+      "company": "EXONMEDIA LTD",
+      "domains": [
+        "bestchoice.com"
+      ]
+    },
+    {
+      "product": "EcomAccess",
+      "company": "EcomAccess Inc.",
+      "domains": [
+        "eacdn.com"
+      ]
+    },
+    {
+      "product": "EffWW Tracker",
+      "company": "Efficacy Worldwide Private Limited",
+      "domains": [
+        "eonlnm.com"
+      ]
+    },
+    {
+      "product": "EffWW Tracker",
+      "company": "Efficacy Worldwide Private Limited",
+      "domains": [
+        "eonlnx.com"
+      ]
+    },
+    {
+      "product": "EffWW Tracker",
+      "company": "Efficacy Worldwide Private Limited",
+      "domains": [
+        "eonlnv.com"
+      ]
+    },
+    {
+      "product": "EffWW Tracker",
+      "company": "Efficacy Worldwide Private Limited",
+      "domains": [
+        "eonlnq.com"
+      ]
+    },
+    {
+      "product": "Elevarix Click Tracker",
+      "company": "Elevarix Media Private Limited",
+      "domains": [
+        "affilmanage.com"
+      ]
+    },
+    {
+      "product": "Etracker",
+      "company": "etracker GmbH",
+      "domains": [
+        "etracker.de"
+      ]
+    },
+    {
+      "product": "Everflow",
+      "company": "Everflow Technologies Inc.",
+      "domains": [
+        "gametlk1.com"
+      ]
+    },
+    {
+      "product": "Everflow",
+      "company": "Everflow Technologies Inc.",
+      "domains": [
+        "gametlk3.com"
+      ]
+    },
+    {
+      "product": "Everflow",
+      "company": "Everflow Technologies Inc.",
+      "domains": [
+        "gfl85trk.com"
+      ]
+    },
+    {
+      "product": "Everflow",
+      "company": "Everflow Technologies Inc.",
+      "domains": [
+        "gametlk2.com"
+      ]
+    },
+    {
+      "product": "Everflow",
+      "company": "Everflow Technologies Inc.",
+      "domains": [
+        "ib0ftrk.com"
+      ]
+    },
+    {
+      "product": "Exactag Clicktracker",
+      "company": "Exactag GmbH",
+      "domains": [
+        "exactag.com"
+      ]
+    },
+    {
+      "product": "FK Tracker",
+      "company": "Flickstree Productions Pvt Ltd",
+      "domains": [
+        "tracker.secretdealstoday.com"
+      ]
+    },
+    {
+      "product": "FK Tracker",
+      "company": "Flickstree Productions Pvt Ltd",
+      "domains": [
+        "tracker.internet24marketing.com"
+      ]
+    },
+    {
+      "product": "Financequality",
+      "company": "Netzeffekt",
+      "domains": [
+        "c.neqty.net"
+      ]
+    },
+    {
+      "product": "Flashtalking Clicktracker",
+      "company": "Mediaocean, LLC",
+      "domains": [
+        "servedby.flashtalking.com"
+      ]
+    },
+    {
+      "product": "Flashtalking Clicktracker",
+      "company": "Mediaocean, LLC",
+      "domains": [
+        "servedby-us.flashtalking.com"
+      ]
+    },
+    {
+      "product": "Foresight Intelligence",
+      "company": "Discovery Design Limited",
+      "domains": [
+        "protect.foresightintelligence.io"
+      ]
+    },
+    {
+      "product": "Fraud Blocker",
+      "company": "Fraud Blocker",
+      "domains": [
+        "monitor.fraudblocker.com"
+      ]
+    },
+    {
+      "product": "Fraud0 Click Tracker",
+      "company": "fraud0 GmbH",
+      "domains": [
+        "click-eu.fraud0.net"
+      ]
+    },
+    {
+      "product": "Fraud0 Click Tracker",
+      "company": "fraud0 GmbH",
+      "domains": [
+        "click.fraud0.io"
+      ]
+    },
+    {
+      "product": "Fraud0 Click Tracker",
+      "company": "fraud0 GmbH",
+      "domains": [
+        "click.fraud0.net"
+      ]
+    },
+    {
+      "product": "Fraud0 Click Tracker",
+      "company": "fraud0 GmbH",
+      "domains": [
+        "click.fraud0.com"
+      ]
+    },
+    {
+      "product": "Frozen Tracks",
+      "company": "Frozen Tracks Technologies GmbH",
+      "domains": [
+        "trck.fttrck.net"
+      ]
+    },
+    {
+      "product": "Gamesight",
+      "company": "Gamesight Inc.",
+      "domains": [
+        "gsght.com"
+      ]
+    },
+    {
+      "product": "Genie Shopping",
+      "company": "Genie Ventures",
+      "domains": [
+        "trk.genieshopping.com"
+      ]
+    },
+    {
+      "product": "Genie Shopping",
+      "company": "Genie Ventures",
+      "domains": [
+        "trk2.genieshopping.com"
+      ]
+    },
+    {
+      "product": "Getblue",
+      "company": "OliveiraCelso Consultoria e Participações LTDA.",
+      "domains": [
+        "clicktracker.getblue.io"
+      ]
+    },
+    {
+      "product": "Glitch",
+      "company": "Invirtu Labs, Inc",
+      "domains": [
+        "l.glitch.fun"
+      ]
+    },
+    {
+      "product": "Globerada",
+      "company": "Global Decibel SL",
+      "domains": [
+        "globerada.com"
+      ]
+    },
+    {
+      "product": "Globerada",
+      "company": "Global Decibel SL",
+      "domains": [
+        "tracking.globerada.com"
+      ]
+    },
+    {
+      "product": "Globerada",
+      "company": "Global Decibel SL",
+      "domains": [
+        "trk.globerada.com"
+      ]
+    },
+    {
+      "product": "Glopss",
+      "company": "Glopss Media Private Limited",
+      "domains": [
+        "tracker.glopss.com"
+      ]
+    },
+    {
+      "product": "Gomobupps.com",
+      "company": "Mobupps",
+      "domains": [
+        "link.mobupps.com"
+      ]
+    },
+    {
+      "product": "Gomobupps.com",
+      "company": "Mobupps",
+      "domains": [
+        "go.gomobupps.com"
+      ]
+    },
+    {
+      "product": "Haus Byrå AS",
+      "company": "Haus Byrå AS",
+      "domains": [
+        "track.hausbyra.eu"
+      ]
+    },
+    {
+      "product": "Hearts&Science Clicktracker",
+      "company": "Hearts&Science GmbH",
+      "domains": [
+        "a.nonstoppartner.net"
+      ]
+    },
+    {
+      "product": "Hitprobe",
+      "company": "Chalkboard Software Limited",
+      "domains": [
+        "click.hitprobe.com"
+      ]
+    },
+    {
+      "product": "Hotmart",
+      "company": "Launch Pad Tecnologia, Serviços e Pagamentos Ltda.",
+      "domains": [
+        "go.hotmart.com"
+      ]
+    },
+    {
+      "product": "Hubpeople",
+      "company": "Hubpeople Limited",
+      "domains": [
+        "c.hubz.pl"
+      ]
+    },
+    {
+      "product": "Hueads Tracker",
+      "company": "Hueads, Inc.",
+      "domains": [
+        "blissoffer.com"
+      ]
+    },
+    {
+      "product": "Hunt Ads",
+      "company": "Hunt Digital Media",
+      "domains": [
+        "ck.hdm3.in"
+      ]
+    },
+    {
+      "product": "Hurra Clicktracker",
+      "company": "Hurra Communications GmbH",
+      "domains": [
+        "ssl.hurra.com"
+      ]
+    },
+    {
+      "product": "Hurra Clicktracker",
+      "company": "Hurra Communications GmbH",
+      "domains": [
+        "cdn.adsdefender.com"
+      ]
+    },
+    {
+      "product": "Hype Digital",
+      "company": "Hype Consulting LLC",
+      "domains": [
+        "proxy.hypedigital.us"
+      ]
+    },
+    {
+      "product": "Hype Digital",
+      "company": "Hype Consulting LLC",
+      "domains": [
+        "proxy.gym-offers.com"
+      ]
+    },
+    {
+      "product": "Hype Digital",
+      "company": "Hype Consulting LLC",
+      "domains": [
+        "proxy.af-promo.com"
+      ]
+    },
+    {
+      "product": "Hype Digital",
+      "company": "Hype Consulting LLC",
+      "domains": [
+        "proxy.alloy-promo.com"
+      ]
+    },
+    {
+      "product": "IBRA Trackers",
+      "company": "IBRA Digital Branding Services LLC",
+      "domains": [
+        "trk.ibratrk.com"
+      ]
+    },
+    {
+      "product": "IBRA Trackers",
+      "company": "IBRA Digital Branding Services LLC",
+      "domains": [
+        "trk.trktrackier.com"
+      ]
+    },
+    {
+      "product": "ICast",
+      "company": "인크로스",
+      "domains": [
+        "t.dawin.tv"
+      ]
+    },
+    {
+      "product": "IM-DMP / IM-CDP / IM-UID",
+      "company": "Intimate Merger, Inc.",
+      "domains": [
+        "clk.im-apps.net"
+      ]
+    },
+    {
+      "product": "INIS sp. z o.o.",
+      "company": "INIS sp. z o.o.",
+      "domains": [
+        "system360.inistrack.net"
+      ]
+    },
+    {
+      "product": "ITGreen",
+      "company": "CÔNG TY TNHH PHÁT TRIỂN GIẢI PHÁP TIN HỌC BỀN VỮNG ITGREEN",
+      "domains": [
+        "itgreen.com.vn"
+      ]
+    },
+    {
+      "product": "ITGreen",
+      "company": "CÔNG TY TNHH PHÁT TRIỂN GIẢI PHÁP TIN HỌC BỀN VỮNG ITGREEN",
+      "domains": [
+        "google.itgreen.com.vn"
+      ]
+    },
+    {
+      "product": "Impact Radius",
+      "company": "Impact Radius",
+      "domains": [
+        "pxf.io"
+      ]
+    },
+    {
+      "product": "Impact Radius",
+      "company": "Impact Radius",
+      "domains": [
+        "sjv.io"
+      ]
+    },
+    {
+      "product": "Improvely",
+      "company": "Awio Web Services LLC",
+      "domains": [
+        "iljmp.com"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "aclk.org"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "5-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "7-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "1-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "3-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "9-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "bidminer.com"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "8-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "4-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "2-aclk.net"
+      ]
+    },
+    {
+      "product": "Imwave",
+      "company": "imwave, inc.",
+      "domains": [
+        "6-aclk.net"
+      ]
+    },
+    {
+      "product": "Ingenious Technologies AG",
+      "company": "Ingenious Technologies",
+      "domains": [
+        "rubsy.ingenious.cloud"
+      ]
+    },
+    {
+      "product": "Intelliad Clicktracker",
+      "company": "intelliAd Media GmbH",
+      "domains": [
+        "intelliad.de"
+      ]
+    },
+    {
+      "product": "JVT Tracker",
+      "company": "JVT TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "click.advertisemedia.pro"
+      ]
+    },
+    {
+      "product": "Kelkoo",
+      "company": "Kelkoo SA",
+      "domains": [
+        "kelkoogroup.net"
+      ]
+    },
+    {
+      "product": "Keyade",
+      "company": "Keyade",
+      "domains": [
+        "mt-k.madmetrics.com"
+      ]
+    },
+    {
+      "product": "Keyade",
+      "company": "Keyade",
+      "domains": [
+        "k.keyade.com"
+      ]
+    },
+    {
+      "product": "Keyade",
+      "company": "Keyade",
+      "domains": [
+        "k.madmetrics.com"
+      ]
+    },
+    {
+      "product": "Knorex",
+      "company": "Knorex Pte. Ltd.",
+      "domains": [
+        "sv.brand-display.com"
+      ]
+    },
+    {
+      "product": "Kochava",
+      "company": "Kochava Inc.",
+      "domains": [
+        "control.kochava.com"
+      ]
+    },
+    {
+      "product": "Kochava",
+      "company": "Kochava Inc.",
+      "domains": [
+        "smart.link"
+      ]
+    },
+    {
+      "product": "Kochava",
+      "company": "Kochava Inc.",
+      "domains": [
+        "adsmeasurement.com"
+      ]
+    },
+    {
+      "product": "Koddi",
+      "company": "Koddi, Inc.",
+      "domains": [
+        "koddi.com"
+      ]
+    },
+    {
+      "product": "LINKBEST",
+      "company": "LINKBEST TECH LIMITED",
+      "domains": [
+        "track.linkbest.com"
+      ]
+    },
+    {
+      "product": "LINKBEST",
+      "company": "LINKBEST TECH LIMITED",
+      "domains": [
+        "track.izhuama.com"
+      ]
+    },
+    {
+      "product": "LeadIntel.io Click Tracker",
+      "company": "Magnetise Solutions Limited",
+      "domains": [
+        "magnetise.io"
+      ]
+    },
+    {
+      "product": "LeadIntel.io Click Tracker",
+      "company": "Magnetise Solutions Limited",
+      "domains": [
+        "leadintel.io"
+      ]
+    },
+    {
+      "product": "Leadgid",
+      "company": "Smart City OÜ",
+      "domains": [
+        "go.leadgid.com"
+      ]
+    },
+    {
+      "product": "Leadgid",
+      "company": "Smart City OÜ",
+      "domains": [
+        "go.leadgid.eu"
+      ]
+    },
+    {
+      "product": "Lean Digital Media",
+      "company": "EIMS Ltd",
+      "domains": [
+        "track.leandigitalmedia.com"
+      ]
+    },
+    {
+      "product": "Letmeads Click Tracker",
+      "company": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ МЕРЕЖА ПАРТНЕРСЬКИХ ПРОГРАМ «ЛЕТМІЕДС»",
+      "domains": [
+        "pdl.letmeads.com"
+      ]
+    },
+    {
+      "product": "LiAD",
+      "company": "LiTV (TAIWAN) INC.",
+      "domains": [
+        "adsv.svc.litv.tv"
+      ]
+    },
+    {
+      "product": "Lifesight Clicktracker",
+      "company": "Lifesight Pte. Ltd.",
+      "domains": [
+        "pixel.ad.lifesight.io"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linksconnector.com"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linkconnector.co"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linkconnector.us"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linkconnector.com"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linkconnector.net"
+      ]
+    },
+    {
+      "product": "LinkConnector Corporation",
+      "company": "LinkConnector Corporation",
+      "domains": [
+        "linkconnector.org"
+      ]
+    },
+    {
+      "product": "Linkinon",
+      "company": "Linkinon Inc.",
+      "domains": [
+        "offer.omg789.com"
+      ]
+    },
+    {
+      "product": "Linkwise",
+      "company": "LINKWISE IKE",
+      "domains": [
+        "go.linkwi.se"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "777nl.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "betfirst.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "netbetfr.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "netbet.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "777es.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "netbetit.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "777ch.livepartners.com"
+      ]
+    },
+    {
+      "product": "LivePartners",
+      "company": "Global Interactive Marketing On-line Limited",
+      "domains": [
+        "banners.livepartners.com"
+      ]
+    },
+    {
+      "product": "Ln{Track}",
+      "company": "LnData Inc.",
+      "domains": [
+        "lndata.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localbusinesses.services"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "services.dental"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "reachlocal.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "homerl.services"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "homesrvcs.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "healthresources.co"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localrl.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "dentalservices.biz"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "professionalsrvcs.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "purchasenow.us"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localservicerl.com.au"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "autorl.parts"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "smrtlnk.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "legalservices.help"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "realestatesrvs.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localrl.com.au"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "attorneyandlegal.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "homeresource.online"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "myplumber.co"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "learning.school"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "autoresource.online"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk.co.uk"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk.com.au"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localhomeservices.biz"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "personalservices.biz"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "acandheating.co"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk.co.nz"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "homeservices.company"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "autopurchase.us"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "construccionrl.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "healthservices.help"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk.ca"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "localbusuiness.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "reservationnow.us"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "automotive.services"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "shopnearme.us"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "healthservicesrl.com.au"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "rtrk5.com"
+      ]
+    },
+    {
+      "product": "LocaliQ",
+      "company": "LocaliQ",
+      "domains": [
+        "findschools.ca"
+      ]
+    },
+    {
+      "product": "Lotame Spherical Platform",
+      "company": "Lotame Solutions Inc.",
+      "domains": [
+        "bcp.crwdcntrl.net"
+      ]
+    },
+    {
+      "product": "Lotlinx",
+      "company": "Lotlinx Inc.",
+      "domains": [
+        "autos.lotlinx.com"
+      ]
+    },
+    {
+      "product": "Lunio",
+      "company": "PPC Protect Limited",
+      "domains": [
+        "ppcprotect.com"
+      ]
+    },
+    {
+      "product": "Lunio",
+      "company": "PPC Protect Limited",
+      "domains": [
+        "lunio.ai"
+      ]
+    },
+    {
+      "product": "MIC Tracker",
+      "company": "MICCREATIVE., JSC",
+      "domains": [
+        "tracker.miccreative.vn"
+      ]
+    },
+    {
+      "product": "MTrack",
+      "company": "MMADS Technologies Pvt. Ltd",
+      "domains": [
+        "clk.simulation-technology.com"
+      ]
+    },
+    {
+      "product": "Marketing Via Digital",
+      "company": "Marketing Via Digital",
+      "domains": [
+        "trace.marketingviadigital.com"
+      ]
+    },
+    {
+      "product": "MasOffer",
+      "company": "VIMARKET VIET NAM JOINT STOCK COMPANY",
+      "domains": [
+        "flexctk.com"
+      ]
+    },
+    {
+      "product": "MasOffer",
+      "company": "VIMARKET VIET NAM JOINT STOCK COMPANY",
+      "domains": [
+        "linknhanh.org"
+      ]
+    },
+    {
+      "product": "MaxBounty",
+      "company": "MaxBounty ULC",
+      "domains": [
+        "afflat3x.com"
+      ]
+    },
+    {
+      "product": "MaxBounty",
+      "company": "MaxBounty ULC",
+      "domains": [
+        "afflat3s1.com"
+      ]
+    },
+    {
+      "product": "MaxBounty",
+      "company": "MaxBounty ULC",
+      "domains": [
+        "afflat3s3.com"
+      ]
+    },
+    {
+      "product": "MaxBounty",
+      "company": "MaxBounty ULC",
+      "domains": [
+        "afflat3s2.com"
+      ]
+    },
+    {
+      "product": "MaxConv",
+      "company": "Byte Oceans Limited",
+      "domains": [
+        "mcclk.com"
+      ]
+    },
+    {
+      "product": "MaxConv",
+      "company": "Byte Oceans Limited",
+      "domains": [
+        "click.maxconv.com"
+      ]
+    },
+    {
+      "product": "Maxpoint Transparent Click Tracker",
+      "company": "VIETNAM MAXPOINT MEDIA JOINT STOCK COMPANY",
+      "domains": [
+        "track.maxpointmedia.com"
+      ]
+    },
+    {
+      "product": "Measurement",
+      "company": "InMarket Media LLC",
+      "domains": [
+        "lciapi.ninthdecimal.com"
+      ]
+    },
+    {
+      "product": "Media.net Click Shield",
+      "company": "Media.Net Advertising FZ-LLC",
+      "domains": [
+        "verify.link"
+      ]
+    },
+    {
+      "product": "Media.net Click Shield",
+      "company": "Media.Net Advertising FZ-LLC",
+      "domains": [
+        "launch.link"
+      ]
+    },
+    {
+      "product": "Media.net Click Shield",
+      "company": "Media.Net Advertising FZ-LLC",
+      "domains": [
+        "url.link"
+      ]
+    },
+    {
+      "product": "Media.net Click Shield",
+      "company": "Media.Net Advertising FZ-LLC",
+      "domains": [
+        "go.media.net"
+      ]
+    },
+    {
+      "product": "Mediamath",
+      "company": "MediaMath, Inc.",
+      "domains": [
+        "mathtag.com"
+      ]
+    },
+    {
+      "product": "Mediascopy",
+      "company": "Mediascopy Digital Solutions",
+      "domains": [
+        "mediascopy.com"
+      ]
+    },
+    {
+      "product": "Mediascopy",
+      "company": "Mediascopy Digital Solutions",
+      "domains": [
+        "adworks-media.com"
+      ]
+    },
+    {
+      "product": "Mediascopy",
+      "company": "Mediascopy Digital Solutions",
+      "domains": [
+        "media-box.co.in"
+      ]
+    },
+    {
+      "product": "Mediascopy",
+      "company": "Mediascopy Digital Solutions",
+      "domains": [
+        "ad-zilla.com"
+      ]
+    },
+    {
+      "product": "Mediazotic",
+      "company": "Mediazotic Solutions",
+      "domains": [
+        "mediazotic.net"
+      ]
+    },
+    {
+      "product": "Merkle",
+      "company": "Merkle, Inc.",
+      "domains": [
+        "o-s.io"
+      ]
+    },
+    {
+      "product": "Metricsverse",
+      "company": "GVR International, LLC",
+      "domains": [
+        "app.metricsverse.com"
+      ]
+    },
+    {
+      "product": "MikMak",
+      "company": "MikMak LLC",
+      "domains": [
+        "retail.mikmak.ai"
+      ]
+    },
+    {
+      "product": "Mino",
+      "company": "Mino AI Limited.",
+      "domains": [
+        "minotracker.com"
+      ]
+    },
+    {
+      "product": "Mino",
+      "company": "Mino AI Limited.",
+      "domains": [
+        "eclicktracker.fr"
+      ]
+    },
+    {
+      "product": "Mino",
+      "company": "Mino AI Limited.",
+      "domains": [
+        "mino.org"
+      ]
+    },
+    {
+      "product": "Mo Meditation",
+      "company": "Mo Meditation Inc.",
+      "domains": [
+        "link.momeditation.app"
+      ]
+    },
+    {
+      "product": "Mobiotics OTT Tracker",
+      "company": "Mobiotics IT Solution Pvt. Ltd.",
+      "domains": [
+        "wetrack.online"
+      ]
+    },
+    {
+      "product": "Mobiotics OTT Tracker",
+      "company": "Mobiotics IT Solution Pvt. Ltd.",
+      "domains": [
+        "mobiotud.com"
+      ]
+    },
+    {
+      "product": "Mobiotics OTT Tracker",
+      "company": "Mobiotics IT Solution Pvt. Ltd.",
+      "domains": [
+        "mobiotsd.com"
+      ]
+    },
+    {
+      "product": "Mobiotics OTT Tracker",
+      "company": "Mobiotics IT Solution Pvt. Ltd.",
+      "domains": [
+        "mobiothd.com"
+      ]
+    },
+    {
+      "product": "Muypil",
+      "company": "Cyber Defense Yazılım Teknolojileri Anonim Şirketi",
+      "domains": [
+        "muypil.com"
+      ]
+    },
+    {
+      "product": "Muypil",
+      "company": "Cyber Defense Yazılım Teknolojileri Anonim Şirketi",
+      "domains": [
+        "trc.adsfoni.com"
+      ]
+    },
+    {
+      "product": "N.Rich",
+      "company": "N.Rich Technologies Oy",
+      "domains": [
+        "serve.nrich.ai"
+      ]
+    },
+    {
+      "product": "N.Rich",
+      "company": "N.Rich Technologies Oy",
+      "domains": [
+        "us-serve.nrich.ai"
+      ]
+    },
+    {
+      "product": "NOMADZ DIGITAL AND INNOVATION",
+      "company": "NOMADZ DIGITAL AND INNOVATION PRIVATE LIMITED",
+      "domains": [
+        "trk.nomadzdigital.com"
+      ]
+    },
+    {
+      "product": "Neory",
+      "company": "NEORY GmbH",
+      "domains": [
+        "t.neory-tm.net"
+      ]
+    },
+    {
+      "product": "Neural One",
+      "company": "Artificial Intelligence for Marketing S.L",
+      "domains": [
+        "neural17.cdnwebcloud.com"
+      ]
+    },
+    {
+      "product": "Newzoo",
+      "company": "Newzoo",
+      "domains": [
+        "nwzo.io"
+      ]
+    },
+    {
+      "product": "Nexinsight Click Tracker",
+      "company": "LLC \"NEXINSIGHT\"",
+      "domains": [
+        "c.nexinsight.com.ua"
+      ]
+    },
+    {
+      "product": "Next Level Defend",
+      "company": "Next Level S.L.",
+      "domains": [
+        "nextleveldefend.com"
+      ]
+    },
+    {
+      "product": "Next Level Defend",
+      "company": "Next Level S.L.",
+      "domains": [
+        "worx.io"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "nextagmedia.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "trk.alwaysthing.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "track.paisaking.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "trk1.nextagmedia.in"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "track.couponzparking.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "trk.nextagmedia.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "trk1.nextagmedia.com"
+      ]
+    },
+    {
+      "product": "Nextagmedia",
+      "company": "U1 TECHNOLOGIES PRIVATE LIMITED",
+      "domains": [
+        "trk2.nextagmedia.in"
+      ]
+    },
+    {
+      "product": "Nielsen (Audience Measurement Platform) Clicktracker",
+      "company": "Nielsen",
+      "domains": [
+        "myvisualiq.net"
+      ]
+    },
+    {
+      "product": "Novaon AutoAds",
+      "company": "Novaon AutoAds",
+      "domains": [
+        "fcd.autoads.asia"
+      ]
+    },
+    {
+      "product": "Novaon AutoAds",
+      "company": "Novaon AutoAds",
+      "domains": [
+        "autoads.asia"
+      ]
+    },
+    {
+      "product": "Numberly",
+      "company": "Numberly",
+      "domains": [
+        "mmtro.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t2.go2robo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t3.offerrobo.in"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t1.go2robo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t5.offerrobo.in"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t5.go2robo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t4.offerrobo.in"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t1.offerrobo.in"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t4.offerrobo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t3.offerrobo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "go2robo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t2.offerrobo.in"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t4.go2robo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t1.offerrobo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t2.offerrobo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t5.offerrobo.com"
+      ]
+    },
+    {
+      "product": "OR TRKR",
+      "company": "Offer Robo",
+      "domains": [
+        "t3.go2robo.com"
+      ]
+    },
+    {
+      "product": "Offer18 ClickTracker",
+      "company": "Offer18 Tracking Platform Private Limited",
+      "domains": [
+        "track.clicks18.com"
+      ]
+    },
+    {
+      "product": "Oneklix Tracker",
+      "company": "Indoleads Platform (M) SDN BHD",
+      "domains": [
+        "trk.oneklix.com"
+      ]
+    },
+    {
+      "product": "Opticks Security",
+      "company": "OPTICKS SECURITY, S.L.",
+      "domains": [
+        "opticksprotection.com"
+      ]
+    },
+    {
+      "product": "Optimise Click Tracker",
+      "company": "Optimise Media Group Limited",
+      "domains": [
+        "track.omguk.com"
+      ]
+    },
+    {
+      "product": "PDL-Profit",
+      "company": "COREVALUES LTD",
+      "domains": [
+        "tds.pdl-profit.com"
+      ]
+    },
+    {
+      "product": "PPC Shield",
+      "company": "WeMarket LLC",
+      "domains": [
+        "ppcshield.io"
+      ]
+    },
+    {
+      "product": "PPCSecure",
+      "company": "PPCSecure (A Division of ProfitBuilder Websites, Inc.)",
+      "domains": [
+        "ppcsecure.com"
+      ]
+    },
+    {
+      "product": "Paid On Results",
+      "company": "Paid On Results Limited",
+      "domains": [
+        "portgk.com"
+      ]
+    },
+    {
+      "product": "Paid On Results",
+      "company": "Paid On Results Limited",
+      "domains": [
+        "paidonresults.net"
+      ]
+    },
+    {
+      "product": "Partner-ads Network",
+      "company": "Partner-ads ApS",
+      "domains": [
+        "partner-ads.com"
+      ]
+    },
+    {
+      "product": "Partnerize",
+      "company": "Performance Horizon Group Limited",
+      "domains": [
+        "prf.hn"
+      ]
+    },
+    {
+      "product": "Permate",
+      "company": "Permate Global JSC",
+      "domains": [
+        "pmcloud1.com"
+      ]
+    },
+    {
+      "product": "Permate",
+      "company": "Permate Global JSC",
+      "domains": [
+        "clearpmf.com"
+      ]
+    },
+    {
+      "product": "Permate",
+      "company": "Permate Global JSC",
+      "domains": [
+        "pmrevo.com"
+      ]
+    },
+    {
+      "product": "Phoenix",
+      "company": "Phoenix Advanced Softwares Pvt. Ltd",
+      "domains": [
+        "phoenixads.net"
+      ]
+    },
+    {
+      "product": "PixelMe",
+      "company": "Carbon6 Technologies, Inc.",
+      "domains": [
+        "pixamz.com"
+      ]
+    },
+    {
+      "product": "Pixeltrack",
+      "company": "Ventes Avenues PTE LTD",
+      "domains": [
+        "lms.pixeltrack.co.in"
+      ]
+    },
+    {
+      "product": "Placed Clicktracker",
+      "company": "Placed, Inc.",
+      "domains": [
+        "placed.com"
+      ]
+    },
+    {
+      "product": "Pricespider",
+      "company": "Pricespider",
+      "domains": [
+        "gethatch.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc2.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc4.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc8.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc1.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc4.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc2.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc7.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc5.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc3.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc1.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc4.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc3.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc6.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc2.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc9.g2prof.net"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc3.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc1.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc5.proffcus.com"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc5.proffcus.in"
+      ]
+    },
+    {
+      "product": "Proffcus Tracker",
+      "company": "AD MEDIA NETWORK LLP",
+      "domains": [
+        "gc10.g2prof.net"
+      ]
+    },
+    {
+      "product": "Profitshare",
+      "company": "Conversion Marketing SRL",
+      "domains": [
+        "profitshare.bg"
+      ]
+    },
+    {
+      "product": "Propelbon",
+      "company": "PROPELBON, S.L.",
+      "domains": [
+        "propelbon.com"
+      ]
+    },
+    {
+      "product": "Prudigital Media",
+      "company": "Prudigital Media Private Limited",
+      "domains": [
+        "track.prudigital.in"
+      ]
+    },
+    {
+      "product": "QuanticMind",
+      "company": "QuanticMind Inc.",
+      "domains": [
+        "staticiv.com"
+      ]
+    },
+    {
+      "product": "Quartile Attribution",
+      "company": "Quartile LLC",
+      "domains": [
+        "tracker.quartileattribution.com"
+      ]
+    },
+    {
+      "product": "RETChat",
+      "company": "RETChat Inc. (香港商樂愛創新科技有公司)",
+      "domains": [
+        "mabelle.retchat.com"
+      ]
+    },
+    {
+      "product": "Raffesia TrackingAdz",
+      "company": "Raffesia Technologies Private Limited",
+      "domains": [
+        "tracking.raffesia.com"
+      ]
+    },
+    {
+      "product": "Raffesia TrackingAdz",
+      "company": "Raffesia Technologies Private Limited",
+      "domains": [
+        "click.trackingadz.com"
+      ]
+    },
+    {
+      "product": "Rakuten GAP",
+      "company": "Rakuten, Inc.",
+      "domains": [
+        "grp08.ias.rakuten.co.jp"
+      ]
+    },
+    {
+      "product": "Rakuten Taiwan",
+      "company": "TAIWAN RAKUTEN ICHIBA INC.",
+      "domains": [
+        "affiliate.api.rakuten.com.tw"
+      ]
+    },
+    {
+      "product": "Rally Inside",
+      "company": "Rally Inc.",
+      "domains": [
+        "r.insd.co"
+      ]
+    },
+    {
+      "product": "RavenTrack",
+      "company": "Palsar Capital Limited (RavenTrack)",
+      "domains": [
+        "ravn.click"
+      ]
+    },
+    {
+      "product": "Recruitics Programmatic Advertising",
+      "company": "Recruitics",
+      "domains": [
+        "jsv3.recruitics.com"
+      ]
+    },
+    {
+      "product": "Redbrain",
+      "company": "Redbrain Ltd",
+      "domains": [
+        "click2.redbrain.com"
+      ]
+    },
+    {
+      "product": "Redbrain",
+      "company": "Redbrain Ltd",
+      "domains": [
+        "click.redbrain.com"
+      ]
+    },
+    {
+      "product": "RetailAds",
+      "company": "retailAds GmbH & Co. KG",
+      "domains": [
+        "retads.net"
+      ]
+    },
+    {
+      "product": "RevJet",
+      "company": "RevJet LLC.",
+      "domains": [
+        "ads.revjet.com"
+      ]
+    },
+    {
+      "product": "Reverb Ads Tracker",
+      "company": "Adsreverb Technologies",
+      "domains": [
+        "xprrtupdate.com"
+      ]
+    },
+    {
+      "product": "S-Communication Services",
+      "company": "S-Communication Services GmbH",
+      "domains": [
+        "oc.sparkasse.de"
+      ]
+    },
+    {
+      "product": "SFX",
+      "company": "Symphony Talent, LLC",
+      "domains": [
+        "d.hodes.com"
+      ]
+    },
+    {
+      "product": "SLVRbullet",
+      "company": "Bullet Group Inc.",
+      "domains": [
+        "tr.slvrbullet.com"
+      ]
+    },
+    {
+      "product": "SPACE ADSERVER Click Tracker",
+      "company": "SPACE TECNOLOGIA E INTELIGÊNCIA LTDA",
+      "domains": [
+        "00px.net"
+      ]
+    },
+    {
+      "product": "SROVNAME.CZ",
+      "company": "SROVNAME, s.r.o.",
+      "domains": [
+        "click.selltorro.com"
+      ]
+    },
+    {
+      "product": "Sadang",
+      "company": "human digital solutions co.,ltd",
+      "domains": [
+        "api.sg.sadangattribution.com"
+      ]
+    },
+    {
+      "product": "Safeads",
+      "company": "AGENCIA DE MARKETING DIGITAL E PROVEDORES CHAMLET LTDA",
+      "domains": [
+        "trackingsafeads.com"
+      ]
+    },
+    {
+      "product": "Safeads",
+      "company": "AGENCIA DE MARKETING DIGITAL E PROVEDORES CHAMLET LTDA",
+      "domains": [
+        "safeads.com.br"
+      ]
+    },
+    {
+      "product": "SalesDoubler ClickTracker",
+      "company": "LIMITED LIABILITY COMPANY SALESDOUBLER (SALESDOUBLER LLC)",
+      "domains": [
+        "sdprl.com"
+      ]
+    },
+    {
+      "product": "Salesforce DMP",
+      "company": "salesforce.com, Inc.",
+      "domains": [
+        "krxd.net"
+      ]
+    },
+    {
+      "product": "Salesoar",
+      "company": "Salesoar Srl",
+      "domains": [
+        "trk2.salesoar.com"
+      ]
+    },
+    {
+      "product": "Salesoar",
+      "company": "Salesoar Srl",
+      "domains": [
+        "trk.salesoar.com"
+      ]
+    },
+    {
+      "product": "Salesoar",
+      "company": "Salesoar Srl",
+      "domains": [
+        "trk3.salesoar.com"
+      ]
+    },
+    {
+      "product": "Sam Media Click Tracker",
+      "company": "Sam Media B.V.",
+      "domains": [
+        "adtrackgate.com"
+      ]
+    },
+    {
+      "product": "Sam Media Click Tracker",
+      "company": "Sam Media B.V.",
+      "domains": [
+        "track-gads.com"
+      ]
+    },
+    {
+      "product": "Sam Media Click Tracker",
+      "company": "Sam Media B.V.",
+      "domains": [
+        "adlinkrouter.com"
+      ]
+    },
+    {
+      "product": "Sam Media Click Tracker",
+      "company": "Sam Media B.V.",
+      "domains": [
+        "tracking.sam-media.com"
+      ]
+    },
+    {
+      "product": "Search Ads 360",
+      "company": "Google, Inc.",
+      "domains": [
+        "clickserve.dartsearch.net"
+      ]
+    },
+    {
+      "product": "SearchPad",
+      "company": "Yahoo Ad Tech LLC",
+      "domains": [
+        "searchpad.com"
+      ]
+    },
+    {
+      "product": "Second Stage TRACKS",
+      "company": "Second Stage GmbH",
+      "domains": [
+        "s.trcks2s.com"
+      ]
+    },
+    {
+      "product": "Semantic Labs",
+      "company": "Semantic Labs LLP",
+      "domains": [
+        "srvto.com"
+      ]
+    },
+    {
+      "product": "ShareASale",
+      "company": "ShareASale.com, Inc.",
+      "domains": [
+        "shareasale-analytics.com"
+      ]
+    },
+    {
+      "product": "ShareASale",
+      "company": "ShareASale.com, Inc.",
+      "domains": [
+        "shareasale.com"
+      ]
+    },
+    {
+      "product": "Shareaprofit",
+      "company": "Couponorg Digital Media",
+      "domains": [
+        "linksshift.com"
+      ]
+    },
+    {
+      "product": "Shareaprofit",
+      "company": "Couponorg Digital Media",
+      "domains": [
+        "linkspasson.com"
+      ]
+    },
+    {
+      "product": "Shareaprofit",
+      "company": "Couponorg Digital Media",
+      "domains": [
+        "linkmybrand.com"
+      ]
+    },
+    {
+      "product": "Shareaprofit",
+      "company": "Couponorg Digital Media",
+      "domains": [
+        "shareaprofit.com"
+      ]
+    },
+    {
+      "product": "ShopForward",
+      "company": "ShopForward B.V.",
+      "domains": [
+        "sfanalyse.com"
+      ]
+    },
+    {
+      "product": "Shoparize",
+      "company": "Kiesproduct BV",
+      "domains": [
+        "tracker.shoparize.com"
+      ]
+    },
+    {
+      "product": "Shopello",
+      "company": "Martech International AB",
+      "domains": [
+        "trk.shopello.se"
+      ]
+    },
+    {
+      "product": "Shoppingfeed",
+      "company": "SAS Shopping Flux",
+      "domains": [
+        "shopping-feed.com"
+      ]
+    },
+    {
+      "product": "Short.io",
+      "company": "Short.cm Inc",
+      "domains": [
+        "transparentlink.co"
+      ]
+    },
+    {
+      "product": "Short.io",
+      "company": "Short.cm Inc",
+      "domains": [
+        "v.short.gy"
+      ]
+    },
+    {
+      "product": "Singoo Clou",
+      "company": "Shanghai Xinggu Information Technology Co., Ltd.",
+      "domains": [
+        "click.singoo.cc"
+      ]
+    },
+    {
+      "product": "Singular Labs",
+      "company": "Singular Labs Inc.",
+      "domains": [
+        "sng.link"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "track.mfilter.net"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "trk.mfilterit.net"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "pass.mfilterit.net"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "clk.mfilterit.net"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "click.mfilter.net"
+      ]
+    },
+    {
+      "product": "Sixdee Click Tracker",
+      "company": "Six Dee Netad Solutions Pvt Ltd",
+      "domains": [
+        "clk.mfilter.net"
+      ]
+    },
+    {
+      "product": "Skai",
+      "company": "Kenshoo",
+      "domains": [
+        "xg4ken.com"
+      ]
+    },
+    {
+      "product": "SmartMail Boost",
+      "company": "Innovative Marketing Direct, Inc.",
+      "domains": [
+        "smartmailboost.com"
+      ]
+    },
+    {
+      "product": "Smarter Advertising",
+      "company": "Smarter Advertising (Along with Not Just Websites)",
+      "domains": [
+        "clickfrauddefender.com"
+      ]
+    },
+    {
+      "product": "Solarengine",
+      "company": "Mobvista International Technology Limited",
+      "domains": [
+        "receive-us.solar-engine.io"
+      ]
+    },
+    {
+      "product": "Spider AF",
+      "company": "Spider Labs, Ltd.",
+      "domains": [
+        "sp-rdr.com"
+      ]
+    },
+    {
+      "product": "Spider AF",
+      "company": "Spider Labs, Ltd.",
+      "domains": [
+        "eu.sp-trk.com"
+      ]
+    },
+    {
+      "product": "Spider AF",
+      "company": "Spider Labs, Ltd.",
+      "domains": [
+        "sp-trk.com"
+      ]
+    },
+    {
+      "product": "Spider AF",
+      "company": "Spider Labs, Ltd.",
+      "domains": [
+        "sp-clk.com"
+      ]
+    },
+    {
+      "product": "Spot Tracker",
+      "company": "Kolmind ltd",
+      "domains": [
+        "trackerjourney.com"
+      ]
+    },
+    {
+      "product": "SpursAdConnect",
+      "company": "TechnoSpurs Inc.",
+      "domains": [
+        "nxthops.com"
+      ]
+    },
+    {
+      "product": "Stendia",
+      "company": "Stendia A marketplace search engine",
+      "domains": [
+        "stendia.co.uk"
+      ]
+    },
+    {
+      "product": "Streamwise Audience Platform",
+      "company": "Streamwise srl",
+      "domains": [
+        "tra.neodatagroup.com"
+      ]
+    },
+    {
+      "product": "Streamwise Audience Platform",
+      "company": "Streamwise srl",
+      "domains": [
+        "tracker.neodatagroup.com"
+      ]
+    },
+    {
+      "product": "Streamwise Audience Platform",
+      "company": "Streamwise srl",
+      "domains": [
+        "trz.neodatagroup.com"
+      ]
+    },
+    {
+      "product": "Stretch",
+      "company": "Memob Plus FZ LLC",
+      "domains": [
+        "pxl.stretchtag.ai"
+      ]
+    },
+    {
+      "product": "SuperPages",
+      "company": "SuperPages Pty Ltd",
+      "domains": [
+        "superpages.com"
+      ]
+    },
+    {
+      "product": "Swaarm",
+      "company": "Swaarm Tech GmbH",
+      "domains": [
+        "gswaarm.com"
+      ]
+    },
+    {
+      "product": "Swaarm",
+      "company": "Swaarm Tech GmbH",
+      "domains": [
+        "gtrcking.com"
+      ]
+    },
+    {
+      "product": "Sync",
+      "company": "SYNC MARKETING - FZCO",
+      "domains": [
+        "track.sync.deals"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "adnt.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "cltr.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "red.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "redir.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "cpm.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "trck.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "rdr.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "adn.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "clk.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "clc.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Lesta Games",
+      "company": "Lesta Games Agency LLC",
+      "domains": [
+        "clck.lesta.ru"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "redir.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "clk.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "trck.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "rdr.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "clck.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "clc.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "cltr.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "adn.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "cpm.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "adnt.wargaming.net"
+      ]
+    },
+    {
+      "product": "TE Wargaming",
+      "company": "Wargaming Group Limited",
+      "domains": [
+        "red.wargaming.net"
+      ]
+    },
+    {
+      "product": "TRIPTEASE",
+      "company": "TRIPTEASE LIMITED",
+      "domains": [
+        "onboard.triptease.io"
+      ]
+    },
+    {
+      "product": "TSE Track",
+      "company": "The Social Eye",
+      "domains": [
+        "track.tsetrack.com"
+      ]
+    },
+    {
+      "product": "TUNE, Inc",
+      "company": "TUNE, Inc",
+      "domains": [
+        "go2jump.org"
+      ]
+    },
+    {
+      "product": "TUNE, Inc",
+      "company": "TUNE, Inc",
+      "domains": [
+        "go2cloud.org"
+      ]
+    },
+    {
+      "product": "TailTarget Clicktracker",
+      "company": "Tail Target Tecnologia de Informação Ltda",
+      "domains": [
+        "tailtarget.com"
+      ]
+    },
+    {
+      "product": "Takeads",
+      "company": "Takeads FZ-LLC",
+      "domains": [
+        "tatrck.com"
+      ]
+    },
+    {
+      "product": "Tapper",
+      "company": "Itlinksto, Inc.",
+      "domains": [
+        "tapper.ai"
+      ]
+    },
+    {
+      "product": "Tenjin",
+      "company": "Tenjin",
+      "domains": [
+        "track.tenjin.io"
+      ]
+    },
+    {
+      "product": "Tenjin",
+      "company": "Tenjin",
+      "domains": [
+        "track.tenjin.com"
+      ]
+    },
+    {
+      "product": "TinyTrk",
+      "company": "N1mbleFive Media",
+      "domains": [
+        "glnk.me"
+      ]
+    },
+    {
+      "product": "Tracify",
+      "company": "Tracify GmbH",
+      "domains": [
+        "redirect.tracify.ai"
+      ]
+    },
+    {
+      "product": "TrackOG",
+      "company": "Kytra Tech Private Limited",
+      "domains": [
+        "trackog.net"
+      ]
+    },
+    {
+      "product": "TrackOG",
+      "company": "Kytra Tech Private Limited",
+      "domains": [
+        "g2trkog.net"
+      ]
+    },
+    {
+      "product": "TrackOG",
+      "company": "Kytra Tech Private Limited",
+      "domains": [
+        "g2trkog.com"
+      ]
+    },
+    {
+      "product": "Trackdesk",
+      "company": "Trackdesk s.r.o.",
+      "domains": [
+        "trkdsk.com"
+      ]
+    },
+    {
+      "product": "Trackier",
+      "company": "Cloudstuff Inc.",
+      "domains": [
+        "click.trackier.io"
+      ]
+    },
+    {
+      "product": "Trackier",
+      "company": "Cloudstuff Inc.",
+      "domains": [
+        "gotrackier.com"
+      ]
+    },
+    {
+      "product": "Tracking Tool",
+      "company": "Ppc Trace Media",
+      "domains": [
+        "tracker.ppctrace.com"
+      ]
+    },
+    {
+      "product": "Tracking Tool",
+      "company": "Ppc Trace Media",
+      "domains": [
+        "links.ppctrace.com"
+      ]
+    },
+    {
+      "product": "TrackingBee",
+      "company": "OOMCOMMERCE INC",
+      "domains": [
+        "t.amobeez.com"
+      ]
+    },
+    {
+      "product": "Trackony",
+      "company": "Dealism Digital Media",
+      "domains": [
+        "trackerrs.com"
+      ]
+    },
+    {
+      "product": "Trackony",
+      "company": "Dealism Digital Media",
+      "domains": [
+        "trackerspath.com"
+      ]
+    },
+    {
+      "product": "Trackony",
+      "company": "Dealism Digital Media",
+      "domains": [
+        "trakerrs.com"
+      ]
+    },
+    {
+      "product": "Trackony",
+      "company": "Dealism Digital Media",
+      "domains": [
+        "trackony.com"
+      ]
+    },
+    {
+      "product": "Tradable Bits",
+      "company": "Tradable",
+      "domains": [
+        "virtual.tradablebits.com"
+      ]
+    },
+    {
+      "product": "Tradable Bits",
+      "company": "Tradable",
+      "domains": [
+        "tradablebits.com"
+      ]
+    },
+    {
+      "product": "Tradable Bits",
+      "company": "Tradable",
+      "domains": [
+        "tbits.me"
+      ]
+    },
+    {
+      "product": "TradeDoubler",
+      "company": "Tradedoubler AB",
+      "domains": [
+        "gads.tradedoubler.com"
+      ]
+    },
+    {
+      "product": "TradeTracker.com",
+      "company": "TradeTracker International B.V.",
+      "domains": [
+        "tc.tradetracker.net"
+      ]
+    },
+    {
+      "product": "TrafficGuard",
+      "company": "TrafficGuard Pty Ltd",
+      "domains": [
+        "track.trafficguard.ai"
+      ]
+    },
+    {
+      "product": "TrafficManager",
+      "company": "Traffic Manager Group S.R.L.",
+      "domains": [
+        "traffic-man.com"
+      ]
+    },
+    {
+      "product": "Trakaff",
+      "company": "Trakaff",
+      "domains": [
+        "godev.trakaff.net"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "6-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "10-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "4-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "iaurl.io"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "3-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "2-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "5-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "1aurl.net"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "aclk.io"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "1-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "1aurl.io"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "7-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "9-aclk.co"
+      ]
+    },
+    {
+      "product": "TriMax Media",
+      "company": "TriMax Media, LLC",
+      "domains": [
+        "8-aclk.co"
+      ]
+    },
+    {
+      "product": "Trucliks",
+      "company": "TRUCLIKS MARKETING PRIVATE LIMITED",
+      "domains": [
+        "tracking.tracktolast.com"
+      ]
+    },
+    {
+      "product": "Trucliks",
+      "company": "TRUCLIKS MARKETING PRIVATE LIMITED",
+      "domains": [
+        "tracking.nextotrack.com"
+      ]
+    },
+    {
+      "product": "Trucliks",
+      "company": "TRUCLIKS MARKETING PRIVATE LIMITED",
+      "domains": [
+        "tracking.minetracking.com"
+      ]
+    },
+    {
+      "product": "Trucliks",
+      "company": "TRUCLIKS MARKETING PRIVATE LIMITED",
+      "domains": [
+        "tracking.trucliks.com"
+      ]
+    },
+    {
+      "product": "UCLIQ",
+      "company": "UCLIQ s.r.o.",
+      "domains": [
+        "affds3.com"
+      ]
+    },
+    {
+      "product": "UCLIQ",
+      "company": "UCLIQ s.r.o.",
+      "domains": [
+        "affds1.com"
+      ]
+    },
+    {
+      "product": "UCLIQ",
+      "company": "UCLIQ s.r.o.",
+      "domains": [
+        "affds2.com"
+      ]
+    },
+    {
+      "product": "Unibots",
+      "company": "Somo Media LLC",
+      "domains": [
+        "track.informedechoes.com"
+      ]
+    },
+    {
+      "product": "Untold Review",
+      "company": "Greenrootz Media",
+      "domains": [
+        "trk.grmcart.com"
+      ]
+    },
+    {
+      "product": "VCDM Tracker",
+      "company": "VC Digital Media Pte. Ltd.",
+      "domains": [
+        "c.inrasx.com"
+      ]
+    },
+    {
+      "product": "VCDM Tracker",
+      "company": "VC Digital Media Pte. Ltd.",
+      "domains": [
+        "click.juyyba.com"
+      ]
+    },
+    {
+      "product": "VCDM Tracker",
+      "company": "VC Digital Media Pte. Ltd.",
+      "domains": [
+        "r.hosvuy.com"
+      ]
+    },
+    {
+      "product": "VCDM Tracker",
+      "company": "VC Digital Media Pte. Ltd.",
+      "domains": [
+        "trakr.ivuzus.com"
+      ]
+    },
+    {
+      "product": "VCDM Tracker",
+      "company": "VC Digital Media Pte. Ltd.",
+      "domains": [
+        "rdt.hosmeo.com"
+      ]
+    },
+    {
+      "product": "Vaudit",
+      "company": "BlokID Inc.",
+      "domains": [
+        "vaudit.com"
+      ]
+    },
+    {
+      "product": "Vaudit",
+      "company": "BlokID Inc.",
+      "domains": [
+        "tracker.vaudit.com"
+      ]
+    },
+    {
+      "product": "Viralpitch",
+      "company": "Viralpitch Technologies Pvt. Ltd",
+      "domains": [
+        "insurancedray.com"
+      ]
+    },
+    {
+      "product": "Viralpitch",
+      "company": "Viralpitch Technologies Pvt. Ltd",
+      "domains": [
+        "retagos.com"
+      ]
+    },
+    {
+      "product": "Viralpitch",
+      "company": "Viralpitch Technologies Pvt. Ltd",
+      "domains": [
+        "clicksmedias.com"
+      ]
+    },
+    {
+      "product": "Voltage Search Media",
+      "company": "Voltage Search Media, Inc.",
+      "domains": [
+        "voltagesearch.com"
+      ]
+    },
+    {
+      "product": "Voluum",
+      "company": "Commerce Media Tech sp. z o.o.",
+      "domains": [
+        "voluumredirect.com"
+      ]
+    },
+    {
+      "product": "Voluum",
+      "company": "Commerce Media Tech sp. z o.o.",
+      "domains": [
+        "voluumlink.com"
+      ]
+    },
+    {
+      "product": "Voluum",
+      "company": "Commerce Media Tech sp. z o.o.",
+      "domains": [
+        "voluumclick.com"
+      ]
+    },
+    {
+      "product": "Voluum",
+      "company": "Commerce Media Tech sp. z o.o.",
+      "domains": [
+        "vlmclick.com"
+      ]
+    },
+    {
+      "product": "Voluum",
+      "company": "Commerce Media Tech sp. z o.o.",
+      "domains": [
+        "vlmredirect.com"
+      ]
+    },
+    {
+      "product": "WeDare",
+      "company": "WeDare Sp. z o.o.",
+      "domains": [
+        "gct.dashboard.wedare.pl"
+      ]
+    },
+    {
+      "product": "Webgains Click tracker",
+      "company": "Webgains Ltd",
+      "domains": [
+        "assets.ikhnaie.link"
+      ]
+    },
+    {
+      "product": "Webgains Click tracker",
+      "company": "Webgains Ltd",
+      "domains": [
+        "track.webgains.com"
+      ]
+    },
+    {
+      "product": "Weborama Clicktracker",
+      "company": "Weborama SA",
+      "domains": [
+        "weborama.fr"
+      ]
+    },
+    {
+      "product": "Website comparison",
+      "company": "Priceza Co., Ltd.",
+      "domains": [
+        "priceza.com"
+      ]
+    },
+    {
+      "product": "Wehaa Design LLC",
+      "company": "Wehaa Design LLC",
+      "domains": [
+        "analytics-prd.aws.wehaa.net"
+      ]
+    },
+    {
+      "product": "Wewe Media",
+      "company": "Wewe Media Group Pte. Ltd.",
+      "domains": [
+        "swagtrk.com"
+      ]
+    },
+    {
+      "product": "Wewo Media Tracker",
+      "company": "Wewo Media Sp. z o.o.",
+      "domains": [
+        "trk.wewotrk.com"
+      ]
+    },
+    {
+      "product": "Wooconn",
+      "company": "Redtag Media LLC",
+      "domains": [
+        "go.wooconn.com"
+      ]
+    },
+    {
+      "product": "YellowBook",
+      "company": "Hibu Inc.",
+      "domains": [
+        "yellowbook.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "tt.ggtefns.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "yytrxgenz.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "introyygg.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "yytrxgenc.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "trxevlink.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "ggtefns.com"
+      ]
+    },
+    {
+      "product": "YepAds",
+      "company": "Yep Ads B.V",
+      "domains": [
+        "yytrxgenb.com"
+      ]
+    },
+    {
+      "product": "Zone Media",
+      "company": "Zone Media",
+      "domains": [
+        "remarktag.com"
+      ]
+    },
+    {
+      "product": "afb",
+      "company": "For it Inc.",
+      "domains": [
+        "t.afi-b.com"
+      ]
+    },
+    {
+      "product": "attriXus",
+      "company": "attriXus GmbH",
+      "domains": [
+        "tm.attrxs.de"
+      ]
+    },
+    {
+      "product": "attriXus",
+      "company": "attriXus GmbH",
+      "domains": [
+        "tm.simptrack.com"
+      ]
+    },
+    {
+      "product": "bdash",
+      "company": "株式会社データX",
+      "domains": [
+        "bdash-tracking.com"
+      ]
+    },
+    {
+      "product": "c360",
+      "company": "Automated Analytics Limited",
+      "domains": [
+        "attribution.uk.customer360.co"
+      ]
+    },
+    {
+      "product": "c360",
+      "company": "Automated Analytics Limited",
+      "domains": [
+        "attribution.usa.customer360.co"
+      ]
+    },
+    {
+      "product": "eMaS",
+      "company": "eMarketingSolutions, Online Marketing S.L",
+      "domains": [
+        "uintertool.com"
+      ]
+    },
+    {
+      "product": "eMaS",
+      "company": "eMarketingSolutions, Online Marketing S.L",
+      "domains": [
+        "uinterbox.com"
+      ]
+    },
+    {
+      "product": "easy.Tracking",
+      "company": "Easy Marketing GmbH",
+      "domains": [
+        "trck.easy-m.de"
+      ]
+    },
+    {
+      "product": "guenstiger.de",
+      "company": "guenstiger.de GmbH",
+      "domains": [
+        "nextag.de"
+      ]
+    },
+    {
+      "product": "iPromote Clicktracker",
+      "company": "2KDirect Inc.",
+      "domains": [
+        "i.ipromote.com"
+      ]
+    },
+    {
+      "product": "lead alliance",
+      "company": "lead alliance GmbH",
+      "domains": [
+        "lacmp.net"
+      ]
+    },
+    {
+      "product": "leadHOOP",
+      "company": "leadHOOP LLC",
+      "domains": [
+        "t.trkhoop.com"
+      ]
+    },
+    {
+      "product": "mediacode solutions S.à r.l.",
+      "company": "mediacode solutions S.à r.l.",
+      "domains": [
+        "checker.budget-guard.com"
+      ]
+    },
+    {
+      "product": "mediacode solutions S.à r.l.",
+      "company": "mediacode solutions S.à r.l.",
+      "domains": [
+        "checker.budgetguard.lu"
+      ]
+    },
+    {
+      "product": "mediacode solutions S.à r.l.",
+      "company": "mediacode solutions S.à r.l.",
+      "domains": [
+        "checker.budgetguard.de"
+      ]
+    },
+    {
+      "product": "mediaintelligence.de",
+      "company": "Amnet GmbH",
+      "domains": [
+        "mediaintelligence.de"
+      ]
+    },
+    {
+      "product": "oKube",
+      "company": "e-retail development",
+      "domains": [
+        "audience-api.wts-okube.com"
+      ]
+    },
+    {
+      "product": "solute Clicktracker",
+      "company": "solute GmbH",
+      "domains": [
+        "cmodul.solutenetwork.com"
+      ]
+    },
+    {
+      "product": "threeate",
+      "company": "株式会社sizebook",
+      "domains": [
+        "tr.threeate.jp"
+      ]
+    },
+    {
+      "product": "vCommission",
+      "company": "vCommission Media Pte. Ltd.",
+      "domains": [
+        "tracker.urgya.com"
+      ]
+    },
+    {
+      "product": "vCommission",
+      "company": "vCommission Media Pte. Ltd.",
+      "domains": [
+        "tracker.ysnib.com"
+      ]
+    },
+    {
+      "product": "vCommission",
+      "company": "vCommission Media Pte. Ltd.",
+      "domains": [
+        "tracker.vigiqe.com"
+      ]
+    },
+    {
+      "product": "vCommission",
+      "company": "vCommission Media Pte. Ltd.",
+      "domains": [
+        "tracker.vuivy.com"
+      ]
+    },
+    {
+      "product": "vCommission",
+      "company": "vCommission Media Pte. Ltd.",
+      "domains": [
+        "tracker.vuijia.com"
+      ]
+    },
+    {
+      "product": "vFulfill",
+      "company": "VCFL Express Private Limited",
+      "domains": [
+        "serve.wigolg.com"
+      ]
+    },
+    {
+      "product": "vFulfill",
+      "company": "VCFL Express Private Limited",
+      "domains": [
+        "tracker.unuves.com"
+      ]
+    },
+    {
+      "product": "vFulfill",
+      "company": "VCFL Express Private Limited",
+      "domains": [
+        "serve.ytlyng.com"
+      ]
+    },
+    {
+      "product": "vFulfill",
+      "company": "VCFL Express Private Limited",
+      "domains": [
+        "tracker.ylsorg.com"
+      ]
+    },
+    {
+      "product": "vFulfill",
+      "company": "VCFL Express Private Limited",
+      "domains": [
+        "tracker.qywube.com"
+      ]
+    },
+    {
+      "product": "СlickDealer",
+      "company": "DMS CD (Netherlands) B.V.",
+      "domains": [
+        "ecomclk.com"
+      ]
+    },
+    {
+      "product": "СlickDealer",
+      "company": "DMS CD (Netherlands) B.V.",
+      "domains": [
+        "ecomdmsclk.com"
+      ]
+    },
+    {
+      "product": "СlickDealer",
+      "company": "DMS CD (Netherlands) B.V.",
+      "domains": [
+        "clickecomdms.com"
+      ]
+    },
+    {
+      "product": "СlickDealer",
+      "company": "DMS CD (Netherlands) B.V.",
+      "domains": [
+        "clkdms.com"
+      ]
+    },
+    {
+      "product": "СlickDealer",
+      "company": "DMS CD (Netherlands) B.V.",
+      "domains": [
+        "smartclkdms.com"
+      ]
+    },
+    {
+      "product": "うちでのこづち",
+      "company": "E-Grant Inc.",
+      "domains": [
+        "crm-measure.com"
+      ]
+    }
+  ]
+}

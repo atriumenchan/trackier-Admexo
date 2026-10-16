@@ -59,14 +59,15 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
         <h2 className="font-display text-lg">Affiliate access</h2>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full">
-            <thead><tr><th className={th}>Affiliate</th><th className={th}>Status</th><th className={th}>Custom payout</th><th className={th}>Custom revenue</th><th className={th}></th></tr></thead>
+            <thead><tr><th className={th}>Affiliate</th><th className={th}>Status</th><th className={th}>Custom payout</th><th className={th}>Daily clicks</th><th className={th}>Daily conversions</th><th className={th}></th></tr></thead>
             <tbody>
               {access.map((row) => (
                 <tr key={row.id}>
                   <td className={td}>{row.affiliate_name}</td>
                   <td className={td}><Pill tone={toneFor(row.status)}>{row.status}</Pill></td>
                   <td className={td}>{row.custom_payout == null ? "—" : money(row.custom_payout, offer.currency)}</td>
-                  <td className={td}>{row.custom_revenue == null ? "—" : money(row.custom_revenue, offer.currency)}</td>
+                  <td className={td}>{row.daily_click_cap ?? "—"}</td>
+                  <td className={td}>{row.daily_conversion_cap ?? "—"}</td>
                   <td className={td}>
                     <form action={deleteAccess}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="offer_id" value={offer.id} /><button className="text-sm text-coral">Remove</button></form>
                   </td>
@@ -88,6 +89,8 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
           </select>
           <input className={inputClass} name="custom_payout" type="number" step="0.01" placeholder="Custom payout" />
           <input className={inputClass} name="custom_revenue" type="number" step="0.01" placeholder="Custom revenue" />
+          <input className={inputClass} name="daily_click_cap" type="number" placeholder="Daily click cap" />
+          <input className={inputClass} name="daily_conversion_cap" type="number" placeholder="Daily conversion cap" />
           <button className={btn}>Save access</button>
         </form>
       </section>

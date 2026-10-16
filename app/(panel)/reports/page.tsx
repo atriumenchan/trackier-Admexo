@@ -11,9 +11,14 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
   const from = sp.from || addDays(istToday(), -6);
   const to = sp.to || istToday();
   const group = sp.group || "day";
-  const rows = (await report(group, from, to));
+  const page = Math.max(1, Number(sp.page || 1) || 1);
+  const rows = (await report(group, from, to, page));
   const currency = (await setting("currency", "USD"));
   const query = new URLSearchParams({ from, to, group });
+  const nextQuery = new URLSearchParams(query);
+  nextQuery.set("page", String(page + 1));
+  const prevQuery = new URLSearchParams(query);
+  prevQuery.set("page", String(page - 1));
   return (
     <div>
       <PageHeader title="Reports" description="Grouped in IST. Fraud and blocked clicks are left out. Only approved conversions count." action={<Link className="rounded-sm border border-border bg-surface px-3 py-2 text-sm" href={`/export?${query}`}>Download CSV</Link>} />
@@ -31,6 +36,11 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
         <button className="rounded-sm border border-border bg-surface px-3 py-2 text-sm">Run report</button>
       </form>
       <ReportTable rows={rows} currency={currency} group={group} />
+      <div className="mt-3 flex gap-3 text-sm">
+        {page > 1 ? <Link href={`/reports?${prevQuery}`}>Previous</Link> : null}
+        {rows.length === 50 ? <Link href={`/reports?${nextQuery}`}>Next</Link> : null}
+        <span className="text-muted">Page {page}</span>
+      </div>
     </div>
   );
 }
@@ -42,7 +52,7 @@ function ReportTable({ rows, currency, group }: { rows: ReportRow[]; currency: s
         <thead><tr><th className={th}>{group}</th><th className={th}>Clicks</th><th className={th}>Conversions</th><th className={th}>CR</th><th className={th}>Revenue</th><th className={th}>Payout</th><th className={th}>Profit</th></tr></thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.bucket}>
+            <tr key={row.bucketId}>
               <td className={td}>{row.bucket}</td>
               <td className={td}>{num(row.clicks)}</td>
               <td className={td}>{num(row.conversions)}</td>

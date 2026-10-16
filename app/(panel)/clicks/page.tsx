@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { testConversion } from "@/lib/actions";
 import { Banner, PageHeader, Pill, inputClass, td, th } from "@/components/ui";
 import { formatStamp } from "@/lib/format";
@@ -10,13 +11,16 @@ export default async function ClicksPage({ searchParams }: { searchParams: Promi
   const sp = await searchParams;
   const from = sp.from || addDays(istToday(), -1);
   const to = sp.to || istToday();
+  const page = Math.max(1, Number(sp.page || 1) || 1);
   const rows = (await listClicks({
     offerId: Number(sp.offer || 0) || undefined,
     affiliateId: Number(sp.affiliate || 0) || undefined,
     from,
     to,
     fraud: sp.fraud === "1",
+    page,
   }));
+  const query = new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", fraud: sp.fraud || "", page: String(page) });
   return (
     <div>
       <PageHeader title="Clicks" description="Every hit on a tracking link. Blocked clicks never reached the advertiser." />
@@ -57,6 +61,11 @@ export default async function ClicksPage({ searchParams }: { searchParams: Promi
             {!rows.length ? <tr><td className={td} colSpan={7}>No clicks in this range.</td></tr> : null}
           </tbody>
         </table>
+      </div>
+      <div className="mt-3 flex gap-3 text-sm">
+        {page > 1 ? <Link href={`/clicks?${new URLSearchParams({ ...Object.fromEntries(query), page: String(page - 1) })}`}>Previous</Link> : null}
+        {rows.length === 50 ? <Link href={`/clicks?${new URLSearchParams({ ...Object.fromEntries(query), page: String(page + 1) })}`}>Next</Link> : null}
+        <span className="text-muted">Page {page}</span>
       </div>
     </div>
   );

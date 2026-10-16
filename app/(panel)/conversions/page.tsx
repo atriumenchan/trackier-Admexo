@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { setConversionStatus } from "@/lib/actions";
 import { Banner, PageHeader, Pill, inputClass, td, th, toneFor } from "@/components/ui";
 import { addDays, formatStamp, istToday, money } from "@/lib/format";
@@ -9,12 +10,14 @@ export default async function ConversionsPage({ searchParams }: { searchParams: 
   const sp = await searchParams;
   const from = sp.from || addDays(istToday(), -6);
   const to = sp.to || istToday();
+  const page = Math.max(1, Number(sp.page || 1) || 1);
   const rows = (await listConversions({
     offerId: Number(sp.offer || 0) || undefined,
     affiliateId: Number(sp.affiliate || 0) || undefined,
     status: sp.status || undefined,
     from,
     to,
+    page,
   }));
   return (
     <div>
@@ -23,7 +26,7 @@ export default async function ConversionsPage({ searchParams }: { searchParams: 
       <form className="mb-4 grid gap-2 sm:grid-cols-5">
         <select className={inputClass} name="offer" defaultValue={sp.offer || ""}><option value="">All offers</option>{(await listOffers()).map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}</select>
         <select className={inputClass} name="affiliate" defaultValue={sp.affiliate || ""}><option value="">All affiliates</option>{(await listAffiliates()).map((affiliate) => <option key={affiliate.id} value={affiliate.id}>{affiliate.name}</option>)}</select>
-        <select className={inputClass} name="status" defaultValue={sp.status || ""}><option value="">Any status</option><option value="approved">Approved</option><option value="pending">Pending</option><option value="rejected">Rejected</option></select>
+        <select className={inputClass} name="status" defaultValue={sp.status || ""}><option value="">Any status</option><option value="approved">Approved</option><option value="pending">Pending</option><option value="rejected">Rejected</option><option value="reversed">Reversed</option></select>
         <input className={inputClass} type="date" name="from" defaultValue={from} />
         <input className={inputClass} type="date" name="to" defaultValue={to} />
         <button className="rounded-sm border border-border bg-surface px-3 py-2 text-sm">Filter</button>
@@ -49,12 +52,20 @@ export default async function ConversionsPage({ searchParams }: { searchParams: 
                       <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="rejected" /><button className="text-sm text-coral">Reject</button></form>
                     </span>
                   ) : null}
+                  {row.status === "approved" ? (
+                    <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="reversed" /><button className="text-sm text-coral">Reverse</button></form>
+                  ) : null}
                 </td>
               </tr>
             ))}
             {!rows.length ? <tr><td className={td} colSpan={9}>No conversions in this range.</td></tr> : null}
           </tbody>
         </table>
+      </div>
+      <div className="mt-3 flex gap-3 text-sm">
+        {page > 1 ? <Link href={`/conversions?${new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", status: sp.status || "", page: String(page - 1) })}`}>Previous</Link> : null}
+        {rows.length === 50 ? <Link href={`/conversions?${new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", status: sp.status || "", page: String(page + 1) })}`}>Next</Link> : null}
+        <span className="text-muted">Page {page}</span>
       </div>
     </div>
   );

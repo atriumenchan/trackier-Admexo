@@ -1,0 +1,2 @@
+Product | Company | Certified Domains | Transparency parameter
+Example Tracker | Example Inc | click.example-tracker.test, track.example-tracker.test | redirect

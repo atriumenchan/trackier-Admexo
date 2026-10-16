@@ -60,7 +60,7 @@ export default async function DashboardPage() {
           {data.topOffers.length ? (
             <ul className="space-y-2 text-sm">
               {data.topOffers.map((row) => (
-                <li key={row.bucket} className="flex justify-between gap-3">
+                <li key={row.bucketId} className="flex justify-between gap-3">
                   <span>{row.bucket}</span>
                   <span className="font-mono text-muted">{row.clicks} clicks · {money(row.revenue - row.payout, data.currency)}</span>
                 </li>

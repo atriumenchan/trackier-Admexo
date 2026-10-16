@@ -3,6 +3,7 @@ import { markPayoutPaid, voidPayout } from "@/lib/actions";
 import { Banner, PageHeader, btn, btnDanger, td, th } from "@/components/ui";
 import { formatStamp, money } from "@/lib/format";
 import { setting } from "@/lib/db";
+import { affiliateBalance } from "@/lib/ledger";
 import { getPayout, payoutConversions } from "@/lib/queries";
 
 export const metadata = { title: "Payout" };
@@ -21,6 +22,7 @@ export default async function PayoutPage({ params, searchParams }: { params: Pro
       <section className="surface-card p-4 sm:p-5">
         <p className="font-display text-3xl">{money(payout.amount, payout.currency)}</p>
         <p className="mt-1 text-sm text-muted">{payout.status === "paid" ? `Paid ${formatStamp(payout.paid_at)}` : "Not paid yet"}{payout.notes ? ` · ${payout.notes}` : ""}</p>
+        <p className="mt-1 text-sm text-muted">Publisher balance after this statement: {money(await affiliateBalance(payout.affiliate_id), payout.currency)}</p>
         <div className="no-print mt-4 flex gap-2">
           {payout.status === "pending" ? <form action={markPayoutPaid}><input type="hidden" name="id" value={payout.id} /><button className={btn}>Mark paid</button></form> : null}
           {payout.status === "pending" ? <form action={voidPayout}><input type="hidden" name="id" value={payout.id} /><button className={btnDanger}>Void</button></form> : null}

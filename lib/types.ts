@@ -8,6 +8,7 @@ export type User = {
   role: Role;
   affiliate_id: number | null;
   advertiser_id: number | null;
+  api_token: string | null;
   created_at: string;
 };
 
@@ -50,10 +51,16 @@ export type Offer = {
   country_mode: string;
   countries: string;
   devices: string;
+  attribution_hours: number | null;
+  schedule_days: string;
+  schedule_start_hour: number | null;
+  schedule_end_hour: number | null;
   daily_click_cap: number | null;
   daily_conversion_cap: number | null;
   daily_budget_cap: number | null;
   fallback_url: string;
+  final_url: string;
+  google_strict: number;
   external_id: string | null;
   sync_source_id: number | null;
   created_at: string;
@@ -77,6 +84,8 @@ export type OfferAccess = {
   status: string;
   custom_payout: number | null;
   custom_revenue: number | null;
+  daily_click_cap: number | null;
+  daily_conversion_cap: number | null;
   affiliate_name?: string;
   offer_name?: string;
 };
@@ -108,6 +117,11 @@ export type Click = {
   sub3: string;
   sub4: string;
   sub5: string;
+  sub6: string;
+  sub7: string;
+  sub8: string;
+  sub9: string;
+  sub10: string;
   fraud_flag: number;
   fraud_reason: string;
   blocked_reason: string;

@@ -1,11 +1,15 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { clearSession, checkLogin, requireAdmin, requireAffiliate, requireAdvertiser, setSession, homeFor } from "@/lib/auth";
-import { all, one, run } from "@/lib/db";
+import { clearSession, checkLogin, requireAdmin, requireAffiliate, requireAdvertiser, requireUser, setSession, homeFor } from "@/lib/auth";
+import { all, one, run, setting } from "@/lib/db";
+import { postLedger } from "@/lib/ledger";
+import { addRollup, rollupDay } from "@/lib/rollup";
 import { clip, countryList, istRange, nowUtc, shortCode } from "@/lib/format";
+import { randomBytes } from "crypto";
 import { pauseOffer, testRedirects } from "@/lib/link-test";
 import { hashPassword } from "@/lib/password";
+import { cleanScheduleDays } from "@/lib/rules";
 import { applyOfferFeed, fetchOfferFeed } from "@/lib/sync";
 import { ensureLink, fireAffiliatePostback, publicBase, recordConversion } from "@/lib/tracking";
 import type { Affiliate, Offer, SyncSource, User } from "@/lib/types";
@@ -231,7 +235,27 @@ function readOffer(form: FormData) {
     dailyConversionCap: optionalNumber(form, "daily_conversion_cap"),
     dailyBudgetCap: optionalNumber(form, "daily_budget_cap"),
     fallbackUrl: httpUrl(str(form, "fallback_url"), "Fallback URL"),
+    finalUrl: httpUrl(str(form, "final_url"), "Final URL"),
+    googleStrict: form.get("google_strict") ? 1 : 0,
+    attributionHours: attributionHours(form),
+    scheduleDays: cleanScheduleDays(str(form, "schedule_days")),
+    scheduleStart: hourField(form, "schedule_start_hour"),
+    scheduleEnd: hourField(form, "schedule_end_hour"),
   };
+}
+
+function attributionHours(form: FormData) {
+  const value = optionalNumber(form, "attribution_hours");
+  if (value == null) return 720;
+  return Math.min(8760, Math.max(1, Math.round(value)));
+}
+
+function hourField(form: FormData, key: string) {
+  const raw = str(form, key);
+  if (!raw) return null;
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 0 || value > 23) throw new Error("Schedule hours must be from 0 to 23.");
+  return value;
 }
 
 export async function saveOffer(form: FormData) {
@@ -242,24 +266,31 @@ export async function saveOffer(form: FormData) {
     const offer = readOffer(form);
     const now = nowUtc();
     let saved = id;
+    if ((offer.scheduleStart == null) !== (offer.scheduleEnd == null)) {
+      throw new Error("Set both schedule hours, or leave both blank.");
+    }
+    if (offer.googleStrict && !offer.finalUrl) throw new Error("Final URL is required when strict matching is on.");
     const values = [
       offer.advertiserId, offer.name, offer.description, offer.previewUrl, offer.offerUrl, offer.model, offer.currency,
       offer.payout, offer.revenue, offer.status, offer.visibility, offer.countryMode, offer.countries, offer.devices,
-      offer.dailyClickCap, offer.dailyConversionCap, offer.dailyBudgetCap, offer.fallbackUrl,
+      offer.attributionHours, offer.scheduleDays, offer.scheduleStart, offer.scheduleEnd,
+      offer.dailyClickCap, offer.dailyConversionCap, offer.dailyBudgetCap, offer.fallbackUrl, offer.finalUrl, offer.googleStrict,
     ];
     if (id) {
       (await run(
         `UPDATE offers SET advertiser_id = ?, name = ?, description = ?, preview_url = ?, offer_url = ?, model = ?, currency = ?,
          payout = ?, revenue = ?, status = ?, visibility = ?, country_mode = ?, countries = ?, devices = ?,
-         daily_click_cap = ?, daily_conversion_cap = ?, daily_budget_cap = ?, fallback_url = ?, updated_at = ? WHERE id = ?`,
+         attribution_hours = ?, schedule_days = ?, schedule_start_hour = ?, schedule_end_hour = ?,
+         daily_click_cap = ?, daily_conversion_cap = ?, daily_budget_cap = ?, fallback_url = ?, final_url = ?, google_strict = ?, updated_at = ? WHERE id = ?`,
         ...values, now, id,
       ));
     } else {
       saved = (await run(
         `INSERT INTO offers (
           advertiser_id, name, description, preview_url, offer_url, model, currency, payout, revenue, status, visibility,
-          country_mode, countries, devices, daily_click_cap, daily_conversion_cap, daily_budget_cap, fallback_url, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          country_mode, countries, devices, attribution_hours, schedule_days, schedule_start_hour, schedule_end_hour,
+          daily_click_cap, daily_conversion_cap, daily_budget_cap, fallback_url, final_url, google_strict, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         ...values, now, now,
       )).id;
     }
@@ -319,16 +350,18 @@ export async function saveAccess(form: FormData) {
     const status = oneOf(str(form, "status"), ["pending", "approved", "blocked"], "approved");
     const customPayout = optionalNumber(form, "custom_payout");
     const customRevenue = optionalNumber(form, "custom_revenue");
+    const dailyClickCap = optionalNumber(form, "daily_click_cap");
+    const dailyConversionCap = optionalNumber(form, "daily_conversion_cap");
     const existing = (await one("SELECT id FROM offer_access WHERE offer_id = ? AND affiliate_id = ?", offerId, affiliateId));
     if (existing) {
       (await run(
-        "UPDATE offer_access SET status = ?, custom_payout = ?, custom_revenue = ? WHERE offer_id = ? AND affiliate_id = ?",
-        status, customPayout, customRevenue, offerId, affiliateId,
+        "UPDATE offer_access SET status = ?, custom_payout = ?, custom_revenue = ?, daily_click_cap = ?, daily_conversion_cap = ? WHERE offer_id = ? AND affiliate_id = ?",
+        status, customPayout, customRevenue, dailyClickCap, dailyConversionCap, offerId, affiliateId,
       ));
     } else {
       (await run(
-        "INSERT INTO offer_access (offer_id, affiliate_id, status, custom_payout, custom_revenue) VALUES (?, ?, ?, ?, ?)",
-        offerId, affiliateId, status, customPayout, customRevenue,
+        "INSERT INTO offer_access (offer_id, affiliate_id, status, custom_payout, custom_revenue, daily_click_cap, daily_conversion_cap) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        offerId, affiliateId, status, customPayout, customRevenue, dailyClickCap, dailyConversionCap,
       ));
     }
     if (status === "approved") (await ensureLink(offerId, affiliateId));
@@ -363,7 +396,16 @@ export async function testConversion(form: FormData) {
 export async function setConversionStatus(form: FormData) {
   await requireAdmin();
   const id = Number(form.get("id") || 0);
-  const status = oneOf(str(form, "status"), ["approved", "rejected"], "approved");
+  const status = oneOf(str(form, "status"), ["approved", "rejected", "reversed"], "approved");
+  if (status === "reversed") {
+    try {
+      await applyReversal(id);
+      redirect("/conversions?ok=Conversion+reversed");
+    } catch (error) {
+      bubble(error);
+      fail("/conversions", error);
+    }
+  }
   const row = (await one<{ status: string }>("SELECT status FROM conversions WHERE id = ?", id));
   if (!row || row.status !== "pending") redirect("/conversions?error=Only+pending+conversions+can+be+changed");
   (await run(
@@ -372,8 +414,88 @@ export async function setConversionStatus(form: FormData) {
     status === "rejected" ? "manual" : "",
     id,
   ));
-  if (status === "approved") await fireAffiliatePostback(id);
+  if (status === "approved") (await noteApproval(id));
   redirect(`/conversions?ok=${encodeURIComponent(status === "approved" ? "Conversion approved" : "Conversion rejected")}`);
+}
+
+async function noteApproval(id: number) {
+  const row = (await one<{ affiliate_id: number; offer_id: number; payout: number; revenue: number; currency: string; created_at: string; status: string }>(
+    "SELECT affiliate_id, offer_id, payout, revenue, currency, created_at, status FROM conversions WHERE id = ?",
+    id,
+  ));
+  if (!row || row.status !== "approved") return;
+  (await postLedger({
+    affiliateId: row.affiliate_id,
+    conversionId: id,
+    kind: "credit",
+    amount: row.payout,
+    currency: row.currency,
+    note: "Approved conversion",
+  }));
+  (await addRollup(rollupDay(row.created_at), row.offer_id, row.affiliate_id, { conversions: 1, revenue: row.revenue, payout: row.payout }));
+  await fireAffiliatePostback(id);
+}
+
+async function applyReversal(id: number) {
+  const row = (await one<{ status: string; payout_id: number | null; payout: number; revenue: number; currency: string; affiliate_id: number; offer_id: number; created_at: string }>(
+    "SELECT status, payout_id, payout, revenue, currency, affiliate_id, offer_id, created_at FROM conversions WHERE id = ?",
+    id,
+  ));
+  if (!row || row.status !== "approved") throw new Error("Only an approved conversion can be reversed.");
+  const payoutId = row.payout_id;
+  if (payoutId) {
+    const payout = (await one<{ status: string; amount: number }>("SELECT status, amount FROM payouts WHERE id = ?", payoutId));
+    if (!payout || payout.status === "paid") throw new Error("This conversion is already on a paid statement.");
+    const next = Math.max(0, Math.round((payout.amount - row.payout) * 100) / 100);
+    (await run("UPDATE payouts SET amount = ? WHERE id = ?", next, payoutId));
+  }
+  (await run(
+    "UPDATE conversions SET status = 'reversed', reject_reason = 'reversed', payout_id = NULL WHERE id = ?",
+    id,
+  ));
+  if ((await setting("ledger_built", "")) === "1") {
+    (await postLedger({
+      affiliateId: row.affiliate_id,
+      conversionId: id,
+      kind: "reversal",
+      amount: -row.payout,
+      currency: row.currency,
+      note: "Reversed conversion",
+    }));
+    if (payoutId) {
+      (await postLedger({
+        affiliateId: row.affiliate_id,
+        payoutId,
+        kind: "adjust",
+        amount: row.payout,
+        currency: row.currency,
+        note: "Statement reduced",
+      }));
+    }
+  }
+  (await addRollup(rollupDay(row.created_at), row.offer_id, row.affiliate_id, { conversions: -1, revenue: -row.revenue, payout: -row.payout }));
+}
+
+export async function advertiserDecision(form: FormData) {
+  const { advertiser } = await requireAdvertiser();
+  const id = Number(form.get("id") || 0);
+  const status = oneOf(str(form, "status"), ["approved", "rejected"], "rejected");
+  const row = (await one<{ status: string; advertiser_id: number }>(
+    `SELECT c.status, o.advertiser_id AS advertiser_id
+     FROM conversions c JOIN offers o ON o.id = c.offer_id WHERE c.id = ?`,
+    id,
+  ));
+  if (!row || row.advertiser_id !== advertiser.id || row.status !== "pending") {
+    redirect("/brand?error=Only+your+pending+conversions+can+be+changed");
+  }
+  (await run(
+    "UPDATE conversions SET status = ?, reject_reason = ? WHERE id = ?",
+    status,
+    status === "rejected" ? "advertiser" : "",
+    id,
+  ));
+  if (status === "approved") (await noteApproval(id));
+  redirect(`/brand?ok=${encodeURIComponent(status === "approved" ? "Conversion approved" : "Conversion rejected")}`);
 }
 
 export async function retryPostback(form: FormData) {
@@ -534,6 +656,14 @@ export async function createPayout(form: FormData) {
         affiliateId, from, to, Math.round(group.amount * 100) / 100, currency, str(form, "notes"), now,
       )).id;
       for (const conversionId of group.ids) (await run("UPDATE conversions SET payout_id = ? WHERE id = ?", payoutId, conversionId));
+      (await postLedger({
+        affiliateId,
+        payoutId,
+        kind: "payout",
+        amount: -Math.round(group.amount * 100) / 100,
+        currency,
+        note: "Statement",
+      }));
     }
     redirect(`/payouts?ok=${encodeURIComponent(`${groups.size} payout${groups.size === 1 ? "" : "s"} created`)}`);
   } catch (error) {
@@ -552,11 +682,66 @@ export async function markPayoutPaid(form: FormData) {
 export async function voidPayout(form: FormData) {
   await requireAdmin();
   const id = Number(form.get("id") || 0);
-  const payout = (await one<{ status: string }>("SELECT status FROM payouts WHERE id = ?", id));
+  const payout = (await one<{ status: string; affiliate_id: number; amount: number; currency: string }>(
+    "SELECT status, affiliate_id, amount, currency FROM payouts WHERE id = ?",
+    id,
+  ));
   if (payout?.status !== "pending") redirect(`/payouts/${id}?error=Paid+payouts+stay+on+record`);
+  if (payout && (await setting("ledger_built", "")) === "1") {
+    (await postLedger({
+      affiliateId: payout.affiliate_id,
+      payoutId: id,
+      kind: "void",
+      amount: payout.amount,
+      currency: payout.currency,
+      note: "Statement voided",
+    }));
+  }
   (await run("UPDATE conversions SET payout_id = NULL WHERE payout_id = ?", id));
   (await run("DELETE FROM payouts WHERE id = ?", id));
   redirect("/payouts?ok=Payout+voided");
+}
+
+export async function saveFraudRule(form: FormData) {
+  await requireAdmin();
+  try {
+    const name = str(form, "name");
+    if (!name) throw new Error("Name the rule.");
+    const metric = oneOf(str(form, "metric"), ["burst", "bot", "cr"], "burst");
+    const actionName = oneOf(str(form, "action"), ["flag", "reject", "pause"], "flag");
+    const status = oneOf(str(form, "status"), ["active", "paused"], "active");
+    const threshold = optionalNumber(form, "threshold") ?? (metric === "cr" ? 40 : 30);
+    const minutes = optionalNumber(form, "window_minutes") ?? 60;
+    const id = Number(form.get("id") || 0);
+    if (id) {
+      (await run(
+        "UPDATE fraud_rules SET name = ?, metric = ?, threshold = ?, window_minutes = ?, action = ?, status = ? WHERE id = ?",
+        name, metric, threshold, minutes, actionName, status, id,
+      ));
+    } else {
+      (await run(
+        "INSERT INTO fraud_rules (name, metric, threshold, window_minutes, action, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        name, metric, threshold, minutes, actionName, status, nowUtc(),
+      ));
+    }
+    redirect("/fraud?ok=Rule+saved");
+  } catch (error) {
+    bubble(error);
+    fail("/fraud", error);
+  }
+}
+
+export async function deleteFraudRule(form: FormData) {
+  await requireAdmin();
+  (await run("DELETE FROM fraud_rules WHERE id = ?", Number(form.get("id") || 0)));
+  redirect("/fraud?ok=Rule+removed");
+}
+
+export async function rotateApiToken() {
+  const user = await requireUser();
+  const token = randomBytes(24).toString("hex");
+  (await run("UPDATE users SET api_token = ? WHERE id = ?", token, user.id));
+  redirect(`${user.role === "admin" ? "/settings" : user.role === "advertiser" ? "/brand" : "/portal/postback"}?ok=API+token+saved`);
 }
 
 export async function saveSettings(form: FormData) {

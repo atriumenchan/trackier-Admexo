@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { retryPostback } from "@/lib/actions";
 import { Banner, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { formatStamp } from "@/lib/format";
@@ -5,9 +6,10 @@ import { listPostbacks } from "@/lib/queries";
 
 export const metadata = { title: "Postbacks" };
 
-export default async function PostbacksPage({ searchParams }: { searchParams: Promise<{ error?: string; ok?: string }> }) {
+export default async function PostbacksPage({ searchParams }: { searchParams: Promise<{ error?: string; ok?: string; page?: string }> }) {
   const sp = await searchParams;
-  const rows = (await listPostbacks());
+  const page = Math.max(1, Number(sp.page || 1) || 1);
+  const rows = (await listPostbacks(page));
   return (
     <div>
       <PageHeader title="Postbacks" description="Inbound calls from advertisers, and the outbound calls we make to affiliates." />
@@ -33,6 +35,11 @@ export default async function PostbacksPage({ searchParams }: { searchParams: Pr
             {!rows.length ? <tr><td className={td} colSpan={6}>No postbacks yet.</td></tr> : null}
           </tbody>
         </table>
+      </div>
+      <div className="mt-3 flex gap-3 text-sm">
+        {page > 1 ? <Link href={`/postbacks?page=${page - 1}`}>Previous</Link> : null}
+        {rows.length === 50 ? <Link href={`/postbacks?page=${page + 1}`}>Next</Link> : null}
+        <span className="text-muted">Page {page}</span>
       </div>
     </div>
   );
