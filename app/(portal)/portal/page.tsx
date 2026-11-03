@@ -1,5 +1,7 @@
 import { requireAffiliate } from "@/lib/auth";
-import { formatStamp, istRange, istToday, money, num, percent } from "@/lib/format";
+import { addDays, formatStamp, istRange, istToday, money, num, percent } from "@/lib/format";
+import { BadTrafficCard } from "@/components/bad-traffic";
+import { badTraffic } from "@/lib/queries";
 import { EmptyState, PageHeader, Stat, td, th } from "@/components/ui";
 import { all, one } from "@/lib/db";
 import { affiliateBalance, ledgerForAffiliate } from "@/lib/ledger";
@@ -24,6 +26,7 @@ export default async function PortalPage() {
     "SELECT * FROM payouts WHERE affiliate_id = ? ORDER BY id DESC LIMIT 20",
     affiliate.id,
   ));
+  const flagged = await badTraffic({ affiliateId: affiliate.id }, addDays(istToday(), -29), istToday());
   return (
     <div className="space-y-4">
       <PageHeader title={`Hello, ${affiliate.name}`} description={affiliate.status === "active" ? "Today's numbers, in IST." : "Your account is waiting for approval."} />
@@ -32,6 +35,7 @@ export default async function PortalPage() {
         <Stat label="Conversions today" value={num(moneyRow?.n ?? 0)} hint={percent(clicks ? (moneyRow?.n ?? 0) / clicks : 0)} />
         <Stat label="Balance" value={money(unpaid)} hint={`Earned today ${money(moneyRow?.payout ?? 0)}`} />
       </div>
+      <BadTrafficCard data={flagged} days={30} />
       <div className="surface-card overflow-x-auto">
         <table className="w-full">
           <thead><tr><th className={th}>Ledger</th><th className={th}>Kind</th><th className={th}>Amount</th><th className={th}>Note</th></tr></thead>

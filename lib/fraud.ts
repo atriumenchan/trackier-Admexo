@@ -13,6 +13,28 @@ export type FraudRule = {
   created_at: string;
 };
 
+const BOT_AGENT = /bot|spider|crawler|headless/i;
+const GOOGLE_CRAWLER = /AdsBot-Google|Googlebot|Mediapartners-Google|Google-InspectionTool|GoogleOther|APIs-Google|Google-Ads/i;
+export const GOOGLE_CRAWLER_REASON = "Google crawler";
+
+/** Google's ad review crawlers must still reach the landing page, so a reject or pause on them is softened to a flag. */
+export function botDecision(userAgent: string, action: string) {
+  if (!action || !BOT_AGENT.test(userAgent)) return null;
+  if (GOOGLE_CRAWLER.test(userAgent)) return { action: "flag", reason: GOOGLE_CRAWLER_REASON };
+  return { action, reason: "Bot" };
+}
+
+export function fraudLabel(reason: string) {
+  const value = (reason || "").trim();
+  if (!value) return "Bad traffic";
+  if (value === "Bot") return "Bot traffic";
+  if (value === GOOGLE_CRAWLER_REASON) return "Google ad check";
+  if (value === "Click burst") return "Bad traffic: too many clicks from one IP";
+  if (value === "blocked-ip") return "Blocked IP";
+  if (value === "fraud") return "Bad traffic";
+  return `Bad traffic: ${value}`;
+}
+
 function windowStart(minutes: number) {
   return new Date(Date.now() - minutes * 60 * 1000).toISOString().slice(0, 19).replace("T", " ");
 }
@@ -40,13 +62,17 @@ export async function decideClickFraud(input: { ip: string; userAgent: string; o
   let action = "";
   let reason = "";
   for (const rule of rules) {
-    const hit = rule.metric === "bot"
-      ? /bot|spider|crawler|headless/i.test(input.userAgent)
-      : await burstHit(input, rule);
-    if (!hit) continue;
-    if (stricterAction(action, rule.action) === rule.action) {
-      action = rule.action;
-      reason = rule.name;
+    let ruleAction = rule.action;
+    let ruleReason = rule.name;
+    if (rule.metric === "bot") {
+      const bot = botDecision(input.userAgent, rule.action);
+      if (!bot) continue;
+      ruleAction = bot.action;
+      if (bot.reason === GOOGLE_CRAWLER_REASON) ruleReason = bot.reason;
+    } else if (!(await burstHit(input, rule))) continue;
+    if (stricterAction(action, ruleAction) === ruleAction) {
+      action = ruleAction;
+      reason = ruleReason;
     }
   }
   return apply(action, reason);

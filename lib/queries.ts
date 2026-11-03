@@ -80,7 +80,7 @@ function paging(page?: number) {
   return { current, limit: PAGE_SIZE, offset: (current - 1) * PAGE_SIZE };
 }
 
-export async function listClicks(filters: { offerId?: number; affiliateId?: number; advertiserId?: number; country?: string; from?: string; to?: string; fraud?: boolean; page?: number; capped?: boolean }) {
+export async function listClicks(filters: { offerId?: number; affiliateId?: number; advertiserId?: number; country?: string; from?: string; to?: string; fraud?: boolean; flaggedOnly?: boolean; page?: number; capped?: boolean }) {
   const where = ["1 = 1"];
   const params: Array<string | number | null> = [];
   if (filters.advertiserId) {
@@ -105,6 +105,7 @@ export async function listClicks(filters: { offerId?: number; affiliateId?: numb
     params.push(range.start, range.end);
   }
   if (filters.fraud) where.push("(c.fraud_flag = 1 OR c.blocked_reason != '')");
+  if (filters.flaggedOnly) where.push("c.fraud_flag = 1");
   const page = paging(filters.page);
   const limit = filters.capped === false ? "" : " LIMIT ? OFFSET ?";
   if (filters.capped !== false) params.push(page.limit, page.offset);
@@ -114,6 +115,29 @@ export async function listClicks(filters: { offerId?: number; affiliateId?: numb
      WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC${limit}`,
     ...params,
   )).map((row) => unpackClick(row));
+}
+
+export async function badTraffic(scope: { affiliateId?: number; advertiserId?: number }, from: string, to: string) {
+  const range = istRange(from, to);
+  const where = ["c.fraud_flag = 1", "c.created_at >= ?", "c.created_at < ?"];
+  const params: Array<string | number> = [range.start, range.end];
+  if (scope.affiliateId) {
+    where.push("c.affiliate_id = ?");
+    params.push(scope.affiliateId);
+  }
+  if (scope.advertiserId) {
+    where.push("o.advertiser_id = ?");
+    params.push(scope.advertiserId);
+  }
+  const [counts, rows] = await Promise.all([
+    one<{ total: number; rejected: number }>(
+      `SELECT COUNT(*) AS total, COALESCE(SUM(CASE WHEN c.blocked_reason != '' THEN 1 ELSE 0 END), 0) AS rejected
+       FROM clicks c JOIN offers o ON o.id = c.offer_id WHERE ${where.join(" AND ")}`,
+      ...params,
+    ),
+    listClicks({ ...scope, from, to, flaggedOnly: true, page: 1 }),
+  ]);
+  return { total: Number(counts?.total ?? 0), rejected: Number(counts?.rejected ?? 0), rows };
 }
 
 export async function listConversions(filters: { offerId?: number; affiliateId?: number; advertiserId?: number; country?: string; status?: string; from?: string; to?: string; page?: number; capped?: boolean }) {

@@ -3,8 +3,9 @@ import { advertiserDecision } from "@/lib/actions";
 import { CopyButton } from "@/components/copy-button";
 import { Banner, EmptyState, PageHeader, Stat, td, th } from "@/components/ui";
 import { all, one } from "@/lib/db";
-import { formatStamp, istRange, istToday, money, num } from "@/lib/format";
-import { advertiserOffers } from "@/lib/queries";
+import { addDays, formatStamp, istRange, istToday, money, num } from "@/lib/format";
+import { advertiserOffers, badTraffic } from "@/lib/queries";
+import { BadTrafficCard } from "@/components/bad-traffic";
 import { publicBase } from "@/lib/tracking";
 
 export const metadata = { title: "Advertiser" };
@@ -32,6 +33,7 @@ export default async function BrandPage({ searchParams }: { searchParams: Promis
      ORDER BY c.id DESC LIMIT 50`,
     advertiser.id,
   ));
+  const flagged = await badTraffic({ advertiserId: advertiser.id }, addDays(istToday(), -29), istToday());
   return (
     <div className="space-y-4">
       <PageHeader title={advertiser.name} description="Send conversions to this postback. Replace the macros with your values." />
@@ -44,6 +46,7 @@ export default async function BrandPage({ searchParams }: { searchParams: Promis
         <p className="break-all font-mono text-[12px]">{postback}</p>
         <div className="mt-3"><CopyButton value={postback} label="Copy postback" /></div>
       </section>
+      <BadTrafficCard data={flagged} days={30} showPublisher />
       <div className="surface-card overflow-x-auto">
         <table className="w-full">
           <thead><tr><th className={th}>Pending</th><th className={th}>Offer</th><th className={th}>Goal</th><th className={th}>Payout</th><th className={th}></th></tr></thead>

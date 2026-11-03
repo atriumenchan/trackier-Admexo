@@ -3,7 +3,7 @@ import { after, NextResponse } from "next/server";
 import { all, one, run, setting, transaction } from "@/lib/db";
 import { clip, dayStartUtc, nowUtc, roundMoney, shortCode } from "@/lib/format";
 import { runAfterResponse } from "@/lib/defer";
-import { decideClickFraud, decideConversionFraud, pauseAffiliate } from "@/lib/fraud";
+import { botDecision, decideClickFraud, decideConversionFraud, pauseAffiliate } from "@/lib/fraud";
 import { geoFromHeaders, lookupIp } from "@/lib/geo";
 import { packClickAgent, packConversionMeta } from "@/lib/traffic-meta";
 import { postLedger } from "@/lib/ledger";
@@ -332,12 +332,13 @@ function gateFromRow(row: DirectRow, userAgent: string) {
     fraud = 1;
     fraudReason = reason;
     if (action === "pause") pause = true;
-    if (action === "reject") blocked = "fraud";
+    if (action === "reject" || action === "pause") blocked = "fraud";
   };
   if (!blocked && row.ip_blocked) applyRule("reject", "blocked-ip");
   if (!blocked && row.daily_click_cap && row.offer_clicks >= row.daily_click_cap) blocked = "click-cap";
   if (!blocked && row.access_click_cap && row.publisher_clicks >= row.access_click_cap) blocked = "click-cap";
-  if (!blocked && /bot|spider|crawler|headless/i.test(userAgent)) applyRule(row.bot_action || "", "Bot");
+  const bot = blocked ? null : botDecision(userAgent, row.bot_action || "");
+  if (bot) applyRule(bot.action, bot.reason);
   if (!blocked && row.burst_action && row.burst_clicks >= (row.burst_limit || 30)) applyRule(row.burst_action, "Click burst");
   return { blocked, fraud, fraudReason, pause };
 }
