@@ -154,6 +154,7 @@ function UserMenu({ user, role }: { user: { name: string; email: string }; role:
           <p className="truncate text-[12px] text-muted">{user.email}</p>
         </div>
         <div className="my-1 h-px bg-border" />
+        <Link href="/terms" className="flex items-center gap-2 rounded-sm px-2.5 py-2 text-[13px] text-muted hover:bg-surface-2 hover:text-ink"><Icon name="file" size={15} />Terms of Service</Link>
         <Link href="/privacy" className="flex items-center gap-2 rounded-sm px-2.5 py-2 text-[13px] text-muted hover:bg-surface-2 hover:text-ink"><Icon name="lock" size={15} />Privacy policy</Link>
         <form action="/api/logout" method="post">
           <button className="flex w-full items-center gap-2 rounded-sm px-2.5 py-2 text-left text-[13px] text-danger hover:bg-danger-dim"><Icon name="logout" size={15} />Sign out</button>

@@ -65,7 +65,7 @@ export function MarketingFooter() {
         </div>
         <FooterColumn title="Platform" links={[["Features", "/#features"], ["How it works", "/#platform"], ["Tracking", "/#tracking"], ["Analytics", "/#analytics"]]} />
         <FooterColumn title="Resources" links={[["Click tracker documentation", "/click-tracker"], ["Tracker API (OpenAPI)", "/api/openapi"], ["Sign in", "/login"]]} />
-        <FooterColumn title="Company" links={[["Privacy policy", "/privacy"], ["admin@admexo.com", "mailto:admin@admexo.com"]]} />
+        <FooterColumn title="Company" links={[["Terms of Service", "/terms"], ["Privacy policy", "/privacy"], ["admin@admexo.com", "mailto:admin@admexo.com"]]} />
       </div>
       <div className="border-t border-night-border">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-5 text-[12.5px] sm:px-8">

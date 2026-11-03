@@ -63,6 +63,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </div>
         <p className="flex flex-wrap justify-center gap-5 text-[12.5px] text-muted">
           <Link href="/" className="hover:text-ink">Home</Link>
+          <Link href="/terms" className="hover:text-ink">Terms</Link>
           <Link href="/privacy" className="hover:text-ink">Privacy policy</Link>
           <Link href="/click-tracker" className="hover:text-ink">Documentation</Link>
         </p>
