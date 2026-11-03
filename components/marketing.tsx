@@ -60,7 +60,8 @@ export function MarketingFooter() {
             <Logo />
             <span className="text-[16px] font-semibold tracking-tight">Adcliqx</span>
           </Link>
-          <p className="mt-3 max-w-xs text-[13.5px] leading-relaxed">Click, conversion and payout tracking for ADMEXO performance campaigns.</p>
+          <p className="mt-3 max-w-xs text-[13.5px] leading-relaxed">Click, conversion and payout tracking for performance campaigns.</p>
+          <p className="mt-4 text-[12.5px]">A product of <span className="font-medium text-night-text">Admexo LLC</span></p>
         </div>
         <FooterColumn title="Platform" links={[["Features", "/#features"], ["How it works", "/#platform"], ["Tracking", "/#tracking"], ["Analytics", "/#analytics"]]} />
         <FooterColumn title="Resources" links={[["Click tracker documentation", "/click-tracker"], ["Tracker API (OpenAPI)", "/api/openapi"], ["Sign in", "/login"]]} />
@@ -68,7 +69,7 @@ export function MarketingFooter() {
       </div>
       <div className="border-t border-night-border">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-5 text-[12.5px] sm:px-8">
-          <span>© {new Date().getFullYear()} Admexo LLC. Adcliqx is an internal ADMEXO platform.</span>
+          <span>© {new Date().getFullYear()} Adcliqx. A product of Admexo LLC.</span>
           <span className="inline-flex items-center gap-1.5"><Icon name="lock" size={13} />HTTPS on every tracking domain</span>
         </div>
       </div>

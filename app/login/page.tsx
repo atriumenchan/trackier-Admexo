@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </Link>
         <div className="relative my-auto max-w-md">
           <h1 className="text-[2.2rem] font-semibold leading-tight tracking-tight text-white">Every click. Every conversion. Every payout.</h1>
-          <p className="mt-4 text-[15px] leading-relaxed text-night-muted">The ADMEXO tracking desk for clicks, postbacks, attribution, fraud checks and affiliate payouts.</p>
+          <p className="mt-4 text-[15px] leading-relaxed text-night-muted">The tracking desk for clicks, postbacks, attribution, fraud checks and affiliate payouts.</p>
           <ul className="mt-8 space-y-3 text-[14px]">
             {["Real-time click and conversion logs", "Reports you can open down to a single click", "Fraud rules on every click and conversion"].map((item) => (
               <li key={item} className="flex items-center gap-2.5">
@@ -33,7 +33,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             ))}
           </ul>
         </div>
-        <p className="relative text-[12.5px] text-night-muted">© {new Date().getFullYear()} Admexo LLC</p>
+        <p className="relative text-[12.5px] text-night-muted">© {new Date().getFullYear()} Adcliqx. A product of Admexo LLC.</p>
       </section>
 
       <section className="flex flex-col px-5 py-8 sm:px-10">
@@ -43,7 +43,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </Link>
         <div className="mx-auto my-auto w-full max-w-[400px] py-10">
           <h2 className="text-[1.6rem] font-semibold tracking-tight text-ink">Sign in to Adcliqx</h2>
-          <p className="mt-1.5 text-[14px] text-muted">For the ADMEXO team, advertisers and affiliates.</p>
+          <p className="mt-1.5 text-[14px] text-muted">For our team, advertisers and affiliates.</p>
           <form action="/api/login" method="post" className="mt-7 space-y-4">
             <Banner error={error} />
             <Field label="Email">
@@ -54,7 +54,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             </Field>
             <button className={`${btn} w-full py-2.5`}>Sign in <Icon name="arrowRight" size={16} /></button>
           </form>
-          <p className="mt-6 text-[13px] text-muted">No account? Ask your ADMEXO account manager. There is no public sign-up.</p>
+          <p className="mt-6 text-[13px] text-muted">No account? Ask your account manager. There is no public sign-up.</p>
           {process.env.NODE_ENV !== "production" ? (
             <p className="mt-4 rounded-sm border border-dashed border-border-strong px-3 py-2 text-[12px] leading-relaxed text-faint">
               Local admin admin@admexo.com / admin123. Affiliate demo@publisher.test / demo123. Advertiser demo@brand.test / demo123.

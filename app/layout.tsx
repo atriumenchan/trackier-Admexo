@@ -5,7 +5,7 @@ const fonts = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;7
 
 export const metadata: Metadata = {
   title: { default: "Adcliqx", template: "%s · Adcliqx" },
-  description: "Adcliqx is the click, conversion and payout tracker ADMEXO uses for its affiliate campaigns.",
+  description: "Adcliqx is a click, conversion and payout tracker for affiliate campaigns.",
 };
 
 export const viewport: Viewport = { themeColor: "#0b1222" };

@@ -2,7 +2,7 @@ export function openApiDocument(origin: string) {
   return {
     openapi: "3.0.3",
     info: {
-      title: "ADMEXO Track",
+      title: "Adcliqx Tracker API",
       version: "1.0.0",
       description: "Offers, clicks, and advertiser postbacks. Send Authorization: Bearer and the token from Settings.",
     },

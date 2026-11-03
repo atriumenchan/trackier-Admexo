@@ -55,7 +55,7 @@ export default function ClickTrackerPage() {
       <p>{"{keyword}"}, {"{adgroupid}"}, {"{matchtype}"}, {"{network}"}, and {"{placement}"} have no columns of their own. Put them in sub1 to sub10 in the tracking template if you need them stored. The offer URL can also contain {"{click_id}"}, {"{affiliate_id}"}, {"{offer_id}"}, {"{sub1}"} to {"{sub10}"}, and {"{source}"}.</p>
 
       <h2>Domains and HTTPS</h2>
-      <p>The click domain for this application is adcliqx.com, including www.adcliqx.com. Clicks, smart links (/s/), and postbacks (/pb/) use that same host. The app is also reachable on trackier-admexo.vercel.app because that is where it is hosted. No other click domain is configured. HTTPS is required. The live response sends Strict-Transport-Security. Click redirects send Cache-Control: no-store.</p>
+      <p>The click domain for this application is adcliqx.com, including www.adcliqx.com. Clicks, smart links (/s/), and postbacks (/pb/) use that same host. No other click domain is configured. HTTPS is required. The live response sends Strict-Transport-Security. Click redirects send Cache-Control: no-store.</p>
 
       <h2>Postback</h2>
       <p>Postbacks are not click URLs. Each advertiser has a token. The advertiser calls:</p>

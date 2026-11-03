@@ -8,7 +8,7 @@ import { DashboardPreview, MarketingFooter, MarketingNav, SampleTag } from "@/co
 
 export const metadata: Metadata = {
   title: "Adcliqx · Click, conversion and payout tracking",
-  description: "Adcliqx gives ADMEXO's performance marketing team complete visibility into clicks, conversions, attribution and affiliate payouts from one tracking platform.",
+  description: "Adcliqx gives performance marketing teams complete visibility into clicks, conversions, attribution and affiliate payouts from one tracking platform.",
 };
 export const dynamic = "force-dynamic";
 
@@ -33,7 +33,7 @@ const STEPS: [IconName, string, string][] = [
 ];
 
 const FAQ: [string, string][] = [
-  ["Who can use Adcliqx?", "Adcliqx is ADMEXO's own platform. The ADMEXO team runs the full desk. Affiliates sign in to a portal with their offers, conversions and postback settings. Advertisers sign in to an overview of their own offers. There is no public sign-up."],
+  ["Who can use Adcliqx?", "Adcliqx is invite-only. Our team runs the full desk. Affiliates sign in to a portal with their offers, conversions and postback settings. Advertisers sign in to an overview of their own offers. There is no public sign-up."],
   ["How are conversions matched to clicks?", "Every click gets a unique click id that is passed to the advertiser in the landing URL. The advertiser returns it in the postback, and Adcliqx joins the conversion to that click, its affiliate and its offer."],
   ["What stops the same conversion being paid twice?", "A transaction id can only be recorded once per offer. A repeated postback with the same txid is logged and answered, but it does not create a second conversion."],
   ["Does Adcliqx work with Google Ads?", "Tracking links redirect with a direct HTTPS 302, support a redirection_url parameter and do not cache the redirect. The tracker's technical details are published on the click tracker documentation page."],
@@ -53,7 +53,7 @@ export default async function Home() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="inline-flex items-center gap-2 rounded-full border border-night-border bg-night-2/70 px-3 py-1 text-[12.5px] text-night-muted">
               <span className="size-1.5 rounded-full bg-success" />
-              Performance tracking platform for ADMEXO
+              Performance tracking platform
             </p>
             <h1 className="mt-6 text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.035em] text-white sm:text-[3.6rem]">
               Every click. Every conversion.<br className="hidden sm:block" /> Every payout. <span className="text-brand-soft">Under control.</span>
@@ -184,7 +184,7 @@ export default async function Home() {
           <div className="mt-10 overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-[640px] text-left text-[13.5px]">
               <thead className="bg-surface-2 text-[12px] uppercase tracking-[0.06em] text-faint">
-                <tr><th className="px-5 py-3 font-semibold">Capability</th><th className="px-5 py-3 font-semibold">ADMEXO team</th><th className="px-5 py-3 font-semibold">Affiliates</th><th className="px-5 py-3 font-semibold">Advertisers</th></tr>
+                <tr><th className="px-5 py-3 font-semibold">Capability</th><th className="px-5 py-3 font-semibold">Our team</th><th className="px-5 py-3 font-semibold">Affiliates</th><th className="px-5 py-3 font-semibold">Advertisers</th></tr>
               </thead>
               <tbody>
                 {[
@@ -209,7 +209,7 @@ export default async function Home() {
 
       <section className="border-t border-border bg-canvas">
         <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <SectionHeading align="left" eyebrow="FAQ" title="Questions about Adcliqx" body="Anything else: admin@admexo.com." />
+          <SectionHeading align="left" eyebrow="FAQ" title="Questions about Adcliqx" body="Anything else: use the contact address in the footer." />
           <div className="divide-y divide-border rounded-lg border border-border bg-surface">
             {FAQ.map(([question, answer]) => (
               <details key={question} className="group px-5 py-4">
@@ -229,7 +229,7 @@ export default async function Home() {
           <div className="relative overflow-hidden rounded-[20px] bg-night px-8 py-12 text-center text-night-text sm:px-12">
             <div className="grid-backdrop pointer-events-none absolute inset-0 opacity-60" />
             <h2 className="relative text-[1.9rem] font-semibold tracking-tight text-white">Your campaigns are already being tracked.</h2>
-            <p className="relative mx-auto mt-3 max-w-xl text-[15px] text-night-muted">Sign in to see today&apos;s clicks, conversions and payouts for ADMEXO.</p>
+            <p className="relative mx-auto mt-3 max-w-xl text-[15px] text-night-muted">Sign in to see today&apos;s clicks, conversions and payouts.</p>
             <div className="relative mt-7 flex flex-wrap justify-center gap-3">
               <Link href="/login" className="inline-flex items-center gap-2 rounded-sm bg-brand px-5 py-3 text-[14.5px] font-medium text-white shadow-cta hover:bg-brand-hover">Access your dashboard <Icon name="arrowRight" size={16} /></Link>
               <Link href="/click-tracker" className="inline-flex items-center gap-2 rounded-sm border border-night-border px-5 py-3 text-[14.5px] font-medium text-night-text hover:text-white">Documentation</Link>
