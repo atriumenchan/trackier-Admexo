@@ -1,6 +1,6 @@
 import { requireAffiliate } from "@/lib/auth";
 import { formatStamp, istRange, istToday, money, num, percent } from "@/lib/format";
-import { PageHeader, Stat, td, th } from "@/components/ui";
+import { EmptyState, PageHeader, Stat, td, th } from "@/components/ui";
 import { all, one } from "@/lib/db";
 import { affiliateBalance, ledgerForAffiliate } from "@/lib/ledger";
 import type { Payout } from "@/lib/types";
@@ -44,7 +44,7 @@ export default async function PortalPage() {
                 <td className={td}>{row.note}</td>
               </tr>
             ))}
-            {!ledger.length ? <tr><td className={td} colSpan={4}>No balance lines yet.</td></tr> : null}
+            {!ledger.length ? <tr><td colSpan={4}><EmptyState title="No balance lines yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>
@@ -60,7 +60,7 @@ export default async function PortalPage() {
                 <td className={td}>{row.status}</td>
               </tr>
             ))}
-            {!payouts.length ? <tr><td className={td} colSpan={4}>No statements yet. Unpaid is the balance still waiting for one.</td></tr> : null}
+            {!payouts.length ? <tr><td colSpan={4}><EmptyState title="No statements yet">Unpaid is the balance still waiting for one.</EmptyState></td></tr> : null}
           </tbody>
         </table>
       </div>

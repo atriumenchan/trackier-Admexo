@@ -1,5 +1,5 @@
 import { DeskForm, DeskSubmit } from "@/components/desk-form";
-import { Banner, PageHeader, Pill, btnDanger, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btnDanger, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { formatStamp } from "@/lib/format";
 import { listAdvertisers, listSyncSources } from "@/lib/queries";
 
@@ -67,7 +67,7 @@ export default async function SyncPage({ searchParams }: { searchParams: Promise
                     {source.endpoint_url.startsWith("http") ? (
                       <DeskForm name="runSync">
                         <input type="hidden" name="id" value={source.id} />
-                        <DeskSubmit className="text-sm text-amber" pendingLabel="Syncing…">Sync now</DeskSubmit>
+                        <DeskSubmit className="text-sm text-brand" pendingLabel="Syncing…">Sync now</DeskSubmit>
                       </DeskForm>
                     ) : null}
                     <DeskForm name="deleteSyncSource">
@@ -78,7 +78,7 @@ export default async function SyncPage({ searchParams }: { searchParams: Promise
                 </td>
               </tr>
             ))}
-            {!sources.length ? <tr><td className={td} colSpan={4}>No sync sources yet.</td></tr> : null}
+            {!sources.length ? <tr><td colSpan={4}><EmptyState title="No sync sources yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

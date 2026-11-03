@@ -1,5 +1,5 @@
 import { deleteFraudRule, saveFraudRule } from "@/lib/actions";
-import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { all } from "@/lib/db";
 import { formatStamp } from "@/lib/format";
 import { ensureFraudRules, type FraudRule } from "@/lib/fraud";
@@ -27,10 +27,10 @@ export default async function FraudPage({ searchParams }: { searchParams: Promis
                 <td className={td}>{rule.threshold}</td>
                 <td className={td}>{rule.window_minutes} min</td>
                 <td className={td}><Pill tone={toneFor(rule.status)}>{rule.action}</Pill></td>
-                <td className={td}><form action={deleteFraudRule}><input type="hidden" name="id" value={rule.id} /><button className="text-sm text-coral">Remove</button></form></td>
+                <td className={td}><form action={deleteFraudRule}><input type="hidden" name="id" value={rule.id} /><button className="text-sm text-danger">Remove</button></form></td>
               </tr>
             ))}
-            {!rules.length ? <tr><td className={td} colSpan={6}>No rules yet. The first click creates the burst and bot rules.</td></tr> : null}
+            {!rules.length ? <tr><td colSpan={6}><EmptyState title="No rules yet">The first click creates the burst and bot rules.</EmptyState></td></tr> : null}
           </tbody>
         </table>
       </div>
@@ -66,7 +66,7 @@ export default async function FraudPage({ searchParams }: { searchParams: Promis
                 <td className={td}>{row.fraud_reason || row.blocked_reason || "flagged"}</td>
               </tr>
             ))}
-            {!hits.length ? <tr><td className={td} colSpan={4}>No flagged clicks on this page.</td></tr> : null}
+            {!hits.length ? <tr><td colSpan={4}><EmptyState title="No flagged clicks on this page" /></td></tr> : null}
           </tbody>
         </table>
       </div>

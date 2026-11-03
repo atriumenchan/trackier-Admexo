@@ -1,7 +1,7 @@
 import { requireAdvertiser } from "@/lib/auth";
 import { advertiserDecision } from "@/lib/actions";
 import { CopyButton } from "@/components/copy-button";
-import { Banner, PageHeader, Stat, td, th } from "@/components/ui";
+import { Banner, EmptyState, PageHeader, Stat, td, th } from "@/components/ui";
 import { all, one } from "@/lib/db";
 import { formatStamp, istRange, istToday, money, num } from "@/lib/format";
 import { advertiserOffers } from "@/lib/queries";
@@ -56,13 +56,13 @@ export default async function BrandPage({ searchParams }: { searchParams: Promis
                 <td className={td}>{money(row.payout, row.currency)}</td>
                 <td className={td}>
                   <span className="flex gap-2">
-                    <form action={advertiserDecision}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="approved" /><button className="text-sm text-teal">Approve</button></form>
-                    <form action={advertiserDecision}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="rejected" /><button className="text-sm text-coral">Reject</button></form>
+                    <form action={advertiserDecision}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="approved" /><button className="text-sm text-success">Approve</button></form>
+                    <form action={advertiserDecision}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="rejected" /><button className="text-sm text-danger">Reject</button></form>
                   </span>
                 </td>
               </tr>
             ))}
-            {!pending.length ? <tr><td className={td} colSpan={5}>No conversions are waiting.</td></tr> : null}
+            {!pending.length ? <tr><td colSpan={5}><EmptyState title="No conversions are waiting" /></td></tr> : null}
           </tbody>
         </table>
       </div>

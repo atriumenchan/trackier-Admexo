@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { listSmartLinks } from "@/lib/queries";
-import { Banner, PageHeader, Pill, btn, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, EmptyState, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { publicBase } from "@/lib/tracking";
 
 export const metadata = { title: "Smart links" };
@@ -26,7 +26,7 @@ export default async function SmartLinksPage({ searchParams }: { searchParams: P
                 <td className={`${td} font-mono text-[12px]`}>{base}/s/{row.code}</td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={5}>No smart links yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={5}><EmptyState title="No smart links yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

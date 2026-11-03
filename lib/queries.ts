@@ -611,6 +611,74 @@ export async function dashboard() {
   return loadDashboard(today);
 }
 
+export async function dashboardRange(days: number) {
+  await ensureRollups();
+  const today = istToday();
+  const from = addDays(today, -(days - 1));
+  const prevFrom = addDays(from, -days);
+  const prevTo = addDays(from, -1);
+  const range = istRange(from, today);
+  const [currency, pending, totals, previous, series, offers, affiliates, unique, flagged, recentConversions, recentClicks] = await Promise.all([
+    setting("currency", "USD"),
+    one<{ n: number }>("SELECT COUNT(*) AS n FROM offer_access WHERE status = 'pending'"),
+    rollupRange(from, today),
+    rollupRange(prevFrom, prevTo),
+    rollupSeries(days),
+    rollupOffers(from, today),
+    all<{ bucket_id: string; bucket: string; clicks: number; conversions: number; revenue: number; payout: number }>(
+      `SELECT CAST(r.affiliate_id AS TEXT) AS bucket_id, f.name AS bucket, COALESCE(SUM(r.clicks), 0) AS clicks, COALESCE(SUM(r.conversions), 0) AS conversions,
+        COALESCE(SUM(r.revenue), 0) AS revenue, COALESCE(SUM(r.payout), 0) AS payout
+       FROM traffic_rollups r JOIN affiliates f ON f.id = r.affiliate_id
+       WHERE r.day >= ? AND r.day <= ? GROUP BY r.affiliate_id, f.name ORDER BY revenue DESC, clicks DESC LIMIT 5`,
+      from,
+      today,
+    ),
+    one<{ n: number }>(
+      "SELECT COUNT(DISTINCT ip) AS n FROM clicks WHERE created_at >= ? AND created_at < ? AND blocked_reason = '' AND fraud_flag = 0 AND ip != ''",
+      range.start,
+      range.end,
+    ),
+    one<{ n: number }>(
+      "SELECT COUNT(*) AS n FROM clicks WHERE created_at >= ? AND created_at < ? AND (blocked_reason != '' OR fraud_flag = 1)",
+      range.start,
+      range.end,
+    ),
+    all<Conversion>(
+      `SELECT v.id, v.click_id, v.status, v.payout, v.revenue, v.currency, v.goal_name, v.created_at, o.name AS offer_name, f.name AS affiliate_name
+       FROM conversions v JOIN offers o ON o.id = v.offer_id JOIN affiliates f ON f.id = v.affiliate_id
+       ORDER BY v.created_at DESC LIMIT 6`,
+    ),
+    all<Click>(
+      `SELECT k.id, k.ip, k.country, k.device, k.created_at, k.fraud_flag, k.blocked_reason, k.fraud_reason, o.name AS offer_name, f.name AS affiliate_name
+       FROM clicks k JOIN offers o ON o.id = k.offer_id JOIN affiliates f ON f.id = k.affiliate_id
+       ORDER BY k.created_at DESC LIMIT 6`,
+    ),
+  ]);
+  const shape = (row: { bucket_id: string; bucket: string; clicks: number; conversions: number; revenue: number; payout: number }) => ({
+    bucketId: row.bucket_id,
+    bucket: row.bucket,
+    clicks: Number(row.clicks),
+    conversions: Number(row.conversions),
+    revenue: Number(row.revenue),
+    payout: Number(row.payout),
+  });
+  return {
+    from,
+    to: today,
+    currency,
+    pending: pending?.n ?? 0,
+    totals,
+    previous,
+    series,
+    uniqueClicks: Number(unique?.n || 0),
+    flaggedClicks: Number(flagged?.n || 0),
+    topOffers: offers.slice(0, 5).map(shape),
+    topAffiliates: affiliates.map(shape),
+    recentConversions,
+    recentClicks,
+  };
+}
+
 async function loadDashboard(today: string) {
   const weekFrom = addDays(today, -6);
   const [pendingRow, currency, top, todayStats, week, series] = await Promise.all([

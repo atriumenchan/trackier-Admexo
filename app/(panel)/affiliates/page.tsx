@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { listAffiliates } from "@/lib/queries";
-import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, btnGhost, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 
 export const metadata = { title: "Affiliates" };
 
@@ -16,7 +16,7 @@ export default async function AffiliatesPage({ searchParams }: { searchParams: P
         action={
           <span className="flex flex-wrap gap-2">
             <DeskForm name="cleanupDuplicateAffiliates">
-              <DeskSubmit className="rounded-sm border border-border bg-surface px-3 py-2 text-sm font-medium text-ink" pendingLabel="Cleaning…">Remove duplicates</DeskSubmit>
+              <DeskSubmit className={btnGhost} pendingLabel="Cleaning…">Remove duplicates</DeskSubmit>
             </DeskForm>
             <Link className={btn} href="/affiliates/new">New affiliate</Link>
           </span>
@@ -40,12 +40,12 @@ export default async function AffiliatesPage({ searchParams }: { searchParams: P
                 <td className={td}>
                   <DeskForm name="deleteAffiliate">
                     <input type="hidden" name="id" value={row.id} />
-                    <DeskSubmit className="text-sm text-coral" pendingLabel="Deleting…">Delete</DeskSubmit>
+                    <DeskSubmit className="text-sm text-danger" pendingLabel="Deleting…">Delete</DeskSubmit>
                   </DeskForm>
                 </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={5}>No affiliates yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={5}><EmptyState title="No affiliates yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

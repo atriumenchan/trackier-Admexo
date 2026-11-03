@@ -37,7 +37,7 @@ export function LinkTester({ offers }: { offers: { id: number; name: string }[] 
       <button className={btn} disabled={pending}>{pending ? "Testing…" : "Test link"}</button>
       {state ? (
         <div className="space-y-3">
-          <p className={`text-sm ${state.ok ? "text-teal" : "text-coral"}`}>{state.message}{state.pausedOffer ? " The offer was paused." : ""}</p>
+          <p className={`text-sm ${state.ok ? "text-success" : "text-danger"}`}>{state.message}{state.pausedOffer ? " The offer was paused." : ""}</p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

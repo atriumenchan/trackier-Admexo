@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { setConversionStatus } from "@/lib/actions";
-import { Banner, PageHeader, Pill, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, EmptyState, Field, PageHeader, Pager, Pill, btn, btnGhost, inputClass, td, th, toneFor } from "@/components/ui";
+import { Icon } from "@/components/icons";
 import { addDays, formatStamp, istPartsStamp, istToday, money } from "@/lib/format";
 import { setting } from "@/lib/db";
 import { listAffiliates, listConversions, listOffers } from "@/lib/queries";
@@ -13,29 +14,40 @@ export default async function ConversionsPage({ searchParams }: { searchParams: 
   const to = sp.to || istToday();
   const page = Math.max(1, Number(sp.page || 1) || 1);
   const userCurrency = (await setting("currency", "USD"));
-  const rows = (await listConversions({
-    offerId: Number(sp.offer || 0) || undefined,
-    affiliateId: Number(sp.affiliate || 0) || undefined,
-    status: sp.status || undefined,
-    from,
-    to,
-    page,
-  }));
+  const [rows, offers, affiliates] = await Promise.all([
+    listConversions({
+      offerId: Number(sp.offer || 0) || undefined,
+      affiliateId: Number(sp.affiliate || 0) || undefined,
+      status: sp.status || undefined,
+      from,
+      to,
+      page,
+    }),
+    listOffers(),
+    listAffiliates(),
+  ]);
+  const pageLink = (target: number) => `/conversions?${new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", status: sp.status || "", page: String(target) })}`;
   return (
     <div>
       <PageHeader
         title="Conversions"
-        description="Approved rows are payable. Pending rows can be approved or rejected."
-        action={<Link className="rounded-sm border border-border bg-surface px-3 py-2 text-sm" href={`/export/conversions?from=${from}&to=${to}&offer=${sp.offer || ""}&affiliate=${sp.affiliate || ""}&status=${sp.status || ""}`}>Download CSV</Link>}
+        description="Approved rows are payable. Pending rows can be approved or rejected; approved rows can be reversed."
+        action={<Link className={btnGhost} href={`/export/conversions?from=${from}&to=${to}&offer=${sp.offer || ""}&affiliate=${sp.affiliate || ""}&status=${sp.status || ""}`}><Icon name="download" size={16} />Download CSV</Link>}
       />
       <Banner error={sp.error} ok={sp.ok} />
-      <form className="mb-4 grid gap-2 sm:grid-cols-5">
-        <select className={inputClass} name="offer" defaultValue={sp.offer || ""}><option value="">All offers</option>{(await listOffers()).map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}</select>
-        <select className={inputClass} name="affiliate" defaultValue={sp.affiliate || ""}><option value="">All affiliates</option>{(await listAffiliates()).map((affiliate) => <option key={affiliate.id} value={affiliate.id}>{affiliate.name}</option>)}</select>
-        <select className={inputClass} name="status" defaultValue={sp.status || ""}><option value="">Any status</option><option value="approved">Approved</option><option value="pending">Pending</option><option value="rejected">Rejected</option><option value="reversed">Reversed</option></select>
-        <input className={inputClass} type="date" name="from" defaultValue={from} />
-        <input className={inputClass} type="date" name="to" defaultValue={to} />
-        <button className="rounded-sm border border-border bg-surface px-3 py-2 text-sm">Filter</button>
+      <form className="surface-card mb-4 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_150px_150px_150px_auto]">
+        <Field label="Offer">
+          <select className={inputClass} name="offer" defaultValue={sp.offer || ""}><option value="">All offers</option>{offers.map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}</select>
+        </Field>
+        <Field label="Affiliate">
+          <select className={inputClass} name="affiliate" defaultValue={sp.affiliate || ""}><option value="">All affiliates</option>{affiliates.map((affiliate) => <option key={affiliate.id} value={affiliate.id}>{affiliate.name}</option>)}</select>
+        </Field>
+        <Field label="Status">
+          <select className={inputClass} name="status" defaultValue={sp.status || ""}><option value="">Any status</option><option value="approved">Approved</option><option value="pending">Pending</option><option value="rejected">Rejected</option><option value="reversed">Reversed</option></select>
+        </Field>
+        <Field label="From"><input className={inputClass} type="date" name="from" defaultValue={from} /></Field>
+        <Field label="To"><input className={inputClass} type="date" name="to" defaultValue={to} /></Field>
+        <div className="self-end"><button className={`${btn} w-full`}><Icon name="filter" size={15} />Apply</button></div>
       </form>
       <div className="surface-card overflow-x-auto">
         <table className="w-full">
@@ -75,26 +87,24 @@ export default async function ConversionsPage({ searchParams }: { searchParams: 
                 <td className={td}>
                   {row.status === "pending" ? (
                     <span className="flex gap-2">
-                      <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="approved" /><button className="text-sm text-teal">Approve</button></form>
-                      <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="rejected" /><button className="text-sm text-coral">Reject</button></form>
+                      <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="approved" /><button className="text-sm text-success">Approve</button></form>
+                      <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="rejected" /><button className="text-sm text-danger">Reject</button></form>
                     </span>
                   ) : null}
                   {row.status === "approved" ? (
-                    <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="reversed" /><button className="text-sm text-coral">Reverse</button></form>
+                    <form action={setConversionStatus}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="status" value="reversed" /><button className="text-sm text-danger">Reverse</button></form>
                   ) : null}
                 </td>
               </tr>
               );
             })}
-            {!rows.length ? <tr><td className={td} colSpan={21}>No conversions in this range.</td></tr> : null}
+            {!rows.length ? (
+              <tr><td colSpan={21}><EmptyState title="No conversions in this range" icon="target">Conversions appear here when an advertiser postback matches a click.</EmptyState></td></tr>
+            ) : null}
           </tbody>
         </table>
       </div>
-      <div className="mt-3 flex gap-3 text-sm">
-        {page > 1 ? <Link href={`/conversions?${new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", status: sp.status || "", page: String(page - 1) })}`}>Previous</Link> : null}
-        {rows.length === 50 ? <Link href={`/conversions?${new URLSearchParams({ from, to, offer: sp.offer || "", affiliate: sp.affiliate || "", status: sp.status || "", page: String(page + 1) })}`}>Next</Link> : null}
-        <span className="text-muted">Page {page}</span>
-      </div>
+      <Pager page={page} hasNext={rows.length === 50} prevHref={pageLink(page - 1)} nextHref={pageLink(page + 1)} label={`Page ${page} · 50 per page`} />
     </div>
   );
 }

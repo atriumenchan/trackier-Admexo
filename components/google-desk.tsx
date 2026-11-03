@@ -61,7 +61,7 @@ export function GoogleDesk({ origin }: { origin: string }) {
         {report ? (
           <div className="grid gap-2">
             {report.items.map((item) => (
-              <p key={item.code} className={`rounded-sm px-3 py-2 text-sm ${item.pass ? "bg-teal-dim text-teal" : "bg-coral-dim text-coral"}`}>
+              <p key={item.code} className={`rounded-sm px-3 py-2 text-sm ${item.pass ? "bg-success-dim text-success" : "bg-danger-dim text-danger"}`}>
                 {item.pass ? "Pass" : "Fail"} · {item.code} · {item.detail}
               </p>
             ))}

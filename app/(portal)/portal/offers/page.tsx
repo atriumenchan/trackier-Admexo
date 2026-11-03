@@ -1,7 +1,7 @@
 import { requestAccess } from "@/lib/actions";
 import { requireAffiliate } from "@/lib/auth";
 import { CopyButton } from "@/components/copy-button";
-import { Banner, PageHeader, Pill, btn, td, th } from "@/components/ui";
+import { Banner, btn, EmptyState, PageHeader, Pill, td, th } from "@/components/ui";
 import { money } from "@/lib/format";
 import { affiliateOffers } from "@/lib/queries";
 import { ensureLink, publicBase } from "@/lib/tracking";
@@ -41,7 +41,7 @@ export default async function PortalOffersPage({ searchParams }: { searchParams:
                   </td>
                 </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={4}>No offers are open to you yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={4}><EmptyState title="No offers are open to you yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

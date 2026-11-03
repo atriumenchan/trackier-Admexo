@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { listAdvertisers } from "@/lib/queries";
-import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 
 export const metadata = { title: "Advertisers" };
 
@@ -29,12 +29,12 @@ export default async function AdvertisersPage({ searchParams }: { searchParams: 
                 <td className={td}>
                   <DeskForm name="deleteAdvertiser">
                     <input type="hidden" name="id" value={row.id} />
-                    <DeskSubmit className="text-sm text-coral" pendingLabel="Deleting…">Delete</DeskSubmit>
+                    <DeskSubmit className="text-sm text-danger" pendingLabel="Deleting…">Delete</DeskSubmit>
                   </DeskForm>
                 </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={5}>No advertisers yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={5}><EmptyState title="No advertisers yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

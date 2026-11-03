@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listOffers } from "@/lib/queries";
 import { money } from "@/lib/format";
-import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 
 export const metadata = { title: "Offers" };
 
@@ -30,7 +30,7 @@ export default async function OffersPage({ searchParams }: { searchParams: Promi
                 <td className={td}>{money(row.revenue, row.currency)}</td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={6}>No offers yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={6}><EmptyState title="No offers yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

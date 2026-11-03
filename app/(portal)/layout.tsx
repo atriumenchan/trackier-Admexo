@@ -7,15 +7,18 @@ export default async function PortalLayout({ children }: { children: React.React
   return (
     <Shell
       user={account}
-      groups={[{
-        label: "Your account",
-        items: [
-          { href: "/portal", label: "Overview" },
-          { href: "/portal/offers", label: "Offers" },
-          { href: "/portal/conversions", label: "Conversions" },
-          { href: "/portal/postback", label: "Postback" },
-        ],
-      }]}
+      role="Affiliate"
+      groups={[
+        { label: "Overview", items: [{ href: "/portal", label: "Overview", icon: "dashboard" }] },
+        {
+          label: "Your account",
+          items: [
+            { href: "/portal/offers", label: "Offers", icon: "offer" },
+            { href: "/portal/conversions", label: "Conversions", icon: "target" },
+            { href: "/portal/postback", label: "Postback", icon: "postback" },
+          ],
+        },
+      ]}
     >
       {children}
     </Shell>

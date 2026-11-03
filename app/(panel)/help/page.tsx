@@ -40,7 +40,7 @@ export default function HelpPage() {
         <p className="mt-2 font-mono text-[12px]">GET /api/v1/offers</p>
         <p className="font-mono text-[12px]">GET /api/v1/clicks?page=1</p>
         <p className="font-mono text-[12px]">POST /api/v1/postbacks</p>
-        <p className="mt-2">The machine-readable description is at <a className="text-teal" href="/api/openapi">/api/openapi</a>.</p>
+        <p className="mt-2">The machine-readable description is at <a className="text-success" href="/api/openapi">/api/openapi</a>.</p>
         <p className="mt-2">Working macros: {MACROS.map((name) => `{${name}}`).join(" ")}</p>
       </section>
     </div>

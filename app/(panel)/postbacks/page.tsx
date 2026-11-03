@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { retryPostback } from "@/lib/actions";
-import { Banner, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
+import { Banner, EmptyState, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { formatStamp } from "@/lib/format";
 import { listPostbacks } from "@/lib/queries";
 
@@ -27,12 +27,12 @@ export default async function PostbacksPage({ searchParams }: { searchParams: Pr
                 <td className={`${td} max-w-sm truncate font-mono text-[12px]`}>{row.url}</td>
                 <td className={td}>
                   {row.direction === "out" && row.conversion_id ? (
-                    <form action={retryPostback}><input type="hidden" name="id" value={row.conversion_id} /><button className="text-sm text-amber">Retry</button></form>
+                    <form action={retryPostback}><input type="hidden" name="id" value={row.conversion_id} /><button className="text-sm text-brand">Retry</button></form>
                   ) : null}
                 </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={6}>No postbacks yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={6}><EmptyState title="No postbacks yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

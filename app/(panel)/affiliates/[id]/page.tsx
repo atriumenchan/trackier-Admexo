@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { AffiliateForm } from "@/components/partner-forms";
-import { Banner, PageHeader, btnDanger, td, th } from "@/components/ui";
+import { Banner, btnDanger, EmptyState, PageHeader, td, th } from "@/components/ui";
 import { all } from "@/lib/db";
 import { getAffiliate } from "@/lib/queries";
 import { publicBase } from "@/lib/tracking";
@@ -40,7 +40,7 @@ export default async function AffiliatePage({ params, searchParams }: { params: 
                 </tr>
               );
             })}
-            {!links.length ? <tr><td className={td} colSpan={3}>No links yet.</td></tr> : null}
+            {!links.length ? <tr><td colSpan={3}><EmptyState title="No links yet" /></td></tr> : null}
           </tbody>
         </table>
       </section>

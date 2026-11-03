@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createPayout } from "@/lib/actions";
-import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { addDays, formatStamp, istToday, money } from "@/lib/format";
 import { listAffiliates, listPayouts } from "@/lib/queries";
 
@@ -36,7 +36,7 @@ export default async function PayoutsPage({ searchParams }: { searchParams: Prom
                 <td className={td}>{formatStamp(row.created_at)}</td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={5}>No payouts yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={5}><EmptyState title="No payouts yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

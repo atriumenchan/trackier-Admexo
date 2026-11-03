@@ -3,7 +3,7 @@ import { deleteAccess, deleteGoal, deleteOffer, saveGoal } from "@/lib/actions";
 import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { OfferForm } from "@/components/offer-form";
 import { CopyButton } from "@/components/copy-button";
-import { Banner, PageHeader, Pill, btn, btnDanger, inputClass, td, th, toneFor } from "@/components/ui";
+import { Banner, btn, btnDanger, EmptyState, inputClass, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { money } from "@/lib/format";
 import { getOffer, listAdvertisers, listAffiliates, offerAccess, offerGoals, offerLinks } from "@/lib/queries";
 import { publicBase } from "@/lib/tracking";
@@ -61,7 +61,7 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
                   <td className={td}>{money(goal.payout, offer.currency)}</td>
                   <td className={td}>{money(goal.revenue, offer.currency)}</td>
                   <td className={td}>
-                    <form action={deleteGoal}><input type="hidden" name="id" value={goal.id} /><input type="hidden" name="offer_id" value={offer.id} /><button className="text-sm text-coral">Remove</button></form>
+                    <form action={deleteGoal}><input type="hidden" name="id" value={goal.id} /><input type="hidden" name="offer_id" value={offer.id} /><button className="text-sm text-danger">Remove</button></form>
                   </td>
                 </tr>
               ))}
@@ -92,7 +92,7 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
                   <td className={td}>{row.daily_click_cap ?? "—"}</td>
                   <td className={td}>{row.daily_conversion_cap ?? "—"}</td>
                   <td className={td}>
-                    <form action={deleteAccess}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="offer_id" value={offer.id} /><button className="text-sm text-coral">Remove</button></form>
+                    <form action={deleteAccess}><input type="hidden" name="id" value={row.id} /><input type="hidden" name="offer_id" value={offer.id} /><button className="text-sm text-danger">Remove</button></form>
                   </td>
                 </tr>
               ))}
@@ -132,7 +132,7 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
                 </tr>
               );
             })}
-            {!links.length ? <tr><td className={td} colSpan={3}>Approve an affiliate to create a link.</td></tr> : null}
+            {!links.length ? <tr><td colSpan={3}><EmptyState title="Approve an affiliate to create a link" /></td></tr> : null}
           </tbody>
         </table>
       </section>

@@ -13,7 +13,7 @@ import {
   reportFilterQuery,
   type ReportFilter,
 } from "@/lib/queries";
-import { PageHeader, Pill, Stat, btnGhost, td, th, toneFor } from "@/components/ui";
+import { btnGhost, EmptyState, PageHeader, Pill, Stat, td, th, toneFor } from "@/components/ui";
 
 export const metadata = { title: "Report detail" };
 
@@ -141,7 +141,7 @@ function ClickTable({ rows }: { rows: ClickRow[] }) {
           {rows.map((row) => (
             <tr key={row.id}>
               <td className={`${td} whitespace-nowrap`}>{formatStamp(row.created_at)}</td>
-              <td className={`${td} font-mono text-[12px]`}><Link href={`/clicks/${row.id}`} className="text-amber">{row.id}</Link></td>
+              <td className={`${td} font-mono text-[12px]`}><Link href={`/clicks/${row.id}`} className="text-brand">{row.id}</Link></td>
               <td className={td}>{row.offer_name}</td>
               <td className={td}>{row.affiliate_name}</td>
               <td className={`${td} font-mono text-[12px]`}>{row.ip || "—"}</td>
@@ -157,7 +157,7 @@ function ClickTable({ rows }: { rows: ClickRow[] }) {
               <td className={td}>{row.converted ? <Pill tone="ok">yes</Pill> : "—"}</td>
             </tr>
           ))}
-          {!rows.length ? <tr><td className={td} colSpan={15}>No clicks for this selection.</td></tr> : null}
+          {!rows.length ? <tr><td colSpan={15}><EmptyState title="No clicks for this selection" /></td></tr> : null}
         </tbody>
       </table>
     </div>
@@ -179,7 +179,7 @@ function ConversionTable({ rows }: { rows: ConversionRow[] }) {
             <tr key={row.id}>
               <td className={`${td} whitespace-nowrap`}>{formatStamp(row.created_at)}</td>
               <td className={`${td} font-mono text-[12px]`}>{row.id}</td>
-              <td className={`${td} font-mono text-[12px]`}>{row.click_id ? <Link href={`/clicks/${row.click_id}`} className="text-amber">{row.click_id}</Link> : "—"}</td>
+              <td className={`${td} font-mono text-[12px]`}>{row.click_id ? <Link href={`/clicks/${row.click_id}`} className="text-brand">{row.click_id}</Link> : "—"}</td>
               <td className={td}>{row.offer_name}</td>
               <td className={td}>{row.affiliate_name}</td>
               <td className={td}>{row.goal_name || "Default"}</td>
@@ -194,7 +194,7 @@ function ConversionTable({ rows }: { rows: ConversionRow[] }) {
               <td className={td}>{row.note || row.reject_reason || "—"}</td>
             </tr>
           ))}
-          {!rows.length ? <tr><td className={td} colSpan={15}>No conversions for this selection.</td></tr> : null}
+          {!rows.length ? <tr><td colSpan={15}><EmptyState title="No conversions for this selection" /></td></tr> : null}
         </tbody>
       </table>
     </div>

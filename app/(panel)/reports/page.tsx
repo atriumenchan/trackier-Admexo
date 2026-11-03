@@ -13,7 +13,8 @@ import {
 } from "@/lib/queries";
 import { setting } from "@/lib/db";
 import { addDays, istToday, money, num, percent } from "@/lib/format";
-import { Banner, PageHeader, inputClass, td, th } from "@/components/ui";
+import { Banner, EmptyState, Field, PageHeader, Pager, btn, btnGhost, btnQuiet, inputClass, td, th } from "@/components/ui";
+import { Icon } from "@/components/icons";
 
 export const metadata = { title: "Reports" };
 
@@ -70,56 +71,84 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
     <div>
       <PageHeader
         title="Reports"
-        description="Grouped in IST. Fraud and blocked clicks are left out. Only approved conversions count. Every CSV uses the filters and dates below."
+        description="Grouped in IST. Fraud and blocked clicks are left out, and only approved conversions count. Every export follows the filters below."
         action={
-          <span className="flex flex-wrap gap-2">
-            <Link className="rounded-sm border border-border bg-surface px-3 py-2 text-sm" href={`/export/summary?${query}`}>Report CSV</Link>
-            <Link className="rounded-sm border border-border bg-surface px-3 py-2 text-sm text-muted" href={`/export?${query}`}>Conversions CSV</Link>
-            <Link className="rounded-sm border border-border bg-surface px-3 py-2 text-sm text-muted" href={`/export/clicks?${query}`}>Clicks CSV</Link>
-          </span>
+          <>
+            <Link className={btn} href={`/export/summary?${query}`}><Icon name="download" size={16} />Report CSV</Link>
+            <Link className={btnGhost} href={`/export?${query}`}>Conversions CSV</Link>
+            <Link className={btnGhost} href={`/export/clicks?${query}`}>Clicks CSV</Link>
+          </>
         }
       />
       <Banner error={sp.error} ok={sp.ok} />
-      <form className="mb-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <form className="surface-card mb-4 p-4">
         {extraTags.map(([key, value]) => <input key={key} type="hidden" name={key} value={value} />)}
-        <select className={inputClass} name="offer_id" defaultValue={filter.offerId ? String(filter.offerId) : ""} aria-label="Offer">
-          <option value="">All offers</option>
-          {offers.map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}
-        </select>
-        <select className={inputClass} name="affiliate_id" defaultValue={filter.affiliateId ? String(filter.affiliateId) : ""} aria-label="Affiliate">
-          <option value="">All affiliates</option>
-          {affiliates.map((affiliate) => <option key={affiliate.id} value={affiliate.id}>{affiliate.name}</option>)}
-        </select>
-        <select className={inputClass} name="advertiser_id" defaultValue={filter.advertiserId ? String(filter.advertiserId) : ""} aria-label="Advertiser">
-          <option value="">All advertisers</option>
-          {advertisers.map((advertiser) => <option key={advertiser.id} value={advertiser.id}>{advertiser.name}</option>)}
-        </select>
-        <select className={inputClass} name="country" defaultValue={filter.country || ""} aria-label="Country">
-          <option value="">All countries</option>
-          {countries.map((country) => <option key={country} value={country}>{country}</option>)}
-        </select>
-        <select className={inputClass} name="group" defaultValue={group} aria-label="Group by">
-          {REPORT_GROUPS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-        </select>
-        <input className={inputClass} type="date" name="from" defaultValue={from} aria-label="From" />
-        <input className={inputClass} type="date" name="to" defaultValue={to} aria-label="To" />
-        <span className="flex gap-2">
-          <button className="flex-1 rounded-sm border border-border bg-surface px-3 py-2 text-sm">Run report</button>
-          {filtered ? <Link className="rounded-sm px-3 py-2 text-sm text-muted" href={`/reports?${new URLSearchParams({ from, to, group })}`}>Clear</Link> : null}
-        </span>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <Field label="Offer">
+            <select className={inputClass} name="offer_id" defaultValue={filter.offerId ? String(filter.offerId) : ""}>
+              <option value="">All offers</option>
+              {offers.map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}
+            </select>
+          </Field>
+          <Field label="Affiliate">
+            <select className={inputClass} name="affiliate_id" defaultValue={filter.affiliateId ? String(filter.affiliateId) : ""}>
+              <option value="">All affiliates</option>
+              {affiliates.map((affiliate) => <option key={affiliate.id} value={affiliate.id}>{affiliate.name}</option>)}
+            </select>
+          </Field>
+          <Field label="Advertiser">
+            <select className={inputClass} name="advertiser_id" defaultValue={filter.advertiserId ? String(filter.advertiserId) : ""}>
+              <option value="">All advertisers</option>
+              {advertisers.map((advertiser) => <option key={advertiser.id} value={advertiser.id}>{advertiser.name}</option>)}
+            </select>
+          </Field>
+          <Field label="Country">
+            <select className={inputClass} name="country" defaultValue={filter.country || ""}>
+              <option value="">All countries</option>
+              {countries.map((country) => <option key={country} value={country}>{country}</option>)}
+            </select>
+          </Field>
+          <Field label="Group by">
+            <select className={inputClass} name="group" defaultValue={group}>
+              {REPORT_GROUPS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+            </select>
+          </Field>
+          <Field label="From"><input className={inputClass} type="date" name="from" defaultValue={from} /></Field>
+          <Field label="To"><input className={inputClass} type="date" name="to" defaultValue={to} /></Field>
+          <div className="flex items-end gap-2">
+            <button className={`${btn} flex-1`}><Icon name="filter" size={15} />Run report</button>
+            {filtered ? <Link className={btnQuiet} href={`/reports?${new URLSearchParams({ from, to, group })}`}>Clear</Link> : null}
+          </div>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-border pt-3">
+          <span className="mr-1 inline-flex items-center gap-1.5 text-[12px] font-medium text-faint"><Icon name="calendar" size={14} />Quick range</span>
+          {presets(today).map(([label, start, end]) => {
+            const active = start === from && end === to;
+            return (
+              <Link
+                key={label}
+                href={rangeLink(start, end)}
+                aria-current={active ? "true" : undefined}
+                className={`rounded-[7px] border px-2.5 py-1 text-[12.5px] transition ${active ? "border-brand/30 bg-brand-dim font-medium text-brand" : "border-border text-muted hover:border-border-strong hover:text-ink"}`}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </div>
       </form>
-      <div className="mb-4 flex flex-wrap gap-3 text-sm text-muted">
-        {presets(today).map(([label, start, end]) => (
-          <Link key={label} href={rangeLink(start, end)} className={start === from && end === to ? "font-medium underline" : ""}>{label}</Link>
-        ))}
-      </div>
       {extraTags.length ? (
-        <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-muted">Also filtered by:</span>
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-[13px]">
+          <span className="text-muted">Also filtered by</span>
           {extraTags.map(([key, value]) => {
             const next = new URLSearchParams(query);
             next.delete(key);
-            return <Link key={key} href={`/reports?${next}`} className="rounded-full bg-surface px-2.5 py-0.5">{key}: {value} ×</Link>;
+            return (
+              <Link key={key} href={`/reports?${next}`} className="inline-flex items-center gap-1.5 rounded-[7px] border border-brand/25 bg-brand-dim px-2 py-0.5 text-brand" aria-label={`Remove ${key} filter`}>
+                {key}: {value}
+                <Icon name="close" size={12} />
+              </Link>
+            );
           })}
         </div>
       ) : null}
@@ -133,12 +162,13 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
         hrefFor={(row) => `/reports/detail?${new URLSearchParams({ ...scope, from, to, ...drillQuery(group, row, from, to) })}`}
         totalHref={`/reports/detail?${new URLSearchParams({ ...scope, from, to })}`}
       />
-      <p className="mt-2 text-[12px] text-faint">Click any row to see every click and conversion behind it.</p>
-      <div className="mt-3 flex gap-3 text-sm">
-        {page > 1 ? <Link href={pageLink(page - 1)}>Previous</Link> : null}
-        {page < pages ? <Link href={pageLink(page + 1)}>Next</Link> : null}
-        <span className="text-muted">Page {page} of {pages} · {num(allRows.length)} rows</span>
-      </div>
+      <Pager
+        page={page}
+        hasNext={page < pages}
+        prevHref={pageLink(page - 1)}
+        nextHref={pageLink(page + 1)}
+        label={`Page ${page} of ${pages} · ${num(allRows.length)} rows · click any row to open its clicks and conversions`}
+      />
     </div>
   );
 }
@@ -177,18 +207,24 @@ function ReportTable({ rows, total, currency, label, showTotal, hideClicks, href
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.bucketId} className="hover:bg-surface-2">
-              <td className={td}><Link href={hrefFor(row)} className="font-medium text-amber">{row.bucket}</Link></td>
+            <tr key={row.bucketId}>
+              <td className={td}><Link href={hrefFor(row)} className="font-medium text-brand hover:underline">{row.bucket}</Link></td>
               {cells(row)}
             </tr>
           ))}
           {showTotal ? (
-            <tr className="font-medium">
-              <td className={td}><Link href={totalHref} className="text-amber">Total</Link></td>
+            <tr className="bg-surface-2 font-semibold">
+              <td className={td}><Link href={totalHref} className="text-brand hover:underline">Total</Link></td>
               {cells(total)}
             </tr>
           ) : null}
-          {!rows.length ? <tr><td className={td} colSpan={8}>No traffic for these filters.</td></tr> : null}
+          {!rows.length ? (
+            <tr>
+              <td colSpan={8}>
+                <EmptyState title="No traffic for these filters" icon="chart">Try a wider date range or clear a filter.</EmptyState>
+              </td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
     </div>

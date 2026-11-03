@@ -1,5 +1,5 @@
 import { requireAffiliate } from "@/lib/auth";
-import { PageHeader, Pill, td, th, toneFor } from "@/components/ui";
+import { EmptyState, PageHeader, Pill, td, th, toneFor } from "@/components/ui";
 import { formatStamp, money } from "@/lib/format";
 import { listConversions } from "@/lib/queries";
 
@@ -26,7 +26,7 @@ export default async function PortalConversionsPage() {
                 <td className={td}><Pill tone={toneFor(row.status)}>{row.status}</Pill></td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={7}>No conversions yet.</td></tr> : null}
+            {!rows.length ? <tr><td colSpan={7}><EmptyState title="No conversions yet" /></td></tr> : null}
           </tbody>
         </table>
       </div>

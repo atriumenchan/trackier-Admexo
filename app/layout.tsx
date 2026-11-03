@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const fonts = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap";
+const fonts = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap";
 
 export const metadata: Metadata = {
-  title: { default: "ADMEXO Track", template: "%s · ADMEXO Track" },
-  description: "Internal affiliate tracking for ADMEXO.",
+  title: { default: "Adcliqx", template: "%s · Adcliqx" },
+  description: "Adcliqx is the click, conversion and payout tracker ADMEXO uses for its affiliate campaigns.",
 };
+
+export const viewport: Viewport = { themeColor: "#0b1222" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

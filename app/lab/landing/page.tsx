@@ -37,7 +37,7 @@ function LandingInner() {
         <p className="mt-4 break-all font-mono text-[12px] text-ink">click_id={clickId || "(missing)"}</p>
         {sub1 ? <p className="mt-1 font-mono text-[12px] text-muted">sub1={sub1}</p> : null}
         <button
-          className="mt-5 inline-flex min-w-40 cursor-pointer items-center justify-center rounded-sm bg-amber px-3 py-2 text-sm font-medium text-white shadow-cta disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-5 inline-flex min-w-40 cursor-pointer items-center justify-center rounded-sm bg-brand px-3 py-2 text-sm font-medium text-white shadow-cta disabled:cursor-not-allowed disabled:opacity-60"
           type="button"
           data-lab-convert="1"
           disabled={!clickId || busy}
