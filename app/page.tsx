@@ -209,7 +209,7 @@ export default async function Home() {
 
       <section className="border-t border-border bg-canvas">
         <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <SectionHeading align="left" eyebrow="FAQ" title="Questions about Adcliqx" body="Anything else: use the contact address in the footer." />
+          <SectionHeading align="left" eyebrow="FAQ" title="Questions about Adcliqx" body="Anything else: marketing@adcliqx.com." />
           <div className="divide-y divide-border rounded-lg border border-border bg-surface">
             {FAQ.map(([question, answer]) => (
               <details key={question} className="group px-5 py-4">

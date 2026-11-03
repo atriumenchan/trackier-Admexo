@@ -54,7 +54,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             </Field>
             <button className={`${btn} w-full py-2.5`}>Sign in <Icon name="arrowRight" size={16} /></button>
           </form>
-          <p className="mt-6 text-[13px] text-muted">No account? Ask your account manager. There is no public sign-up.</p>
+          <p className="mt-6 text-[13px] text-muted">No account? Ask your account manager or email <a href="mailto:marketing@adcliqx.com" className="font-medium text-brand hover:underline">marketing@adcliqx.com</a>. There is no public sign-up.</p>
           {process.env.NODE_ENV !== "production" ? (
             <p className="mt-4 rounded-sm border border-dashed border-border-strong px-3 py-2 text-[12px] leading-relaxed text-faint">
               Local admin admin@admexo.com / admin123. Affiliate demo@publisher.test / demo123. Advertiser demo@brand.test / demo123.

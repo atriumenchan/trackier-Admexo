@@ -28,7 +28,7 @@ export default function PrivacyPage() {
       <p>The tracking redirect does not set a cookie. The desk sets one session cookie, trk_session, after a person signs in.</p>
 
       <h2>Contact</h2>
-      <p>Questions about this policy: use the contact address in the footer of this page.</p>
+      <p>Questions about this policy: <a href="mailto:marketing@adcliqx.com">marketing@adcliqx.com</a>.</p>
     </PublicPage>
   );
 }

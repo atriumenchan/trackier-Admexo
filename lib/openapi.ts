@@ -5,6 +5,7 @@ export function openApiDocument(origin: string) {
       title: "Adcliqx Tracker API",
       version: "1.0.0",
       description: "Offers, clicks, and advertiser postbacks. Send Authorization: Bearer and the token from Settings.",
+      contact: { name: "Adcliqx", email: "marketing@adcliqx.com" },
     },
     servers: [{ url: origin }],
     components: {

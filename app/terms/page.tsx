@@ -20,7 +20,7 @@ export default function TermsPage() {
         <li><strong>Affiliates</strong> (publishers) see the offers opened to them, their own click counts, conversions, flagged traffic, balance and statements, and set their own postback URL.</li>
         <li><strong>Advertisers</strong> see their own offers, flagged traffic on those offers, pending conversions and their postback URL.</li>
       </ul>
-      <p>Each person keeps their login and API token private and is responsible for activity on their account. Tell us straight away if you think an account or token has been misused. We may rotate tokens or suspend access to protect the Service.</p>
+      <p>Each person keeps their login and API token private and is responsible for activity on their account. Tell us straight away at <a href="mailto:marketing@adcliqx.com">marketing@adcliqx.com</a> if you think an account or token has been misused. We may rotate tokens or suspend access to protect the Service.</p>
 
       <h2>2. What the Service does</h2>
       <p>Adcliqx records clicks on tracking links, redirects each click to the landing page saved on the offer, receives conversion postbacks from advertisers, matches them to the original click, calculates payouts, runs fraud checks and produces reports. How it works in detail is described in the <Link href="/click-tracker">click tracker documentation</Link>.</p>
@@ -86,7 +86,7 @@ export default function TermsPage() {
       <p>We may update these terms. The date at the top shows when they last changed. Continuing to use the Service after a change means you accept the updated terms.</p>
 
       <h2>13. Contact</h2>
-      <p>Questions about these terms: use the contact address in the footer of this page.</p>
+      <p>Questions about these terms: <a href="mailto:marketing@adcliqx.com">marketing@adcliqx.com</a>.</p>
     </PublicPage>
   );
 }
