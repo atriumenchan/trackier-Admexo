@@ -33,7 +33,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             ))}
           </ul>
         </div>
-        <p className="relative text-[12.5px] text-night-muted">© {new Date().getFullYear()} Admexo LLP</p>
+        <p className="relative text-[12.5px] text-night-muted">© {new Date().getFullYear()} Admexo LLC</p>
       </section>
 
       <section className="flex flex-col px-5 py-8 sm:px-10">

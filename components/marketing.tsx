@@ -68,7 +68,7 @@ export function MarketingFooter() {
       </div>
       <div className="border-t border-night-border">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-5 text-[12.5px] sm:px-8">
-          <span>© {new Date().getFullYear()} Admexo LLP. Adcliqx is an internal ADMEXO platform.</span>
+          <span>© {new Date().getFullYear()} Admexo LLC. Adcliqx is an internal ADMEXO platform.</span>
           <span className="inline-flex items-center gap-1.5"><Icon name="lock" size={13} />HTTPS on every tracking domain</span>
         </div>
       </div>
