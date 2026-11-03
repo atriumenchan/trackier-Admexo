@@ -781,7 +781,7 @@ export async function saveFraudRule(form: FormData) {
   try {
     const name = str(form, "name");
     if (!name) throw new Error("Name the rule.");
-    const metric = oneOf(str(form, "metric"), ["burst", "bot", "cr"], "burst");
+    const metric = oneOf(str(form, "metric"), ["burst", "bot", "cr", "datacenter"], "burst");
     const actionName = oneOf(str(form, "action"), ["flag", "reject", "pause"], "flag");
     const status = oneOf(str(form, "status"), ["active", "paused"], "active");
     const threshold = optionalNumber(form, "threshold") ?? (metric === "cr" ? 40 : 30);

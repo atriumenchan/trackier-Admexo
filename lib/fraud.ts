@@ -1,6 +1,7 @@
 import { all, one, run, setting } from "@/lib/db";
 import { nowUtc } from "@/lib/format";
 import { stricterAction } from "@/lib/rules";
+import { DATACENTER_REASON } from "@/lib/datacenter";
 
 export type FraudRule = {
   id: number;
@@ -17,11 +18,32 @@ const BOT_AGENT = /bot|spider|crawler|headless/i;
 const GOOGLE_CRAWLER = /AdsBot-Google|Googlebot|Mediapartners-Google|Google-InspectionTool|GoogleOther|APIs-Google|Google-Ads/i;
 export const GOOGLE_CRAWLER_REASON = "Google crawler";
 
+export function isGoogleCrawler(userAgent: string) {
+  return GOOGLE_CRAWLER.test(userAgent);
+}
+
 /** Google's ad review crawlers must still reach the landing page, so a reject or pause on them is softened to a flag. */
 export function botDecision(userAgent: string, action: string) {
   if (!action || !BOT_AGENT.test(userAgent)) return null;
-  if (GOOGLE_CRAWLER.test(userAgent)) return { action: "flag", reason: GOOGLE_CRAWLER_REASON };
+  if (isGoogleCrawler(userAgent)) return { action: "flag", reason: GOOGLE_CRAWLER_REASON };
   return { action, reason: "Bot" };
+}
+
+export function datacenterSince() {
+  return windowStart(30 * 24 * 60);
+}
+
+export async function datacenterAction() {
+  return (await one<{ action: string }>("SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'datacenter' ORDER BY id LIMIT 1"))?.action || "";
+}
+
+async function datacenterSeen(ip: string) {
+  if (!ip) return false;
+  const row = await one<{ n: number }>(
+    "SELECT COUNT(*) AS n FROM clicks WHERE ip = ? AND fraud_reason = ? AND created_at >= ?",
+    ip, DATACENTER_REASON, datacenterSince(),
+  );
+  return Number(row?.n ?? 0) > 0;
 }
 
 export function fraudLabel(reason: string) {
@@ -31,6 +53,7 @@ export function fraudLabel(reason: string) {
   if (value === GOOGLE_CRAWLER_REASON) return "Google ad check";
   if (value === "Click burst") return "Bad traffic: too many clicks from one IP";
   if (value === "blocked-ip") return "Blocked IP";
+  if (value === DATACENTER_REASON) return "Bad traffic: datacenter / hosting IP";
   if (value === "fraud") return "Bad traffic";
   return `Bad traffic: ${value}`;
 }
@@ -58,7 +81,7 @@ export async function ensureFraudRules() {
 
 export async function decideClickFraud(input: { ip: string; userAgent: string; offerId: number }) {
   (await ensureFraudRules());
-  const rules = (await all<FraudRule>("SELECT * FROM fraud_rules WHERE status = 'active' AND metric IN ('burst', 'bot')"));
+  const rules = (await all<FraudRule>("SELECT * FROM fraud_rules WHERE status = 'active' AND metric IN ('burst', 'bot', 'datacenter')"));
   let action = "";
   let reason = "";
   for (const rule of rules) {
@@ -69,6 +92,9 @@ export async function decideClickFraud(input: { ip: string; userAgent: string; o
       if (!bot) continue;
       ruleAction = bot.action;
       if (bot.reason === GOOGLE_CRAWLER_REASON) ruleReason = bot.reason;
+    } else if (rule.metric === "datacenter") {
+      if (isGoogleCrawler(input.userAgent) || !(await datacenterSeen(input.ip))) continue;
+      ruleReason = DATACENTER_REASON;
     } else if (!(await burstHit(input, rule))) continue;
     if (stricterAction(action, ruleAction) === ruleAction) {
       action = ruleAction;

@@ -16,7 +16,7 @@ export default async function FraudPage({ searchParams }: { searchParams: Promis
     <div className="space-y-4">
       <PageHeader
         title="Fraud"
-        description="Every caught click is recorded and flagged, and never counted or paid. Flag only still opens the landing page; Flag + reject sends the click away. Google's ad-review crawler is always let through as flagged so ads are not disapproved. Conversion rate is a percent and starts after 5 clicks in the window."
+        description="Every caught click is recorded and flagged, and never counted or paid. Flag only still opens the landing page; Flag + reject sends the click away. Google's ad-review crawler is always let through as flagged so ads are not disapproved. Datacenter IPs are found right after the first click (which is flagged, not counted); later clicks from that IP get the rule's action. Conversion rate is a percent and starts after 5 clicks in the window."
       />
       <Banner error={sp.error} ok={sp.ok} />
       <div className="surface-card overflow-x-auto">
@@ -27,8 +27,8 @@ export default async function FraudPage({ searchParams }: { searchParams: Promis
               <tr key={rule.id}>
                 <td className={td}>{rule.name}</td>
                 <td className={td}>{rule.metric}</td>
-                <td className={td}>{rule.threshold}</td>
-                <td className={td}>{rule.window_minutes} min</td>
+                <td className={td}>{rule.metric === "datacenter" ? "—" : rule.threshold}</td>
+                <td className={td}>{rule.metric === "datacenter" ? "IP remembered 30 days" : `${rule.window_minutes} min`}</td>
                 <td className={td}>
                   <form action={saveFraudRule} className="flex items-center gap-2">
                     <input type="hidden" name="id" value={rule.id} />
@@ -59,6 +59,7 @@ export default async function FraudPage({ searchParams }: { searchParams: Promis
           <option value="burst">Click burst</option>
           <option value="bot">Bot user agent</option>
           <option value="cr">Conversion rate %</option>
+          <option value="datacenter">Datacenter / hosting IP</option>
         </select>
         <select className={inputClass} name="action" defaultValue="reject" aria-label="Action">
           <option value="flag">Flag only</option>

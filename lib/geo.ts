@@ -1,6 +1,6 @@
 import { clip } from "@/lib/format";
 
-export type Geo = { city: string; country: string; isp: string };
+export type Geo = { city: string; country: string; isp: string; org?: string; asn?: number | null };
 
 function privateIp(ip: string) {
   return !ip
@@ -23,9 +23,10 @@ export function geoFromHeaders(req: Request): Geo {
   };
 }
 
-export async function lookupIp(ip: string, seed: Geo = { city: "", country: "", isp: "" }): Promise<Geo> {
+/** Pass `network: true` to always ask the lookup service, so org and ASN are filled even when city, country and ISP are already known. */
+export async function lookupIp(ip: string, seed: Geo = { city: "", country: "", isp: "" }, options: { network?: boolean } = {}): Promise<Geo> {
   const geo = { ...seed };
-  if (privateIp(ip) || (geo.city && geo.isp && geo.country)) return geo;
+  if (privateIp(ip) || (!options.network && geo.city && geo.isp && geo.country)) return geo;
   try {
     const response = await fetch(`https://ipwho.is/${encodeURIComponent(ip)}`, {
       cache: "no-store",
@@ -35,12 +36,14 @@ export async function lookupIp(ip: string, seed: Geo = { city: "", country: "", 
       success?: boolean;
       city?: string;
       country_code?: string;
-      connection?: { isp?: string; org?: string };
+      connection?: { isp?: string; org?: string; asn?: number };
     };
     if (data?.success === false) return geo;
     if (!geo.city) geo.city = clip(data.city || "", 80);
     if (!geo.country && data.country_code) geo.country = data.country_code.toUpperCase().slice(0, 2);
     if (!geo.isp) geo.isp = clip(data.connection?.isp || data.connection?.org || "", 120);
+    geo.org = clip(data.connection?.org || "", 120);
+    geo.asn = Number(data.connection?.asn) || null;
   } catch {
     return geo;
   }

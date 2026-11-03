@@ -3,7 +3,8 @@ import { after, NextResponse } from "next/server";
 import { all, one, run, setting, transaction } from "@/lib/db";
 import { clip, dayStartUtc, nowUtc, roundMoney, shortCode } from "@/lib/format";
 import { runAfterResponse } from "@/lib/defer";
-import { botDecision, decideClickFraud, decideConversionFraud, pauseAffiliate } from "@/lib/fraud";
+import { botDecision, datacenterAction, datacenterSince, decideClickFraud, decideConversionFraud, isGoogleCrawler, pauseAffiliate } from "@/lib/fraud";
+import { DATACENTER_REASON, isDatacenter } from "@/lib/datacenter";
 import { geoFromHeaders, lookupIp } from "@/lib/geo";
 import { packClickAgent, packConversionMeta } from "@/lib/traffic-meta";
 import { postLedger } from "@/lib/ledger";
@@ -269,6 +270,8 @@ type DirectRow = {
   burst_limit: number | null;
   burst_action: string | null;
   bot_action: string | null;
+  dc_action: string | null;
+  dc_seen: number;
 };
 
 function offerFromRow(row: DirectRow): Offer {
@@ -340,6 +343,7 @@ function gateFromRow(row: DirectRow, userAgent: string) {
   const bot = blocked ? null : botDecision(userAgent, row.bot_action || "");
   if (bot) applyRule(bot.action, bot.reason);
   if (!blocked && row.burst_action && row.burst_clicks >= (row.burst_limit || 30)) applyRule(row.burst_action, "Click burst");
+  if (!blocked && row.dc_action && Number(row.dc_seen) > 0 && !isGoogleCrawler(userAgent)) applyRule(row.dc_action, DATACENTER_REASON);
   return { blocked, fraud, fraudReason, pause };
 }
 
@@ -360,7 +364,9 @@ async function handleDirect(code: string, ctx: ClickContext) {
       (SELECT COUNT(*) FROM clicks c WHERE c.ip = ? AND c.offer_id = o.id AND c.created_at >= ?) AS burst_clicks,
       (SELECT threshold FROM fraud_rules WHERE status = 'active' AND metric = 'burst' ORDER BY id LIMIT 1) AS burst_limit,
       (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'burst' ORDER BY id LIMIT 1) AS burst_action,
-      (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'bot' ORDER BY id LIMIT 1) AS bot_action
+      (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'bot' ORDER BY id LIMIT 1) AS bot_action,
+      (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'datacenter' ORDER BY id LIMIT 1) AS dc_action,
+      (SELECT COUNT(*) FROM clicks c WHERE c.ip = ? AND c.fraud_reason = ? AND c.created_at >= ?) AS dc_seen
      FROM tracking_links t
      JOIN offers o ON o.id = t.offer_id
      JOIN affiliates f ON f.id = t.affiliate_id
@@ -372,6 +378,9 @@ async function handleDirect(code: string, ctx: ClickContext) {
     day,
     ctx.ip,
     burstStart,
+    ctx.ip,
+    DATACENTER_REASON,
+    datacenterSince(),
     code,
   );
   if (!row) return unavailable(ctx.origin);
@@ -541,7 +550,7 @@ async function finishClick(input: {
       finalDestination,
       createdAt,
     ));
-    const geo = await lookupIp(ctx.ip, { city: ctx.city, country: ctx.country, isp: ctx.isp });
+    const geo = await lookupIp(ctx.ip, { city: ctx.city, country: ctx.country, isp: ctx.isp }, { network: true });
     if (geo.city || geo.isp || geo.country) {
       await run(
         "UPDATE clicks SET user_agent = ?, country = ? WHERE id = ?",
@@ -550,8 +559,18 @@ async function finishClick(input: {
         clickId,
       );
     }
-    if (pause) (await pauseAffiliate(affiliate.id));
-    if (!blocked && !fraud) (await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 }));
+    let counted = !blocked && !fraud;
+    let pauseNow = pause;
+    if (!blocked && !fraud && !isGoogleCrawler(ctx.userAgent) && isDatacenter(geo)) {
+      const action = await datacenterAction();
+      if (action) {
+        await run("UPDATE clicks SET fraud_flag = 1, fraud_reason = ? WHERE id = ?", DATACENTER_REASON, clickId);
+        counted = false;
+        if (action === "pause") pauseNow = true;
+      }
+    }
+    if (pauseNow) (await pauseAffiliate(affiliate.id));
+    if (counted) (await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 }));
   }, (task) => after(() => task));
 
   if (blocked) {

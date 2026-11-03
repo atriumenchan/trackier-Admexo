@@ -4,7 +4,8 @@ import { CERTIFIED_PATHS, OWNED_DOMAINS } from "../compliance/google-transparenc
 import { all, one, run } from "@/lib/db";
 import { runAfterResponse } from "@/lib/defer";
 import { nowUtc, shortCode } from "@/lib/format";
-import { decideClickFraud } from "@/lib/fraud";
+import { datacenterAction, decideClickFraud, isGoogleCrawler } from "@/lib/fraud";
+import { DATACENTER_REASON, isDatacenter } from "@/lib/datacenter";
 import { geoFromHeaders, lookupIp } from "@/lib/geo";
 import { packClickAgent } from "@/lib/traffic-meta";
 import certifiedFile from "../compliance/certified-trackers.json";
@@ -195,7 +196,7 @@ export async function enforceGoogleClick(req: Request, code: string, kind: "link
         location,
         createdAt,
       );
-      const geo = await lookupIp(flag.ip, headersGeo);
+      const geo = await lookupIp(flag.ip, headersGeo, { network: true });
       if (geo.city || geo.isp || geo.country) {
         await run(
           "UPDATE clicks SET user_agent = ?, country = ? WHERE id = ?",
@@ -204,7 +205,12 @@ export async function enforceGoogleClick(req: Request, code: string, kind: "link
           clickId,
         );
       }
-      if (!blocked && !flag.fraud) await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 });
+      let counted = !blocked && !flag.fraud;
+      if (counted && !isGoogleCrawler(flag.ua) && isDatacenter(geo) && (await datacenterAction())) {
+        await run("UPDATE clicks SET fraud_flag = 1, fraud_reason = ? WHERE id = ?", DATACENTER_REASON, clickId);
+        counted = false;
+      }
+      if (counted) await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 });
     }, (task) => after(() => task));
   }
   return googleRedirect(location);
