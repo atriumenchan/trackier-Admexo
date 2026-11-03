@@ -25,6 +25,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </label>
         <button className={`${btn} mt-5 w-full`}>Sign in</button>
         <p className="mt-4 flex gap-4 text-[12px] text-muted">
+          <a href="/">Home</a>
           <a href="/privacy">Privacy policy</a>
           <a href="/click-tracker">Click tracker</a>
         </p>

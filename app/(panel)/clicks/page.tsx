@@ -50,7 +50,7 @@ export default async function ClicksPage({ searchParams }: { searchParams: Promi
             {rows.map((row) => (
               <tr key={row.id}>
                 <td className={td}>{formatStamp(row.created_at)}</td>
-                <td className={`${td} font-mono text-[12px]`}>{row.id}</td>
+                <td className={`${td} font-mono text-[12px]`}><Link href={`/clicks/${row.id}`} className="text-amber">{row.id}</Link></td>
                 <td className={`${td} font-mono text-[12px]`}>{row.ip || "—"}</td>
                 <td className={td}>{row.city || "—"}</td>
                 <td className={td}>{row.country || "—"}</td>

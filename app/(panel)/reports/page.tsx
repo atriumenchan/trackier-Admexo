@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   REPORT_GROUPS,
+  drillQuery,
   listAdvertisers,
   listAffiliates,
   listOffers,
@@ -63,6 +64,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
   const rangeLink = (start: string, end: string) => `/reports?${new URLSearchParams({ group, ...scope, from: start, to: end })}`;
   const groupLabel = REPORT_GROUPS.find(([value]) => value === group)?.[1].replace(/^By /, "") || group;
   const filtered = Object.keys(scope).length > 0;
+  const extraTags = (["device", "os", "source", "hour", "goal"] as const).filter((key) => filter[key]).map((key) => [key, filter[key] as string] as const);
   const pages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
   return (
     <div>
@@ -79,6 +81,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
       />
       <Banner error={sp.error} ok={sp.ok} />
       <form className="mb-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {extraTags.map(([key, value]) => <input key={key} type="hidden" name={key} value={value} />)}
         <select className={inputClass} name="offer_id" defaultValue={filter.offerId ? String(filter.offerId) : ""} aria-label="Offer">
           <option value="">All offers</option>
           {offers.map((offer) => <option key={offer.id} value={offer.id}>{offer.name}</option>)}
@@ -110,7 +113,27 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
           <Link key={label} href={rangeLink(start, end)} className={start === from && end === to ? "font-medium underline" : ""}>{label}</Link>
         ))}
       </div>
-      <ReportTable rows={rows} total={total} currency={currency} label={groupLabel} showTotal={allRows.length > 0} hideClicks={group === "goal"} />
+      {extraTags.length ? (
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+          <span className="text-muted">Also filtered by:</span>
+          {extraTags.map(([key, value]) => {
+            const next = new URLSearchParams(query);
+            next.delete(key);
+            return <Link key={key} href={`/reports?${next}`} className="rounded-full bg-surface px-2.5 py-0.5">{key}: {value} ×</Link>;
+          })}
+        </div>
+      ) : null}
+      <ReportTable
+        rows={rows}
+        total={total}
+        currency={currency}
+        label={groupLabel}
+        showTotal={allRows.length > 0}
+        hideClicks={group === "goal"}
+        hrefFor={(row) => `/reports/detail?${new URLSearchParams({ ...scope, from, to, ...drillQuery(group, row, from, to) })}`}
+        totalHref={`/reports/detail?${new URLSearchParams({ ...scope, from, to })}`}
+      />
+      <p className="mt-2 text-[12px] text-faint">Click any row to see every click and conversion behind it.</p>
       <div className="mt-3 flex gap-3 text-sm">
         {page > 1 ? <Link href={pageLink(page - 1)}>Previous</Link> : null}
         {page < pages ? <Link href={pageLink(page + 1)}>Next</Link> : null}
@@ -122,7 +145,16 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
 
 type Totals = { clicks: number; conversions: number; revenue: number; payout: number };
 
-function ReportTable({ rows, total, currency, label, showTotal, hideClicks }: { rows: ReportRow[]; total: Totals; currency: string; label: string; showTotal: boolean; hideClicks: boolean }) {
+function ReportTable({ rows, total, currency, label, showTotal, hideClicks, hrefFor, totalHref }: {
+  rows: ReportRow[];
+  total: Totals;
+  currency: string;
+  label: string;
+  showTotal: boolean;
+  hideClicks: boolean;
+  hrefFor: (row: ReportRow) => string;
+  totalHref: string;
+}) {
   const cells = (row: Totals) => (
     <>
       <td className={td}>{hideClicks ? "—" : num(row.clicks)}</td>
@@ -145,14 +177,14 @@ function ReportTable({ rows, total, currency, label, showTotal, hideClicks }: { 
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.bucketId}>
-              <td className={td}>{row.bucket}</td>
+            <tr key={row.bucketId} className="hover:bg-surface-2">
+              <td className={td}><Link href={hrefFor(row)} className="font-medium text-amber">{row.bucket}</Link></td>
               {cells(row)}
             </tr>
           ))}
           {showTotal ? (
             <tr className="font-medium">
-              <td className={td}>Total</td>
+              <td className={td}><Link href={totalHref} className="text-amber">Total</Link></td>
               {cells(total)}
             </tr>
           ) : null}

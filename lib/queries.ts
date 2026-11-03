@@ -157,20 +157,24 @@ export async function listConversions(filters: { offerId?: number; affiliateId?:
      LEFT JOIN clicks k ON k.id = c.click_id
      WHERE ${where.join(" AND ")} ORDER BY c.created_at DESC${limit}`,
     ...params,
-  )).map((row) => {
-    const click = unpackClick({ user_agent: row.click_user_agent || "", source: row.source || "" });
-    const unpacked = unpackConversion({
-      ...row,
-      city: click.city,
-      isp: click.isp,
-      p1: click.p1,
-      source: click.source || row.source || "",
-    });
-    if (!unpacked.payout_user || unpacked.payout_user === unpacked.payout) {
-      unpacked.payout_user = Math.round((unpacked.payout || 0) * fx * 100) / 100;
-    }
-    return unpacked;
+  )).map((row) => shapeConversion(row, fx));
+}
+
+type RawConversion = Conversion & { click_user_agent?: string; click_created_at?: string };
+
+function shapeConversion<T extends RawConversion>(row: T, fx: number) {
+  const click = unpackClick({ user_agent: row.click_user_agent || "", source: row.source || "" });
+  const unpacked = unpackConversion({
+    ...row,
+    city: click.city,
+    isp: click.isp,
+    p1: click.p1,
+    source: click.source || row.source || "",
   });
+  if (!unpacked.payout_user || unpacked.payout_user === unpacked.payout) {
+    unpacked.payout_user = Math.round((unpacked.payout || 0) * fx * 100) / 100;
+  }
+  return unpacked;
 }
 
 export type TrafficDetail = Click & {
@@ -302,7 +306,19 @@ export type ReportRow = {
   payout: number;
 };
 
-export type ReportFilter = { offerId?: number; affiliateId?: number; advertiserId?: number; country?: string };
+export type ReportFilter = {
+  offerId?: number;
+  affiliateId?: number;
+  advertiserId?: number;
+  country?: string;
+  device?: string;
+  os?: string;
+  source?: string;
+  hour?: string;
+  goal?: string;
+};
+
+const TEXT_FILTERS = ["device", "os", "source", "hour", "goal"] as const;
 
 export const REPORT_GROUPS = [
   ["day", "By day"],
@@ -322,13 +338,16 @@ const TIME_GROUPS = new Set(["day", "hour", "month"]);
 
 export function reportFilterFrom(get: (key: string) => string | null | undefined): ReportFilter {
   const id = (key: string) => Number(get(key) || 0) || undefined;
-  const country = (get("country") || "").trim().toUpperCase();
-  return {
+  const text = (key: string) => (get(key) || "").trim().slice(0, 120) || undefined;
+  const country = (get("country") || "").trim();
+  const filter: ReportFilter = {
     offerId: id("offer_id"),
     affiliateId: id("affiliate_id"),
     advertiserId: id("advertiser_id"),
-    country: /^[A-Z]{2}$/.test(country) ? country : undefined,
+    country: /^[A-Za-z]{2}$/.test(country) ? country.toUpperCase() : country === "Unknown" ? country : undefined,
   };
+  for (const key of TEXT_FILTERS) filter[key] = text(key);
+  return filter;
 }
 
 export function reportFilterQuery(filter: ReportFilter) {
@@ -337,7 +356,54 @@ export function reportFilterQuery(filter: ReportFilter) {
   if (filter.affiliateId) query.affiliate_id = String(filter.affiliateId);
   if (filter.advertiserId) query.advertiser_id = String(filter.advertiserId);
   if (filter.country) query.country = filter.country;
+  for (const key of TEXT_FILTERS) if (filter[key]) query[key] = filter[key] as string;
   return query;
+}
+
+const textValue = (expr: string, empty: string) => `COALESCE(NULLIF(${expr}, ''), '${empty}')`;
+const GOAL_LABEL = textValue("v.goal_name", "Default");
+
+function scopeFor(filter: ReportFilter, alias: "k" | "v") {
+  const where: string[] = [];
+  const params: Array<string | number> = [];
+  const add = (sql: string, value: string | number) => {
+    where.push(sql);
+    params.push(value);
+  };
+  if (filter.offerId) add(`${alias}.offer_id = ?`, filter.offerId);
+  if (filter.affiliateId) add(`${alias}.affiliate_id = ?`, filter.affiliateId);
+  if (filter.advertiserId) add("o.advertiser_id = ?", filter.advertiserId);
+  if (filter.country) add(`${textValue("k.country", "Unknown")} = ?`, filter.country);
+  if (filter.device) add(`${textValue("k.device", "Unknown")} = ?`, filter.device);
+  if (filter.os) add(`${textValue("k.os", "Unknown")} = ?`, filter.os);
+  if (filter.source) add(`${textValue("k.sub1", "(none)")} = ?`, filter.source);
+  if (filter.hour) add(`${istHour(`${alias}.created_at`)} = ?`, filter.hour);
+  if (filter.goal) {
+    add(
+      alias === "v" ? `${GOAL_LABEL} = ?` : `EXISTS (SELECT 1 FROM conversions v WHERE v.click_id = k.id AND ${GOAL_LABEL} = ?)`,
+      filter.goal,
+    );
+  }
+  return { sql: where.map((item) => ` AND ${item}`).join(""), params };
+}
+
+export function drillQuery(group: string, row: { bucket: string; bucketId: string }, from: string, to: string): Record<string, string> {
+  const today = istToday();
+  if (group === "day") return { from: row.bucket, to: row.bucket };
+  if (group === "hour") return { from: row.bucket.slice(0, 10), to: row.bucket.slice(0, 10), hour: row.bucket };
+  if (group === "month") {
+    const start = `${row.bucket}-01`;
+    const [y, m] = row.bucket.split("-").map(Number);
+    const end = addDays(`${m === 12 ? y + 1 : y}-${String(m === 12 ? 1 : m + 1).padStart(2, "0")}-01`, -1);
+    return { from: start < from ? from : start, to: end > to ? to : end > today ? today : end };
+  }
+  const range = { from, to };
+  if (group === "offer") return { ...range, offer_id: row.bucketId };
+  if (group === "affiliate") return { ...range, affiliate_id: row.bucketId };
+  if (group === "advertiser") return { ...range, advertiser_id: row.bucketId };
+  if (group === "goal") return { ...range, goal: row.bucket, tab: "conversions" };
+  if (group === "country" || group === "device" || group === "os" || group === "source") return { ...range, [group]: row.bucket };
+  return range;
 }
 
 export function reportFileTag(filter: ReportFilter) {
@@ -346,12 +412,13 @@ export function reportFileTag(filter: ReportFilter) {
     filter.affiliateId ? `aff${filter.affiliateId}` : "",
     filter.advertiserId ? `adv${filter.advertiserId}` : "",
     filter.country ? filter.country.toLowerCase() : "",
+    ...TEXT_FILTERS.map((key) => (filter[key] ? `${key}-${String(filter[key]).replace(/[^a-z0-9]+/gi, "-").toLowerCase()}` : "")),
   ].filter(Boolean).map((part) => `_${part}`).join("");
 }
 
 function reportDimension(group: string, time: string) {
   const text = (expr: string, empty: string) => {
-    const value = `COALESCE(NULLIF(${expr}, ''), '${empty}')`;
+    const value = textValue(expr, empty);
     return { id: value, label: value };
   };
   if (group === "hour") return { id: istHour(time), label: istHour(time) };
@@ -368,33 +435,10 @@ function reportDimension(group: string, time: string) {
 
 export async function report(group: string, from: string, to: string, page?: number, filter: ReportFilter = {}): Promise<ReportRow[]> {
   const range = istRange(from, to);
-  const scope = (alias: string) => {
-    const where: string[] = [];
-    const params: Array<string | number> = [];
-    if (filter.offerId) {
-      where.push(`${alias}.offer_id = ?`);
-      params.push(filter.offerId);
-    }
-    if (filter.affiliateId) {
-      where.push(`${alias}.affiliate_id = ?`);
-      params.push(filter.affiliateId);
-    }
-    if (filter.advertiserId) {
-      where.push("o.advertiser_id = ?");
-      params.push(filter.advertiserId);
-    }
-    if (filter.country) {
-      where.push("k.country = ?");
-      params.push(filter.country.toUpperCase());
-    }
-    return { sql: where.map((item) => ` AND ${item}`).join(""), params };
-  };
-  const clickScope = scope("k");
-  const conversionScope = scope("v");
+  const clickScope = scopeFor(filter, "k");
+  const conversionScope = scopeFor(filter, "v");
   const clickDim = reportDimension(group, "k.created_at");
-  const conversionDim = group === "goal"
-    ? { id: "COALESCE(NULLIF(v.goal_name, ''), 'Default')", label: "COALESCE(NULLIF(v.goal_name, ''), 'Default')" }
-    : reportDimension(group, "v.created_at");
+  const conversionDim = group === "goal" ? { id: GOAL_LABEL, label: GOAL_LABEL } : reportDimension(group, "v.created_at");
 
   const [clicks, conversions] = await Promise.all([
     group === "goal"
@@ -443,6 +487,118 @@ export async function report(group: string, from: string, to: string, page?: num
   if (!page) return sorted;
   const window = paging(page);
   return sorted.slice(window.offset, window.offset + window.limit);
+}
+
+export type DetailSummary = {
+  clicks: number;
+  validClicks: number;
+  flaggedClicks: number;
+  blockedClicks: number;
+  conversions: { status: string; n: number; revenue: number; payout: number }[];
+};
+
+export async function detailSummary(from: string, to: string, filter: ReportFilter): Promise<DetailSummary> {
+  const range = istRange(from, to);
+  const clickScope = scopeFor(filter, "k");
+  const conversionScope = scopeFor(filter, "v");
+  const [clicks, conversions] = await Promise.all([
+    one<{ clicks: number; valid_clicks: number; flagged: number; blocked: number }>(
+      `SELECT COUNT(*) AS clicks,
+        COALESCE(SUM(CASE WHEN k.blocked_reason = '' AND k.fraud_flag = 0 THEN 1 ELSE 0 END), 0) AS valid_clicks,
+        COALESCE(SUM(CASE WHEN k.blocked_reason = '' AND k.fraud_flag = 1 THEN 1 ELSE 0 END), 0) AS flagged,
+        COALESCE(SUM(CASE WHEN k.blocked_reason != '' THEN 1 ELSE 0 END), 0) AS blocked
+       FROM clicks k JOIN offers o ON o.id = k.offer_id
+       WHERE k.created_at >= ? AND k.created_at < ?${clickScope.sql}`,
+      range.start,
+      range.end,
+      ...clickScope.params,
+    ),
+    all<{ status: string; n: number; revenue: number; payout: number }>(
+      `SELECT v.status AS status, COUNT(*) AS n, COALESCE(SUM(v.revenue), 0) AS revenue, COALESCE(SUM(v.payout), 0) AS payout
+       FROM conversions v JOIN offers o ON o.id = v.offer_id LEFT JOIN clicks k ON k.id = v.click_id
+       WHERE v.created_at >= ? AND v.created_at < ?${conversionScope.sql}
+       GROUP BY v.status`,
+      range.start,
+      range.end,
+      ...conversionScope.params,
+    ),
+  ]);
+  return {
+    clicks: Number(clicks?.clicks || 0),
+    validClicks: Number(clicks?.valid_clicks || 0),
+    flaggedClicks: Number(clicks?.flagged || 0),
+    blockedClicks: Number(clicks?.blocked || 0),
+    conversions: conversions.map((row) => ({ ...row, n: Number(row.n), revenue: Number(row.revenue), payout: Number(row.payout) })),
+  };
+}
+
+export type DetailClick = Click & { converted: number };
+
+export async function detailClicks(from: string, to: string, filter: ReportFilter, page?: number) {
+  const range = istRange(from, to);
+  const scope = scopeFor(filter, "k");
+  const window = page ? paging(page) : null;
+  const rows = await all<DetailClick>(
+    `SELECT k.*, o.name AS offer_name, f.name AS affiliate_name,
+      (SELECT COUNT(*) FROM conversions v WHERE v.click_id = k.id) AS converted
+     FROM clicks k JOIN offers o ON o.id = k.offer_id JOIN affiliates f ON f.id = k.affiliate_id
+     WHERE k.created_at >= ? AND k.created_at < ?${scope.sql}
+     ORDER BY k.created_at DESC${window ? " LIMIT ? OFFSET ?" : ""}`,
+    range.start,
+    range.end,
+    ...scope.params,
+    ...(window ? [window.limit, window.offset] : []),
+  );
+  return rows.map((row) => ({ ...unpackClick(row), converted: Number(row.converted || 0) }));
+}
+
+export async function detailConversions(from: string, to: string, filter: ReportFilter, page?: number, status?: string) {
+  const range = istRange(from, to);
+  const scope = scopeFor(filter, "v");
+  const window = page ? paging(page) : null;
+  const statusSql = status ? " AND v.status = ?" : "";
+  const fx = Number((await setting("fx_rate", "1")) || "1") || 1;
+  const rows = await all<RawConversion>(
+    `SELECT v.*, o.name AS offer_name, f.name AS affiliate_name,
+      k.ip AS click_ip, k.country AS country, k.user_agent AS click_user_agent, k.created_at AS click_created_at, k.sub1 AS source
+     FROM conversions v JOIN offers o ON o.id = v.offer_id JOIN affiliates f ON f.id = v.affiliate_id
+     LEFT JOIN clicks k ON k.id = v.click_id
+     WHERE v.created_at >= ? AND v.created_at < ?${scope.sql}${statusSql}
+     ORDER BY v.created_at DESC${window ? " LIMIT ? OFFSET ?" : ""}`,
+    range.start,
+    range.end,
+    ...scope.params,
+    ...(status ? [status] : []),
+    ...(window ? [window.limit, window.offset] : []),
+  );
+  return rows.map((row) => shapeConversion(row, fx));
+}
+
+export async function getClickDetail(id: string) {
+  const fx = Number((await setting("fx_rate", "1")) || "1") || 1;
+  const [click, conversions] = await Promise.all([
+    one<Click & { advertiser_name?: string; offer_url?: string }>(
+      `SELECT k.*, o.name AS offer_name, f.name AS affiliate_name, a.name AS advertiser_name
+       FROM clicks k JOIN offers o ON o.id = k.offer_id JOIN affiliates f ON f.id = k.affiliate_id
+       LEFT JOIN advertisers a ON a.id = o.advertiser_id
+       WHERE k.id = ?`,
+      id,
+    ),
+    all<RawConversion>(
+      `SELECT v.*, o.name AS offer_name, f.name AS affiliate_name,
+        k.ip AS click_ip, k.country AS country, k.user_agent AS click_user_agent, k.created_at AS click_created_at, k.sub1 AS source
+       FROM conversions v JOIN offers o ON o.id = v.offer_id JOIN affiliates f ON f.id = v.affiliate_id
+       LEFT JOIN clicks k ON k.id = v.click_id
+       WHERE v.click_id = ? ORDER BY v.created_at`,
+      id,
+    ),
+  ]);
+  if (!click) return null;
+  const postbacks = await all<PostbackLog>(
+    "SELECT * FROM postback_logs WHERE click_id = ? ORDER BY id DESC LIMIT 50",
+    id,
+  );
+  return { click: unpackClick(click), conversions: conversions.map((row) => shapeConversion(row, fx)), postbacks };
 }
 
 export async function reportCountries() {
