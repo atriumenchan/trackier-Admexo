@@ -14,7 +14,7 @@ const rows = [
   ["txid", "Advertiser transaction id"],
   ["status", "approved, pending, rejected, or reversed"],
   ["goal", "Goal name"],
-  ["source", "Always admexo"],
+  ["source", "Always adcliqx"],
   ["sub1 to sub10", "Values passed on the tracking link"],
 ];
 

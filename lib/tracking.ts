@@ -491,7 +491,7 @@ async function finishClick(input: {
         affiliate_name: affiliate.name,
         offer_id: String(offer.id),
         offer_name: offer.name,
-        source: "admexo",
+        source: "adcliqx",
         ...ctx.subs,
       });
 
@@ -503,7 +503,7 @@ async function finishClick(input: {
     offer_id: String(offer.id),
     offer_name: offer.name,
     payout: String(offer.payout),
-    source: ctx.source || "admexo",
+    source: ctx.source || "adcliqx",
     ...ctx.subs,
   }) : "";
 
@@ -767,7 +767,7 @@ export async function fireAffiliatePostback(conversionId: number) {
     txid: conversion.txid,
     status: conversion.status,
     goal: conversion.goal_name,
-    source: "admexo",
+    source: "adcliqx",
     sub1: click?.sub1 || "",
     sub2: click?.sub2 || "",
     sub3: click?.sub3 || "",
