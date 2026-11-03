@@ -4,9 +4,9 @@ export const inputClass =
   "w-full rounded-sm border border-border bg-surface px-3 py-2 text-sm text-ink outline-none placeholder:text-faint";
 export const th = "px-3 py-2 text-left text-[11px] font-medium uppercase tracking-[0.04em] text-faint whitespace-nowrap";
 export const td = "px-3 py-2.5 align-middle border-t border-border text-sm text-ink";
-export const btn = "inline-flex items-center justify-center rounded-sm bg-amber px-3 py-2 text-sm font-medium text-white shadow-cta disabled:opacity-60";
-export const btnGhost = "inline-flex items-center justify-center rounded-sm border border-border bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-border-strong";
-export const btnDanger = "inline-flex items-center justify-center rounded-sm border border-coral/30 bg-coral-dim px-3 py-2 text-sm font-medium text-coral";
+export const btn = "inline-flex !cursor-pointer items-center justify-center rounded-sm bg-amber px-3 py-2 text-sm font-medium text-white shadow-cta disabled:!cursor-not-allowed disabled:opacity-60";
+export const btnGhost = "inline-flex !cursor-pointer items-center justify-center rounded-sm border border-border bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-border-strong";
+export const btnDanger = "inline-flex !cursor-pointer items-center justify-center rounded-sm border border-coral/30 bg-coral-dim px-3 py-2 text-sm font-medium text-coral";
 
 export function PageHeader({ title, description, action }: { title: string; description?: string; action?: ReactNode }) {
   return (
@@ -23,7 +23,7 @@ export function PageHeader({ title, description, action }: { title: string; desc
 export function Banner({ error, ok }: { error?: string; ok?: string }) {
   if (!error && !ok) return null;
   return (
-    <p className={`mb-4 rounded-sm px-3 py-2 text-sm ${error ? "bg-coral-dim text-coral" : "bg-teal-dim text-teal"}`}>
+    <p className={`sticky top-2 z-20 mb-4 rounded-sm px-3 py-2 text-sm ${error ? "bg-coral-dim text-coral" : "bg-teal-dim text-teal"}`}>
       {error || ok}
     </p>
   );
@@ -58,7 +58,7 @@ export function TextInput({ label, name, defaultValue, type = "text", required, 
 }) {
   return (
     <Field label={label} hint={hint}>
-      <input className={inputClass} name={name} type={type} required={required} placeholder={placeholder} defaultValue={defaultValue ?? ""} />
+      <input className={inputClass} name={name} type={type} step={type === "number" ? "any" : undefined} required={required} placeholder={placeholder} defaultValue={defaultValue ?? ""} />
     </Field>
   );
 }

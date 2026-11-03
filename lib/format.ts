@@ -44,6 +44,31 @@ export function dayStartUtc(day = istToday()) {
   return istRange(day, day).start;
 }
 
+export function istPartsStamp(utcSql: string | null | undefined) {
+  if (!utcSql) return { date: "", time: "" };
+  const date = new Date(utcSql.replace(" ", "T") + "Z");
+  if (Number.isNaN(date.getTime())) return { date: "", time: "" };
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+  const pick = (type: string) => parts.find((part) => part.type === type)?.value || "";
+  return {
+    date: `${pick("year")}-${pick("month")}-${pick("day")}`,
+    time: `${pick("hour")}:${pick("minute")}:${pick("second")}`,
+  };
+}
+
+export function csvCell(value: string | number | null | undefined) {
+  return `"${String(value ?? "").replace(/"/g, '""')}"`;
+}
+
 export function formatStamp(utcSql: string | null | undefined) {
   if (!utcSql) return "—";
   const date = new Date(utcSql.replace(" ", "T") + "Z");

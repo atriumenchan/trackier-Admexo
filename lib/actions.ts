@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { clearSession, checkLogin, requireAdmin, requireAffiliate, requireAdvertiser, requireUser, setSession, homeFor } from "@/lib/auth";
-import { all, one, run, setting } from "@/lib/db";
+import { all, insertAndId, one, run, setting } from "@/lib/db";
 import { postLedger } from "@/lib/ledger";
 import { addRollup, rollupDay } from "@/lib/rollup";
 import { clip, countryList, istRange, nowUtc, shortCode } from "@/lib/format";
@@ -33,6 +33,12 @@ function optionalNumber(form: FormData, key: string) {
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0) throw new Error("Enter a number that is zero or greater.");
   return value;
+}
+
+async function assertLoginEmailFree(email: string, existingUserId?: number) {
+  if (!email) return;
+  const clash = (await one<User>("SELECT * FROM users WHERE email = ?", email));
+  if (clash && clash.id !== existingUserId) throw new Error("That email is already used by another login. Open the existing partner from the list, or use a different email.");
 }
 
 function httpUrl(value: string, label: string, required = false) {
@@ -101,7 +107,7 @@ export async function login(form: FormData) {
   const result = (await checkLogin(str(form, "email"), str(form, "password")));
   if ("error" in result && result.error) redirect(`/login?error=${encodeURIComponent(result.error)}`);
   if (!result.user) redirect("/login?error=Those+details+do+not+match.");
-  await setSession(result.user.id);
+  await setSession(result.user);
   redirect(homeFor(result.user.role));
 }
 
@@ -118,18 +124,21 @@ export async function saveAdvertiser(form: FormData) {
     const name = str(form, "name");
     if (!name) throw new Error("Name is required.");
     const status = oneOf(str(form, "status"), ["active", "paused"], "active");
-    const fields = [name, str(form, "company"), str(form, "email").toLowerCase(), httpUrl(str(form, "website"), "Website"), status, str(form, "notes")];
+    const email = str(form, "email").toLowerCase();
+    const fields = [name, str(form, "company"), email, httpUrl(str(form, "website"), "Website"), status, str(form, "notes")];
     let saved = id;
+    await assertLoginEmailFree(email, (await one<User>("SELECT * FROM users WHERE advertiser_id = ?", id || -1))?.id);
     if (id) {
       (await run("UPDATE advertisers SET name = ?, company = ?, email = ?, website = ?, status = ?, notes = ? WHERE id = ?", ...fields, id));
     } else {
-      saved = (await run(
+      const token = shortCode(24);
+      saved = await insertAndId(
         `INSERT INTO advertisers (name, company, email, website, status, notes, postback_token, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        ...fields,
-        shortCode(24),
-        nowUtc(),
-      )).id;
+        [...fields, token, nowUtc()],
+        "SELECT id FROM advertisers WHERE postback_token = ? ORDER BY id DESC LIMIT 1",
+        token,
+      );
     }
     await savePortalUser({
       email: str(form, "email"),
@@ -148,11 +157,16 @@ export async function saveAdvertiser(form: FormData) {
 export async function deleteAdvertiser(form: FormData) {
   await requireAdmin();
   const id = Number(form.get("id") || 0);
-  const offers = (await one<{ n: number }>("SELECT COUNT(*) AS n FROM offers WHERE advertiser_id = ?", id))?.n ?? 0;
-  if (offers) redirect(`/advertisers/${id}?error=${encodeURIComponent("Pause this advertiser, or delete its offers first.")}`);
-  (await run("DELETE FROM users WHERE advertiser_id = ?", id));
-  (await run("DELETE FROM advertisers WHERE id = ?", id));
-  redirect("/advertisers?ok=Advertiser+deleted");
+  try {
+    const offers = (await one<{ n: number }>("SELECT COUNT(*) AS n FROM offers WHERE advertiser_id = ?", id))?.n ?? 0;
+    if (offers) throw new Error("This advertiser still has offers. Delete or pause those first.");
+    (await run("DELETE FROM users WHERE advertiser_id = ?", id));
+    (await run("DELETE FROM advertisers WHERE id = ?", id));
+    redirect("/advertisers?ok=Advertiser+deleted");
+  } catch (error) {
+    bubble(error);
+    fail("/advertisers", error);
+  }
 }
 
 export async function regenerateToken(form: FormData) {
@@ -174,17 +188,24 @@ export async function saveAffiliate(form: FormData) {
     const postback = str(form, "postback_url");
     if (postback) httpUrl(postback, "Postback URL");
     let saved = id;
+    await assertLoginEmailFree(email, (await one<User>("SELECT * FROM users WHERE affiliate_id = ?", id || -1))?.id);
+    if (!id && email) {
+      const existing = (await one<{ id: number }>("SELECT id FROM affiliates WHERE email = ?", email));
+      if (existing) throw new Error("An affiliate with that email already exists. Open them from the Affiliates list.");
+    }
     if (id) {
       (await run(
         "UPDATE affiliates SET name = ?, company = ?, email = ?, status = ?, postback_url = ?, notes = ? WHERE id = ?",
         name, str(form, "company"), email, status, postback, str(form, "notes"), id,
       ));
     } else {
-      saved = (await run(
+      saved = await insertAndId(
         `INSERT INTO affiliates (name, company, email, status, postback_url, notes, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        name, str(form, "company"), email, status, postback, str(form, "notes"), nowUtc(),
-      )).id;
+        [name, str(form, "company"), email, status, postback, str(form, "notes"), nowUtc()],
+        "SELECT id FROM affiliates WHERE email = ? ORDER BY id DESC LIMIT 1",
+        email,
+      );
     }
     await savePortalUser({ email, name, password: str(form, "password"), role: "affiliate", affiliateId: saved });
     redirect(`/affiliates/${saved}?ok=${encodeURIComponent("Affiliate saved")}`);
@@ -194,18 +215,57 @@ export async function saveAffiliate(form: FormData) {
   }
 }
 
-export async function deleteAffiliate(form: FormData) {
-  await requireAdmin();
-  const id = Number(form.get("id") || 0);
+async function removeAffiliateRow(id: number) {
   const clicks = (await one<{ n: number }>("SELECT COUNT(*) AS n FROM clicks WHERE affiliate_id = ?", id))?.n ?? 0;
-  if (clicks) redirect(`/affiliates/${id}?error=${encodeURIComponent("This affiliate has clicks. Block them instead of deleting.")}`);
+  if (clicks) throw new Error("This affiliate has clicks. Open them and set Status to Blocked instead of deleting.");
+  (await run("DELETE FROM traffic_rollups WHERE affiliate_id = ?", id));
+  (await run("DELETE FROM ledger_entries WHERE affiliate_id = ?", id));
+  (await run("DELETE FROM payouts WHERE affiliate_id = ?", id));
   (await run("DELETE FROM tracking_links WHERE affiliate_id = ?", id));
   (await run("DELETE FROM offer_access WHERE affiliate_id = ?", id));
   (await run("DELETE FROM smart_link_offers WHERE smart_link_id IN (SELECT id FROM smart_links WHERE affiliate_id = ?)", id));
   (await run("DELETE FROM smart_links WHERE affiliate_id = ?", id));
   (await run("DELETE FROM users WHERE affiliate_id = ?", id));
   (await run("DELETE FROM affiliates WHERE id = ?", id));
-  redirect("/affiliates?ok=Affiliate+deleted");
+}
+
+export async function deleteAffiliate(form: FormData) {
+  await requireAdmin();
+  try {
+    await removeAffiliateRow(Number(form.get("id") || 0));
+    redirect("/affiliates?ok=Affiliate+deleted");
+  } catch (error) {
+    bubble(error);
+    fail("/affiliates", error);
+  }
+}
+
+export async function cleanupDuplicateAffiliates(_form?: FormData) {
+  await requireAdmin();
+  try {
+    const emails = (await all<{ email: string }>(
+      `SELECT email FROM affiliates WHERE email <> '' GROUP BY email HAVING COUNT(*) > 1`,
+    ));
+    let removed = 0;
+    for (const row of emails) {
+      const ids = (await all<{ id: number }>("SELECT id FROM affiliates WHERE email = ? ORDER BY id", row.email));
+      const linked = (await one<{ affiliate_id: number }>("SELECT affiliate_id FROM users WHERE email = ?", row.email));
+      const keep = linked?.affiliate_id && ids.some((item) => item.id === linked.affiliate_id) ? linked.affiliate_id : ids[0]?.id;
+      for (const item of ids) {
+        if (!keep || item.id === keep) continue;
+        try {
+          await removeAffiliateRow(item.id);
+          removed += 1;
+        } catch {
+          /* keep rows that still have clicks */
+        }
+      }
+    }
+    redirect(`/affiliates?ok=${encodeURIComponent(removed ? `${removed} duplicate${removed === 1 ? "" : "s"} removed` : "No unused duplicates to remove")}`);
+  } catch (error) {
+    bubble(error);
+    fail("/affiliates", error);
+  }
 }
 
 function readOffer(form: FormData) {
@@ -285,14 +345,17 @@ export async function saveOffer(form: FormData) {
         ...values, now, id,
       ));
     } else {
-      saved = (await run(
+      saved = await insertAndId(
         `INSERT INTO offers (
           advertiser_id, name, description, preview_url, offer_url, model, currency, payout, revenue, status, visibility,
           country_mode, countries, devices, attribution_hours, schedule_days, schedule_start_hour, schedule_end_hour,
           daily_click_cap, daily_conversion_cap, daily_budget_cap, fallback_url, final_url, google_strict, created_at, updated_at
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        ...values, now, now,
-      )).id;
+        [...values, now, now],
+        "SELECT id FROM offers WHERE advertiser_id = ? AND name = ? ORDER BY id DESC LIMIT 1",
+        offer.advertiserId,
+        offer.name,
+      );
     }
     redirect(`/offers/${saved}?ok=${encodeURIComponent("Offer saved")}`);
   } catch (error) {
@@ -387,6 +450,7 @@ export async function testConversion(form: FormData) {
     txid: `test-${shortCode(8)}`,
     sourceUrl: "manual-test",
     status: "approved",
+    method: "test",
   });
   const target = `/clicks?ok=${encodeURIComponent(result.message)}`;
   if (!result.ok) redirect(`/clicks?error=${encodeURIComponent(result.message)}`);
@@ -519,10 +583,13 @@ export async function saveSmartLink(form: FormData) {
     if (id) {
       (await run("UPDATE smart_links SET name = ?, affiliate_id = ?, sort_mode = ?, status = ?, fallback_url = ? WHERE id = ?", name, affiliateId, sortMode, status, fallback, id));
     } else {
-      saved = (await run(
+      const code = shortCode(8);
+      saved = await insertAndId(
         `INSERT INTO smart_links (name, code, affiliate_id, sort_mode, status, fallback_url, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        name, shortCode(8), affiliateId, sortMode, status, fallback, nowUtc(),
-      )).id;
+        [name, code, affiliateId, sortMode, status, fallback, nowUtc()],
+        "SELECT id FROM smart_links WHERE code = ? ORDER BY id DESC LIMIT 1",
+        code,
+      );
     }
     (await run("DELETE FROM smart_link_offers WHERE smart_link_id = ?", saved));
     for (const value of form.getAll("offer_id")) {
@@ -609,11 +676,12 @@ export async function importFeed(form: FormData) {
     const payload = JSON.parse(str(form, "json")) as unknown;
     let source = (await one<SyncSource>("SELECT * FROM sync_sources WHERE advertiser_id = ? AND endpoint_url = 'manual://import'", advertiserId));
     if (!source) {
-      const id = (await run(
+      const id = await insertAndId(
         `INSERT INTO sync_sources (name, advertiser_id, endpoint_url, api_key, created_at) VALUES ('Manual import', ?, 'manual://import', '', ?)`,
+        [advertiserId, nowUtc()],
+        "SELECT id FROM sync_sources WHERE advertiser_id = ? AND endpoint_url = 'manual://import' ORDER BY id DESC LIMIT 1",
         advertiserId,
-        nowUtc(),
-      )).id;
+      );
       source = (await one<SyncSource>("SELECT * FROM sync_sources WHERE id = ?", id));
     }
     if (!source) throw new Error("Could not save the import.");
@@ -650,11 +718,17 @@ export async function createPayout(form: FormData) {
     }
     const now = nowUtc();
     for (const [currency, group] of groups) {
-      const payoutId = (await run(
+      const amount = Math.round(group.amount * 100) / 100;
+      const payoutId = await insertAndId(
         `INSERT INTO payouts (affiliate_id, period_start, period_end, amount, currency, status, notes, created_at)
          VALUES (?, ?, ?, ?, ?, 'pending', ?, ?)`,
-        affiliateId, from, to, Math.round(group.amount * 100) / 100, currency, str(form, "notes"), now,
-      )).id;
+        [affiliateId, from, to, amount, currency, str(form, "notes"), now],
+        "SELECT id FROM payouts WHERE affiliate_id = ? AND period_start = ? AND period_end = ? AND currency = ? ORDER BY id DESC LIMIT 1",
+        affiliateId,
+        from,
+        to,
+        currency,
+      );
       for (const conversionId of group.ids) (await run("UPDATE conversions SET payout_id = ? WHERE id = ?", payoutId, conversionId));
       (await postLedger({
         affiliateId,
@@ -737,7 +811,7 @@ export async function deleteFraudRule(form: FormData) {
   redirect("/fraud?ok=Rule+removed");
 }
 
-export async function rotateApiToken() {
+export async function rotateApiToken(_form?: FormData) {
   const user = await requireUser();
   const token = randomBytes(24).toString("hex");
   (await run("UPDATE users SET api_token = ? WHERE id = ?", token, user.id));
@@ -754,13 +828,15 @@ export async function saveSettings(form: FormData) {
     (await run("INSERT INTO settings (key, value) VALUES ('base_url', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", base));
     (await run("INSERT INTO settings (key, value) VALUES ('currency', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", currency));
     (await run("INSERT INTO settings (key, value) VALUES ('company_name', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", str(form, "company_name") || "ADMEXO"));
+    const fx = optionalNumber(form, "fx_rate") ?? 1;
+    (await run("INSERT INTO settings (key, value) VALUES ('fx_rate', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", String(fx)));
     (await run("INSERT INTO settings (key, value) VALUES ('fraud_click_limit', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", String(limit)));
     (await run("INSERT INTO settings (key, value) VALUES ('fraud_window_minutes', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", String(minutes)));
     (await run(
       "INSERT INTO settings (key, value) VALUES ('block_fraud_clicks', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
       form.get("block_fraud_clicks") ? "1" : "0",
     ));
-    (await run("DELETE FROM blocked_ips"));
+    (await run("DELETE FROM blocked_ips WHERE ip <> ''"));
     const seen = new Set<string>();
     for (const line of str(form, "blocked_ips").split(/\s+/)) {
       const ip = line.trim();

@@ -122,6 +122,14 @@ export type Click = {
   sub8: string;
   sub9: string;
   sub10: string;
+  gclid?: string;
+  creative?: string;
+  vt_device?: string;
+  vt_campaign?: string;
+  city: string;
+  isp: string;
+  p1: string;
+  source: string;
   fraud_flag: number;
   fraud_reason: string;
   blocked_reason: string;
@@ -147,9 +155,20 @@ export type Conversion = {
   ip: string;
   payout_id: number | null;
   postback_status: string;
+  method: string;
+  note: string;
+  goal_value: number | null;
+  elapsed_time: number;
+  payout_user: number;
   created_at: string;
   offer_name?: string;
   affiliate_name?: string;
+  click_ip?: string;
+  city?: string;
+  country?: string;
+  isp?: string;
+  p1?: string;
+  source?: string;
 };
 
 export type PostbackLog = {

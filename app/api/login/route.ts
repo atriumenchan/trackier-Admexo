@@ -13,6 +13,6 @@ export async function POST(req: Request) {
   }
   if ("error" in result && result.error) redirect(`/login?error=${encodeURIComponent(result.error)}`);
   if (!result.user) redirect("/login?error=Those+details+do+not+match.");
-  await setSession(result.user.id);
+  await setSession(result.user);
   redirect(homeFor(result.user.role));
 }

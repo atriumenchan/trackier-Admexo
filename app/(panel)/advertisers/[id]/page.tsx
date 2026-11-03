@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { deleteAdvertiser, regenerateToken } from "@/lib/actions";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { AdvertiserForm } from "@/components/partner-forms";
 import { CopyButton } from "@/components/copy-button";
 import { Banner, PageHeader, btnDanger, btnGhost } from "@/components/ui";
@@ -24,7 +24,7 @@ export default async function AdvertiserPage({ params, searchParams }: { params:
         <p className="break-all font-mono text-[12px] text-ink">{postback}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <CopyButton value={postback} label="Copy postback" />
-          <form action={regenerateToken}><input type="hidden" name="id" value={advertiser.id} /><button className={btnGhost}>Regenerate</button></form>
+          <DeskForm name="regenerateToken"><input type="hidden" name="id" value={advertiser.id} /><DeskSubmit className={btnGhost} pendingLabel="Updating…">Regenerate</DeskSubmit></DeskForm>
         </div>
       </section>
       <section className="surface-card p-4 sm:p-5"><AdvertiserForm advertiser={advertiser} /></section>
@@ -35,10 +35,10 @@ export default async function AdvertiserPage({ params, searchParams }: { params:
           {!offers.length ? <li className="text-muted">No offers yet.</li> : null}
         </ul>
       </section>
-      <form action={deleteAdvertiser}>
+      <DeskForm name="deleteAdvertiser">
         <input type="hidden" name="id" value={advertiser.id} />
-        <button className={btnDanger}>Delete advertiser</button>
-      </form>
+        <DeskSubmit className={btnDanger} pendingLabel="Deleting…">Delete advertiser</DeskSubmit>
+      </DeskForm>
     </div>
   );
 }

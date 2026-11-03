@@ -24,6 +24,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <input className={inputClass} name="password" type="password" required autoComplete="current-password" />
         </label>
         <button className={`${btn} mt-5 w-full`}>Sign in</button>
+        <p className="mt-4 flex gap-4 text-[12px] text-muted">
+          <a href="/privacy">Privacy policy</a>
+          <a href="/click-tracker">Click tracker</a>
+        </p>
         {process.env.NODE_ENV !== "production" ? (
           <p className="mt-4 text-[12px] leading-relaxed text-faint">
             Local admin admin@admexo.com / admin123. Affiliate demo@publisher.test / demo123. Advertiser demo@brand.test / demo123.

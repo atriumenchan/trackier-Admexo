@@ -60,6 +60,30 @@
 html, body { background: var(--canvas); color: var(--text); }
 body { font-family: var(--font-sans); min-height: 100vh; font-size: 15px; line-height: 1.5; letter-spacing: -0.011em; }
 ::selection { background: var(--amber-dim); }
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+select,
+option,
+summary,
+a[href],
+label {
+  cursor: pointer !important;
+}
+button:disabled,
+[disabled] {
+  cursor: not-allowed !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+textarea {
+  cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"] {
+  cursor: pointer;
+}
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 .surface-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
 

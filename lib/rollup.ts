@@ -1,28 +1,43 @@
 import { all, istDay, one, putSetting, run, setting } from "@/lib/db";
 import { addDays, istDate, istToday } from "@/lib/format";
 
+let rollupsReady = false;
+let rollupBoot: Promise<void> | null = null;
+
 export async function ensureRollups() {
-  if ((await setting("rollup_built", "")) === "1") return;
-  (await run("DELETE FROM traffic_rollups WHERE day <> ''"));
-  const clicks = (await all<{ day: string; offer_id: number; affiliate_id: number; clicks: number }>(
-    `SELECT ${istDay("created_at")} AS day, offer_id, affiliate_id, COUNT(*) AS clicks
-     FROM clicks WHERE blocked_reason = '' AND fraud_flag = 0
-     GROUP BY 1, offer_id, affiliate_id`,
-  ));
-  for (const row of clicks) (await upsert(row.day, row.offer_id, row.affiliate_id, { clicks: row.clicks }));
-  const conversions = (await all<{ day: string; offer_id: number; affiliate_id: number; conversions: number; revenue: number; payout: number }>(
-    `SELECT ${istDay("created_at")} AS day, offer_id, affiliate_id, COUNT(*) AS conversions,
-            COALESCE(SUM(revenue), 0) AS revenue, COALESCE(SUM(payout), 0) AS payout
-     FROM conversions WHERE status = 'approved'
-     GROUP BY 1, offer_id, affiliate_id`,
-  ));
-  for (const row of conversions) {
-    (await upsert(row.day, row.offer_id, row.affiliate_id, {
-      conversions: row.conversions,
-      revenue: row.revenue,
-      payout: row.payout,
-    }));
+  if (rollupsReady) return;
+  if (!rollupBoot) {
+    rollupBoot = (async () => {
+      if ((await setting("rollup_built", "")) === "1") {
+        rollupsReady = true;
+        return;
+      }
+      await buildRollups();
+      rollupsReady = true;
+    })();
   }
+  await rollupBoot;
+}
+
+async function buildRollups() {
+  (await run("DELETE FROM traffic_rollups WHERE day <> ''"));
+  (await run(
+    `INSERT INTO traffic_rollups (day, offer_id, affiliate_id, clicks, conversions, revenue, payout)
+     SELECT ${istDay("created_at")}, offer_id, affiliate_id, COUNT(*), 0, 0, 0
+     FROM clicks WHERE blocked_reason = '' AND fraud_flag = 0
+     GROUP BY 1, offer_id, affiliate_id
+     ON CONFLICT(day, offer_id, affiliate_id) DO UPDATE SET clicks = excluded.clicks`,
+  ));
+  (await run(
+    `INSERT INTO traffic_rollups (day, offer_id, affiliate_id, clicks, conversions, revenue, payout)
+     SELECT ${istDay("created_at")}, offer_id, affiliate_id, 0, COUNT(*), COALESCE(SUM(revenue), 0), COALESCE(SUM(payout), 0)
+     FROM conversions WHERE status = 'approved'
+     GROUP BY 1, offer_id, affiliate_id
+     ON CONFLICT(day, offer_id, affiliate_id) DO UPDATE SET
+       conversions = excluded.conversions,
+       revenue = excluded.revenue,
+       payout = excluded.payout`,
+  ));
   (await putSetting("rollup_built", "1"));
 }
 

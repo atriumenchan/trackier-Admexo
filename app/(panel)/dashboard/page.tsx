@@ -9,10 +9,12 @@ import { CopyButton } from "@/components/copy-button";
 export const metadata = { title: "Dashboard" };
 
 export default async function DashboardPage() {
-  const data = (await dashboard());
-  const link = (await one<{ code: string }>("SELECT code FROM tracking_links ORDER BY id LIMIT 1"));
-  const advertiser = (await one<{ postback_token: string }>("SELECT postback_token FROM advertisers ORDER BY id LIMIT 1"));
-  const base = (await publicBase());
+  const [data, link, advertiser, base] = await Promise.all([
+    dashboard(),
+    one<{ code: string }>("SELECT code FROM tracking_links ORDER BY id LIMIT 1"),
+    one<{ postback_token: string }>("SELECT postback_token FROM advertisers ORDER BY id LIMIT 1"),
+    publicBase(),
+  ]);
   const track = link ? `${base}/t/${link.code}?sub1=test` : "";
   const postback = advertiser ? `${base}/pb/${advertiser.postback_token}?click_id={click_id}&txid={txid}` : "";
   const max = Math.max(1, ...data.series.map((point) => point.clicks));

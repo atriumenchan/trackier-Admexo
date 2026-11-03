@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { deleteAccess, deleteGoal, deleteOffer, saveAccess, saveGoal } from "@/lib/actions";
+import { deleteAccess, deleteGoal, deleteOffer, saveGoal } from "@/lib/actions";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { OfferForm } from "@/components/offer-form";
 import { CopyButton } from "@/components/copy-button";
 import { Banner, PageHeader, Pill, btn, btnDanger, inputClass, td, th, toneFor } from "@/components/ui";
@@ -14,16 +15,38 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
   const offer = (await getOffer(Number(id)));
   if (!offer) notFound();
   const sp = await searchParams;
-  const goals = (await offerGoals(offer.id));
-  const access = (await offerAccess(offer.id));
-  const links = (await offerLinks(offer.id));
-  const affiliates = (await listAffiliates());
-  const base = (await publicBase());
+  const [goals, access, links, affiliates, advertisers, base] = await Promise.all([
+    offerGoals(offer.id),
+    offerAccess(offer.id),
+    offerLinks(offer.id),
+    listAffiliates(),
+    listAdvertisers(),
+    publicBase(),
+  ]);
   return (
     <div className="space-y-4">
       <PageHeader title={offer.name} description={`${offer.advertiser_name} · ${offer.model} · ${money(offer.payout, offer.currency)} payout / ${money(offer.revenue, offer.currency)} revenue`} />
       <Banner error={sp.error} ok={sp.ok} />
-      <section className="surface-card p-4 sm:p-5"><OfferForm advertisers={(await listAdvertisers())} offer={offer} /></section>
+      <section className="surface-card p-4 sm:p-5">
+        <h2 className="font-display text-lg">Tracking link</h2>
+        <p className="mt-1 text-sm text-muted">Give this to the affiliate. A click is logged the moment it opens, then the visitor is sent to the offer URL.</p>
+        <div className="mt-3 space-y-2">
+          {links.map((link) => {
+            const url = `${base}/t/${link.code}`;
+            return (
+              <div key={link.id} className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="font-mono text-[13px] break-all">{url}</p>
+                  <p className="text-[12px] text-muted">{link.affiliate_name}</p>
+                </div>
+                <CopyButton value={url} />
+              </div>
+            );
+          })}
+          {!links.length ? <p className="text-sm text-muted">Approve an affiliate below. The link appears here as soon as access is saved.</p> : null}
+        </div>
+      </section>
+      <section className="surface-card p-4 sm:p-5"><OfferForm advertisers={advertisers} offer={offer} /></section>
 
       <section className="surface-card p-4 sm:p-5">
         <h2 className="font-display text-lg">Goals</h2>
@@ -76,7 +99,7 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
             </tbody>
           </table>
         </div>
-        <form action={saveAccess} className="mt-4 grid gap-3 sm:grid-cols-3">
+        <DeskForm name="saveAccess" className="mt-4 grid gap-3 sm:grid-cols-3">
           <input type="hidden" name="offer_id" value={offer.id} />
           <select className={inputClass} name="affiliate_id" required>
             <option value="">Affiliate</option>
@@ -91,8 +114,8 @@ export default async function OfferPage({ params, searchParams }: { params: Prom
           <input className={inputClass} name="custom_revenue" type="number" step="0.01" placeholder="Custom revenue" />
           <input className={inputClass} name="daily_click_cap" type="number" placeholder="Daily click cap" />
           <input className={inputClass} name="daily_conversion_cap" type="number" placeholder="Daily conversion cap" />
-          <button className={btn}>Save access</button>
-        </form>
+          <DeskSubmit className={btn}>Save access</DeskSubmit>
+        </DeskForm>
       </section>
 
       <section className="surface-card overflow-x-auto">

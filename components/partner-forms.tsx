@@ -1,10 +1,10 @@
-import { saveAdvertiser, saveAffiliate } from "@/lib/actions";
-import { SelectInput, TextInput, btn, inputClass, Field } from "@/components/ui";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
+import { SelectInput, TextInput, inputClass, Field } from "@/components/ui";
 import type { Advertiser, Affiliate } from "@/lib/types";
 
 export function AdvertiserForm({ advertiser }: { advertiser?: Advertiser }) {
   return (
-    <form action={saveAdvertiser} className="grid gap-4 sm:grid-cols-2">
+    <DeskForm name="saveAdvertiser" className="grid gap-4 sm:grid-cols-2">
       {advertiser ? <input type="hidden" name="id" value={advertiser.id} /> : null}
       <TextInput label="Name" name="name" required defaultValue={advertiser?.name} />
       <TextInput label="Company" name="company" defaultValue={advertiser?.company} />
@@ -20,14 +20,14 @@ export function AdvertiserForm({ advertiser }: { advertiser?: Advertiser }) {
           <textarea className={inputClass} name="notes" rows={3} defaultValue={advertiser?.notes || ""} />
         </Field>
       </div>
-      <div><button className={btn}>{advertiser ? "Save advertiser" : "Create advertiser"}</button></div>
-    </form>
+      <div className="sm:col-span-2"><DeskSubmit>{advertiser ? "Save advertiser" : "Create advertiser"}</DeskSubmit></div>
+    </DeskForm>
   );
 }
 
 export function AffiliateForm({ affiliate }: { affiliate?: Affiliate }) {
   return (
-    <form action={saveAffiliate} className="grid gap-4 sm:grid-cols-2">
+    <DeskForm name="saveAffiliate" className="grid gap-4 sm:grid-cols-2">
       {affiliate ? <input type="hidden" name="id" value={affiliate.id} /> : null}
       <TextInput label="Name" name="name" required defaultValue={affiliate?.name} />
       <TextInput label="Company" name="company" defaultValue={affiliate?.company} />
@@ -46,7 +46,7 @@ export function AffiliateForm({ affiliate }: { affiliate?: Affiliate }) {
           <textarea className={inputClass} name="notes" rows={3} defaultValue={affiliate?.notes || ""} />
         </Field>
       </div>
-      <div><button className={btn}>{affiliate ? "Save affiliate" : "Create affiliate"}</button></div>
-    </form>
+      <div className="sm:col-span-2"><DeskSubmit>{affiliate ? "Save affiliate" : "Create affiliate"}</DeskSubmit></div>
+    </DeskForm>
   );
 }

@@ -5,6 +5,8 @@ import { all, one, run } from "@/lib/db";
 import { runAfterResponse } from "@/lib/defer";
 import { nowUtc, shortCode } from "@/lib/format";
 import { decideClickFraud } from "@/lib/fraud";
+import { geoFromHeaders, lookupIp } from "@/lib/geo";
+import { packClickAgent } from "@/lib/traffic-meta";
 import certifiedFile from "../compliance/certified-trackers.json";
 import { asCertifiedTrackers } from "@/lib/certified-trackers";
 import { googleFailure, googleRedirect, rawQueryParam, readGoogleRequest, resolveGoogleTarget } from "@/lib/google-transparency";
@@ -95,6 +97,8 @@ function inboundParams(url: URL) {
     sub8: inboundValue(url, "sub8"),
     sub9: inboundValue(url, "sub9"),
     sub10: inboundValue(url, "sub10"),
+    p1: inboundValue(url, "p1") || inboundValue(url, "sub1"),
+    source: inboundValue(url, "source") || inboundValue(url, "src") || inboundValue(url, "sub1"),
     gclid: inboundValue(url, "gclid"),
     creative: inboundValue(url, "creative"),
     vtDevice: inboundValue(url, "device"),
@@ -165,6 +169,7 @@ export async function enforceGoogleClick(req: Request, code: string, kind: "link
       if (resolved.warning) flag.reasons.push(resolved.warning);
       const blocked = flag.reasons.join(",");
       const createdAt = nowUtc();
+      const headersGeo = geoFromHeaders(req);
       await run(
         `INSERT INTO clicks (
           id, link_id, smart_link_id, offer_id, affiliate_id, ip, user_agent, country, device, os, referrer,
@@ -177,8 +182,8 @@ export async function enforceGoogleClick(req: Request, code: string, kind: "link
         offer.id,
         affiliate.id,
         flag.ip.slice(0, 80),
-        flag.ua.slice(0, 400),
-        flag.country,
+        packClickAgent(flag.ua.slice(0, 400), { city: headersGeo.city, isp: headersGeo.isp, p1: inbound.p1, source: inbound.source }),
+        headersGeo.country || flag.country,
         flag.device,
         flag.os,
         (req.headers.get("referer") || "").slice(0, 400),
@@ -190,6 +195,15 @@ export async function enforceGoogleClick(req: Request, code: string, kind: "link
         location,
         createdAt,
       );
+      const geo = await lookupIp(flag.ip, headersGeo);
+      if (geo.city || geo.isp || geo.country) {
+        await run(
+          "UPDATE clicks SET user_agent = ?, country = ? WHERE id = ?",
+          packClickAgent(flag.ua.slice(0, 400), { city: geo.city, isp: geo.isp, p1: inbound.p1, source: inbound.source }),
+          geo.country || flag.country,
+          clickId,
+        );
+      }
       if (!blocked && !flag.fraud) await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 });
     }, (task) => after(() => task));
   }

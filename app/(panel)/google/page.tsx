@@ -11,7 +11,7 @@ export default async function GooglePage({ searchParams }: { searchParams: Promi
   const domains = await all<{ host: string; final_url: string; status: string; detail: string; checked_at: string }>("SELECT host, final_url, status, detail, checked_at FROM google_domains ORDER BY host");
   const rejections = await all<{ error_code: string; path: string; host: string; created_at: string }>("SELECT error_code, path, host, created_at FROM google_rejections ORDER BY id DESC LIMIT 20");
   const canary = await setting("google_canary", "");
-  const base = await setting("base_url", "https://trackier-admexo.vercel.app");
+  const base = await setting("base_url", "https://www.adcliqx.com");
   const pack = applicationPack({ verifiedHosts: domains.filter((row) => row.status === "verified").map((row) => row.host) });
   let canaryText = "Not run yet.";
   if (canary) {

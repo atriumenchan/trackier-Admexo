@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { listAdvertisers } from "@/lib/queries";
 import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
 
@@ -17,7 +18,7 @@ export default async function AdvertisersPage({ searchParams }: { searchParams: 
       </form>
       <div className="surface-card overflow-x-auto">
         <table className="w-full">
-          <thead><tr><th className={th}>Name</th><th className={th}>Status</th><th className={th}>Email</th><th className={th}>Website</th></tr></thead>
+          <thead><tr><th className={th}>Name</th><th className={th}>Status</th><th className={th}>Email</th><th className={th}>Website</th><th className={th}></th></tr></thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
@@ -25,9 +26,15 @@ export default async function AdvertisersPage({ searchParams }: { searchParams: 
                 <td className={td}><Pill tone={toneFor(row.status)}>{row.status}</Pill></td>
                 <td className={td}>{row.email || "—"}</td>
                 <td className={td}>{row.website || "—"}</td>
+                <td className={td}>
+                  <DeskForm name="deleteAdvertiser">
+                    <input type="hidden" name="id" value={row.id} />
+                    <DeskSubmit className="text-sm text-coral" pendingLabel="Deleting…">Delete</DeskSubmit>
+                  </DeskForm>
+                </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={4}>No advertisers yet.</td></tr> : null}
+            {!rows.length ? <tr><td className={td} colSpan={5}>No advertisers yet.</td></tr> : null}
           </tbody>
         </table>
       </div>

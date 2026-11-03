@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "next dev -p 3010",
     "build": "next build",
-    "start": "next start -p 3010"
+    "start": "next start -p 3010",
+    "lab:seed": "node scripts/campaign-lab/seed.mjs",
+    "lab:run": "node scripts/campaign-lab/run.mjs",
+    "lab:verify": "node scripts/campaign-lab/verify.mjs",
+    "lab:campaign": "node scripts/campaign-lab/seed.mjs && node scripts/campaign-lab/run.mjs && node scripts/campaign-lab/verify.mjs",
+    "lab:ten": "node scripts/campaign-lab/ten-tests.mjs",
+    "lab:fill": "node scripts/campaign-lab/fill-reports.mjs"
   },
   "dependencies": {
     "next": "^15.5.3",
@@ -18,6 +24,7 @@
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "playwright": "^1.64.1",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
   }

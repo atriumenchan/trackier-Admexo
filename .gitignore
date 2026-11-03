@@ -7,3 +7,7 @@ data/*.sqlite-*
 !.env.example
 *.tsbuildinfo
 .vercel
+.env*
+_vendor_rea/
+scripts/campaign-lab/.state.json
+scripts/campaign-lab/results/

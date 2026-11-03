@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { deleteAffiliate } from "@/lib/actions";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { AffiliateForm } from "@/components/partner-forms";
 import { Banner, PageHeader, btnDanger, td, th } from "@/components/ui";
 import { all } from "@/lib/db";
@@ -44,7 +44,11 @@ export default async function AffiliatePage({ params, searchParams }: { params: 
           </tbody>
         </table>
       </section>
-      <form action={deleteAffiliate}><input type="hidden" name="id" value={affiliate.id} /><button className={btnDanger}>Delete affiliate</button></form>
+      <DeskForm name="deleteAffiliate">
+        <input type="hidden" name="id" value={affiliate.id} />
+        <DeskSubmit className={btnDanger} pendingLabel="Deleting…">Delete affiliate</DeskSubmit>
+      </DeskForm>
+      <p className="text-[12px] text-faint">Delete is only for affiliates with no clicks yet. After traffic, set Status to Blocked instead.</p>
     </div>
   );
 }

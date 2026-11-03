@@ -15,9 +15,10 @@ const globalForDb = globalThis as unknown as {
   trackierReady?: Promise<void>;
 };
 const txStore = new AsyncLocalStorage<Sql>();
+const settingCache = new Map<string, { value: string; at: number }>();
 
 export function usingPostgres() {
-  return Boolean(process.env.DATABASE_URL);
+  return driver() === "postgres";
 }
 
 function supabaseUrl() {
@@ -38,6 +39,16 @@ function driver() {
 export function istDay(column: string) {
   if (driver() !== "sqlite") return `((${column}::timestamp + interval '330 minutes')::date)::text`;
   return `date(${column}, '+330 minutes')`;
+}
+
+export function istHour(column: string) {
+  if (driver() !== "sqlite") return `to_char(${column}::timestamp + interval '330 minutes', 'YYYY-MM-DD HH24:00')`;
+  return `strftime('%Y-%m-%d %H:00', ${column}, '+330 minutes')`;
+}
+
+export function istMonth(column: string) {
+  if (driver() !== "sqlite") return `to_char(${column}::timestamp + interval '330 minutes', 'YYYY-MM')`;
+  return `strftime('%Y-%m', ${column}, '+330 minutes')`;
 }
 
 function databasePath() {
@@ -66,9 +77,12 @@ function ensure() {
   if (!globalForDb.trackierReady) {
     globalForDb.trackierReady = (async () => {
       const kind = driver();
-      if (kind === "postgres") await initPostgres();
-      else if (kind === "supabase") return;
-      else if (process.env.VERCEL) throw new Error("Supabase is not connected.");
+      if (kind === "postgres") {
+        await initPostgres();
+        if (!process.env.VERCEL) await migrateRemote();
+      } else if (kind === "supabase") {
+        if (!process.env.VERCEL) await migrateRemote();
+      } else if (process.env.VERCEL) throw new Error("Supabase is not connected.");
       else await initSqlite();
     })();
   }
@@ -95,6 +109,8 @@ async function supabaseRows(statement: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ statement, gate: process.env.QUERY_GATE || "" }),
+    cache: "no-store",
+    signal: AbortSignal.timeout(25_000),
   });
   const text = await response.text();
   if (!response.ok) {
@@ -108,7 +124,14 @@ async function supabaseRows(statement: string) {
     throw new Error(message);
   }
   const data = text ? JSON.parse(text) : [];
-  return Array.isArray(data) ? data : [];
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === "object") {
+    const rec = data as Record<string, unknown>;
+    if (Array.isArray(rec.rows)) return rec.rows;
+    if (Array.isArray(rec.data)) return rec.data;
+    return [data];
+  }
+  return [];
 }
 
 function placeholders(sql: string) {
@@ -123,7 +146,7 @@ function placeholders(sql: string) {
 function shapeRow<T>(row: T): T {
   if (!row || typeof row !== "object") return row;
   const copy = { ...(row as Record<string, unknown>) };
-  const numeric = new Set(["n", "clicks", "conversions", "revenue", "payout", "profit", "amount", "weight", "status_code", "ok", "fraud_flag", "is_default", "id", "payout_id", "goal_id", "link_id", "smart_link_id", "offer_id", "affiliate_id", "advertiser_id", "custom_payout", "custom_revenue", "daily_click_cap", "daily_conversion_cap", "daily_budget_cap", "attribution_hours", "schedule_start_hour", "schedule_end_hour", "threshold", "window_minutes", "changes", "google_strict"]);
+  const numeric = new Set(["n", "clicks", "conversions", "revenue", "payout", "profit", "amount", "weight", "status_code", "ok", "fraud_flag", "is_default", "id", "payout_id", "goal_id", "link_id", "smart_link_id", "offer_id", "affiliate_id", "advertiser_id", "custom_payout", "custom_revenue", "daily_click_cap", "daily_conversion_cap", "daily_budget_cap", "attribution_hours", "schedule_start_hour", "schedule_end_hour", "threshold", "window_minutes", "changes", "google_strict", "elapsed_time", "goal_value", "payout_user", "offer_clicks", "publisher_clicks", "burst_clicks", "ip_blocked", "burst_limit", "access_click_cap"]);
   for (const [key, value] of Object.entries(copy)) {
     if (typeof value === "bigint") copy[key] = Number(value);
     else if (typeof value === "string" && numeric.has(key) && /^-?\d+(\.\d+)?$/.test(value)) copy[key] = Number(value);
@@ -155,6 +178,16 @@ export async function one<T>(sql: string, ...params: Param[]): Promise<T | undef
   return rows[0];
 }
 
+export async function insertAndId(sql: string, params: Param[], lookupSql: string, ...lookupParams: Param[]) {
+  await run(sql, ...params);
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    const row = await one<{ id: number }>(lookupSql, ...lookupParams);
+    if (row?.id) return row.id;
+    await new Promise((resolve) => setTimeout(resolve, 40 * (attempt + 1)));
+  }
+  throw new Error("The row was saved, but its id could not be read. Open the list and continue from there.");
+}
+
 export async function run(sql: string, ...params: Param[]) {
   await ensure();
   const kind = driver();
@@ -164,27 +197,81 @@ export async function run(sql: string, ...params: Param[]) {
   }
   if (kind === "supabase") {
     const insert = /^\s*insert\s+/i.test(sql);
-    const skipReturning = /into\s+(settings|blocked_ips|google_domains)\b/i.test(sql);
+    const skipReturning = /into\s+(settings|blocked_ips|google_domains|traffic_rollups)\b/i.test(sql);
     const statement = insert && !/returning\s+/i.test(sql) && !skipReturning ? `${sql} RETURNING id` : sql;
-    const rows = await supabaseRows(bind(statement, params));
-    const rawId = rows[0] && typeof rows[0] === "object" ? (rows[0] as { id?: unknown }).id : 0;
-    const id = typeof rawId === "number" ? rawId : Number(rawId || 0);
-    return { id: Number.isFinite(id) ? id : 0, changes: rows.length };
+    const rows = unwrapQuery(await supabaseRows(bind(statement, params)));
+    let id = insertId(rows);
+    const table = insert ? sql.match(/insert\s+into\s+(\w+)/i)?.[1] : undefined;
+    if (insert && !skipReturning && !id && table) {
+      id = insertId(await supabaseRows(`SELECT id FROM ${table} ORDER BY id DESC LIMIT 1`));
+    }
+    return { id, changes: Math.max(rows.length, id ? 1 : 0) };
   }
   const insert = /^\s*insert\s+/i.test(sql);
-  const skipReturning = /into\s+(settings|blocked_ips|google_domains)\b/i.test(sql);
+  const skipReturning = /into\s+(settings|blocked_ips|google_domains|traffic_rollups)\b/i.test(sql);
   const statement = insert && !/returning\s+/i.test(sql) && !skipReturning ? `${sql} RETURNING id` : sql;
   const rows = await pgClient().unsafe(placeholders(statement), params as never[]);
-  const rawId = rows[0] && typeof rows[0] === "object" ? (rows[0] as { id?: unknown }).id : 0;
-  const id = typeof rawId === "number" ? rawId : Number(rawId || 0);
-  return { id: Number.isFinite(id) ? id : 0, changes: Number(rows.count ?? 0) };
+  return { id: insertId(rows as unknown[]), changes: Number(rows.count ?? 0) };
+}
+
+function unwrapQuery(rows: unknown[]): unknown[] {
+  if (!rows.length) return rows;
+  const first = rows[0];
+  if (typeof first === "string") {
+    try {
+      const parsed = JSON.parse(first);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch {
+      return rows;
+    }
+  }
+  if (first && typeof first === "object") {
+    const rec = first as Record<string, unknown>;
+    for (const key of ["app_query", "result", "rows", "data"]) {
+      const nested = rec[key];
+      if (Array.isArray(nested)) return nested;
+      if (nested && typeof nested === "object") return [nested];
+      if (typeof nested === "string") {
+        try {
+          const parsed = JSON.parse(nested);
+          return Array.isArray(parsed) ? parsed : [parsed];
+        } catch {
+          /* keep going */
+        }
+      }
+    }
+  }
+  return rows;
+}
+
+function insertId(rows: unknown[]) {
+  const first = rows[0];
+  if (typeof first === "number") return Number.isFinite(first) ? first : 0;
+  if (typeof first === "string" && /^-?\d+(\.\d+)?$/.test(first)) return Number(first);
+  if (!first || typeof first !== "object") return 0;
+  const rec = shapeRow(first) as Record<string, unknown>;
+  if (rec.id != null && rec.id !== "") {
+    const id = Number(rec.id);
+    return Number.isFinite(id) ? id : 0;
+  }
+  const values = Object.values(rec);
+  if (values.length === 1 && values[0] != null && values[0] !== "") {
+    const id = Number(values[0]);
+    return Number.isFinite(id) ? id : 0;
+  }
+  return 0;
 }
 
 export async function setting(key: string, fallback = "") {
-  return (await one<{ value: string }>("SELECT value FROM settings WHERE key = ?", key))?.value ?? fallback;
+  const hit = settingCache.get(key);
+  if (hit && Date.now() - hit.at < 30_000) return hit.value || fallback;
+  const value = (await one<{ value: string }>("SELECT value FROM settings WHERE key = ?", key))?.value ?? fallback;
+  settingCache.set(key, { value, at: Date.now() });
+  return value;
 }
 
 export async function putSetting(key: string, value: string) {
+  settingCache.set(key, { value, at: Date.now() });
   await run(
     `INSERT INTO settings (key, value) VALUES (?, ?)
      ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
@@ -216,9 +303,13 @@ async function initPostgres() {
   const sql = postgres(url, {
     max: 1,
     prepare: false,
+    connect_timeout: 8,
+    idle_timeout: 20,
+    max_lifetime: 60 * 5,
     ssl: url.includes("localhost") ? false : "require",
   });
   globalForDb.trackierPg = sql;
+  if (process.env.VERCEL) return;
   const schema = schemaSql().replaceAll("INTEGER PRIMARY KEY AUTOINCREMENT", "INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY");
   for (const statement of schema.split(";")) {
     const query = statement.trim();
@@ -462,6 +553,10 @@ function schemaSql() {
       creative TEXT NOT NULL DEFAULT '',
       vt_device TEXT NOT NULL DEFAULT '',
       vt_campaign TEXT NOT NULL DEFAULT '',
+      city TEXT NOT NULL DEFAULT '',
+      isp TEXT NOT NULL DEFAULT '',
+      p1 TEXT NOT NULL DEFAULT '',
+      source TEXT NOT NULL DEFAULT '',
       fraud_flag INTEGER NOT NULL DEFAULT 0,
       fraud_reason TEXT NOT NULL DEFAULT '',
       blocked_reason TEXT NOT NULL DEFAULT '',
@@ -485,6 +580,11 @@ function schemaSql() {
       payout_id INTEGER,
       postback_status TEXT NOT NULL DEFAULT 'skipped',
       fraud_reason TEXT NOT NULL DEFAULT '',
+      method TEXT NOT NULL DEFAULT 'acquisition',
+      note TEXT NOT NULL DEFAULT '',
+      goal_value REAL,
+      elapsed_time INTEGER NOT NULL DEFAULT 0,
+      payout_user REAL NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL
     );
     CREATE TABLE IF NOT EXISTS postback_logs (
@@ -584,7 +684,7 @@ function schemaSql() {
 `;
 }
 
-const COLUMN_ALTERS = [
+export const COLUMN_ALTERS = [
   "ALTER TABLE offers ADD COLUMN attribution_hours INTEGER",
   "ALTER TABLE offers ADD COLUMN schedule_days TEXT NOT NULL DEFAULT ''",
   "ALTER TABLE offers ADD COLUMN schedule_start_hour INTEGER",
@@ -604,8 +704,48 @@ const COLUMN_ALTERS = [
   "ALTER TABLE clicks ADD COLUMN creative TEXT NOT NULL DEFAULT ''",
   "ALTER TABLE clicks ADD COLUMN vt_device TEXT NOT NULL DEFAULT ''",
   "ALTER TABLE clicks ADD COLUMN vt_campaign TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN city TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN isp TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN p1 TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE clicks ADD COLUMN source TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE conversions ADD COLUMN method TEXT NOT NULL DEFAULT 'acquisition'",
+  "ALTER TABLE conversions ADD COLUMN note TEXT NOT NULL DEFAULT ''",
+  "ALTER TABLE conversions ADD COLUMN goal_value REAL",
+  "ALTER TABLE conversions ADD COLUMN elapsed_time INTEGER NOT NULL DEFAULT 0",
+  "ALTER TABLE conversions ADD COLUMN payout_user REAL NOT NULL DEFAULT 0",
   "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_api ON users(api_token) WHERE api_token IS NOT NULL AND api_token != ''",
 ];
+
+function remoteAlter(statement: string) {
+  return statement.includes("ADD COLUMN")
+    ? statement.replace("ADD COLUMN ", "ADD COLUMN IF NOT EXISTS ")
+    : statement;
+}
+
+async function runAlters() {
+  const out: { ok: boolean; sql: string; error?: string }[] = [];
+  for (const statement of COLUMN_ALTERS) {
+    const sql = driver() === "sqlite" ? statement : remoteAlter(statement);
+    try {
+      if (driver() === "sqlite") sqlite().exec(sql);
+      else if (driver() === "supabase") await supabaseRows(sql);
+      else await pgClient().unsafe(sql);
+      out.push({ ok: true, sql: sql.slice(0, 90) });
+    } catch (error) {
+      out.push({ ok: false, sql: sql.slice(0, 90), error: error instanceof Error ? error.message : "failed" });
+    }
+  }
+  return out;
+}
+
+export async function applyColumnAlters() {
+  await ensure();
+  return runAlters();
+}
+
+async function migrateRemote() {
+  await runAlters();
+}
 
 function migrate(db: DatabaseSync) {
   db.exec(schemaSql());

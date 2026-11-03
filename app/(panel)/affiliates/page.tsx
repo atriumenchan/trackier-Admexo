@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
 import { listAffiliates } from "@/lib/queries";
 import { Banner, PageHeader, Pill, btn, inputClass, td, th, toneFor } from "@/components/ui";
 
@@ -9,7 +10,18 @@ export default async function AffiliatesPage({ searchParams }: { searchParams: P
   const rows = (await listAffiliates(sp.q || ""));
   return (
     <div>
-      <PageHeader title="Affiliates" description="Publishers who send traffic. Active affiliates can sign in to the portal." action={<Link className={btn} href="/affiliates/new">New affiliate</Link>} />
+      <PageHeader
+        title="Affiliates"
+        description="Publishers who send traffic. Active affiliates can sign in to the portal."
+        action={
+          <span className="flex flex-wrap gap-2">
+            <DeskForm name="cleanupDuplicateAffiliates">
+              <DeskSubmit className="rounded-sm border border-border bg-surface px-3 py-2 text-sm font-medium text-ink" pendingLabel="Cleaning…">Remove duplicates</DeskSubmit>
+            </DeskForm>
+            <Link className={btn} href="/affiliates/new">New affiliate</Link>
+          </span>
+        }
+      />
       <Banner error={sp.error} ok={sp.ok} />
       <form className="mb-4 flex gap-2">
         <input className={inputClass} name="q" defaultValue={sp.q} placeholder="Search name, company, email" />
@@ -17,7 +29,7 @@ export default async function AffiliatesPage({ searchParams }: { searchParams: P
       </form>
       <div className="surface-card overflow-x-auto">
         <table className="w-full">
-          <thead><tr><th className={th}>Name</th><th className={th}>Status</th><th className={th}>Email</th><th className={th}>Postback</th></tr></thead>
+          <thead><tr><th className={th}>Name</th><th className={th}>Status</th><th className={th}>Email</th><th className={th}>Postback</th><th className={th}></th></tr></thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
@@ -25,9 +37,15 @@ export default async function AffiliatesPage({ searchParams }: { searchParams: P
                 <td className={td}><Pill tone={toneFor(row.status)}>{row.status}</Pill></td>
                 <td className={td}>{row.email || "—"}</td>
                 <td className={td}>{row.postback_url ? "Set" : "—"}</td>
+                <td className={td}>
+                  <DeskForm name="deleteAffiliate">
+                    <input type="hidden" name="id" value={row.id} />
+                    <DeskSubmit className="text-sm text-coral" pendingLabel="Deleting…">Delete</DeskSubmit>
+                  </DeskForm>
+                </td>
               </tr>
             ))}
-            {!rows.length ? <tr><td className={td} colSpan={4}>No affiliates yet.</td></tr> : null}
+            {!rows.length ? <tr><td className={td} colSpan={5}>No affiliates yet.</td></tr> : null}
           </tbody>
         </table>
       </div>

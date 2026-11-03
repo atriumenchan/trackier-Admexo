@@ -10,8 +10,8 @@ export const NON_CLICK_PATHS = ["/pb/:token", "/api/v1/offers", "/api/v1/clicks"
 // ASSUMPTION: a host on these suffixes is where the app runs, not a domain the organization owns.
 export const PLATFORM_SUFFIXES = ["vercel.app", "vercel.dev"] as const;
 // ASSUMPTION: the live Vercel hostname is the host we operate today. It is not a registrable domain we own.
-export const OWNED_DOMAINS = ["trackier-admexo.vercel.app"] as const;
-export const MANIFEST_VERSION = "1";
+export const OWNED_DOMAINS = ["adcliqx.com", "trackier-admexo.vercel.app"] as const;
+export const MANIFEST_VERSION = "2";
 export const MAX_TARGET_LENGTH = 4096;
 // ASSUMPTION: five hops is enough for a certified chain. Deeper chains are rejected.
 export const MAX_NESTED_DEPTH = 5;

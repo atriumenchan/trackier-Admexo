@@ -1,22 +1,43 @@
+import { headers } from "next/headers";
 import { after, NextResponse } from "next/server";
 import { all, one, run, setting, transaction } from "@/lib/db";
-import { clip, dayStartUtc, nowUtc, shortCode } from "@/lib/format";
+import { clip, dayStartUtc, nowUtc, roundMoney, shortCode } from "@/lib/format";
 import { runAfterResponse } from "@/lib/defer";
 import { decideClickFraud, decideConversionFraud, pauseAffiliate } from "@/lib/fraud";
+import { geoFromHeaders, lookupIp } from "@/lib/geo";
+import { packClickAgent, packConversionMeta } from "@/lib/traffic-meta";
 import { postLedger } from "@/lib/ledger";
 import { addRollup, rollupDay } from "@/lib/rollup";
-import { attributionOpen, scheduleOpen } from "@/lib/rules";
+import { attributionOpen, clickAgeMs, scheduleOpen, stricterAction } from "@/lib/rules";
 import { assertPublicHttpUrl } from "@/lib/safe-url";
 import type { Affiliate, Click, Conversion, Offer, OfferAccess, OfferGoal, SmartLink } from "@/lib/types";
 
 export const MACROS = ["click_id", "affiliate_id", "affiliate_name", "offer_id", "offer_name", "payout", "revenue", "txid", "status", "goal", "sub1", "sub2", "sub3", "sub4", "sub5", "sub6", "sub7", "sub8", "sub9", "sub10", "source"];
 
+function disposableHost(value: string) {
+  return /localhost|127\.0\.0\.1|\.vercel\.app/i.test(value);
+}
+
+async function liveOrigin() {
+  try {
+    const h = await headers();
+    const host = (h.get("x-forwarded-host") || h.get("host") || "").split(",")[0].trim().replace(/:\d+$/, "");
+    if (!host || disposableHost(host)) return "";
+    const proto = (h.get("x-forwarded-proto") || "https").split(",")[0].trim() || "https";
+    return `${proto}://${host}`;
+  } catch {
+    return "";
+  }
+}
+
 export async function publicBase() {
+  const live = await liveOrigin();
+  if (live) return live;
   const configured = (await setting("base_url", "")).replace(/\/$/, "");
+  if (configured && !disposableHost(configured)) return configured;
   const fromApp = (process.env.APP_URL || "").replace(/\/$/, "");
-  const fromVercel = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
-  if (configured && !/localhost|127\.0\.0\.1/.test(configured)) return configured;
-  return fromApp || fromVercel || configured || "http://localhost:3010";
+  if (fromApp && !disposableHost(fromApp)) return fromApp;
+  return "https://www.adcliqx.com";
 }
 
 export function fillMacros(template: string, vars: Record<string, string>) {
@@ -149,7 +170,11 @@ type ClickContext = {
   ip: string;
   userAgent: string;
   country: string;
+  city: string;
+  isp: string;
   referrer: string;
+  p1: string;
+  source: string;
   subs: Record<string, string>;
   origin: string;
 };
@@ -158,25 +183,37 @@ function readContext(req: Request): ClickContext {
   const url = new URL(req.url);
   const forwarded = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "";
   const ip = forwarded || req.headers.get("x-real-ip") || "";
-  const country = (req.headers.get("cf-ipcountry") || req.headers.get("x-vercel-ip-country") || "").toUpperCase();
+  const geo = geoFromHeaders(req);
   const subs: Record<string, string> = {};
   for (let index = 1; index <= 10; index += 1) subs[`sub${index}`] = clip(url.searchParams.get(`sub${index}`) || "", 200);
+  const p1 = clip(url.searchParams.get("p1") || subs.sub1 || "", 80);
+  const source = clip(url.searchParams.get("source") || url.searchParams.get("src") || subs.sub1 || "", 80);
   return {
     ip: clip(ip, 80),
     userAgent: clip(req.headers.get("user-agent") || "", 400),
-    country: /^[A-Z]{2}$/.test(country) ? country : "",
+    country: geo.country,
+    city: geo.city,
+    isp: geo.isp,
     referrer: clip(req.headers.get("referer") || "", 400),
+    p1,
+    source,
     subs,
     origin: url.origin,
   };
 }
 
+function clickResponse(response: NextResponse) {
+  response.headers.set("cache-control", "no-store");
+  response.headers.set("referrer-policy", "no-referrer");
+  return response;
+}
+
 function unavailable(origin: string) {
-  return NextResponse.redirect(`${origin}/unavailable`);
+  return clickResponse(NextResponse.redirect(`${origin}/unavailable`));
 }
 
 function redirectTo(url: string) {
-  return NextResponse.redirect(url, 302);
+  return clickResponse(NextResponse.redirect(url, 302));
 }
 
 export async function handleTrackingClick(req: Request, code: string, kind: "link" | "smart") {
@@ -185,16 +222,166 @@ export async function handleTrackingClick(req: Request, code: string, kind: "lin
   return (await handleDirect(code, ctx));
 }
 
+type DirectRow = {
+  link_id: number;
+  offer_id: number;
+  advertiser_id: number;
+  offer_name: string;
+  description: string;
+  preview_url: string;
+  offer_url: string;
+  model: string;
+  currency: string;
+  payout: number;
+  revenue: number;
+  offer_status: string;
+  visibility: string;
+  country_mode: string;
+  countries: string;
+  devices: string;
+  attribution_hours: number | null;
+  schedule_days: string;
+  schedule_start_hour: number | null;
+  schedule_end_hour: number | null;
+  daily_click_cap: number | null;
+  daily_conversion_cap: number | null;
+  daily_budget_cap: number | null;
+  fallback_url: string;
+  final_url: string;
+  google_strict: number;
+  offer_created: string;
+  updated_at: string;
+  affiliate_id: number;
+  affiliate_name: string;
+  affiliate_status: string;
+  company: string;
+  email: string;
+  postback_url: string;
+  affiliate_notes: string;
+  affiliate_created: string;
+  advertiser_status: string;
+  access_status: string;
+  access_click_cap: number | null;
+  ip_blocked: number;
+  offer_clicks: number;
+  publisher_clicks: number;
+  burst_clicks: number;
+  burst_limit: number | null;
+  burst_action: string | null;
+  bot_action: string | null;
+};
+
+function offerFromRow(row: DirectRow): Offer {
+  return {
+    id: row.offer_id,
+    advertiser_id: row.advertiser_id,
+    name: row.offer_name,
+    description: row.description || "",
+    preview_url: row.preview_url || "",
+    offer_url: row.offer_url,
+    model: row.model,
+    currency: row.currency,
+    payout: row.payout,
+    revenue: row.revenue,
+    status: row.offer_status,
+    visibility: row.visibility,
+    country_mode: row.country_mode,
+    countries: row.countries || "",
+    devices: row.devices || "",
+    attribution_hours: row.attribution_hours,
+    schedule_days: row.schedule_days || "",
+    schedule_start_hour: row.schedule_start_hour,
+    schedule_end_hour: row.schedule_end_hour,
+    daily_click_cap: row.daily_click_cap,
+    daily_conversion_cap: row.daily_conversion_cap,
+    daily_budget_cap: row.daily_budget_cap,
+    fallback_url: row.fallback_url || "",
+    final_url: row.final_url || "",
+    google_strict: row.google_strict || 0,
+    external_id: null,
+    sync_source_id: null,
+    created_at: row.offer_created || "",
+    updated_at: row.updated_at || "",
+  };
+}
+
+function affiliateFromRow(row: DirectRow): Affiliate {
+  return {
+    id: row.affiliate_id,
+    name: row.affiliate_name,
+    company: row.company || "",
+    email: row.email || "",
+    status: row.affiliate_status,
+    postback_url: row.postback_url || "",
+    notes: row.affiliate_notes || "",
+    created_at: row.affiliate_created || "",
+  };
+}
+
+function gateFromRow(row: DirectRow, userAgent: string) {
+  let blocked = "";
+  let fraud = 0;
+  let fraudReason = "";
+  let pause = false;
+  const approved = row.visibility === "public" || row.access_status === "approved";
+  if (row.affiliate_status !== "active" || row.offer_status !== "active" || row.advertiser_status !== "active" || !approved) blocked = "not-approved";
+  const applyRule = (action: string, reason: string) => {
+    if (!action) return;
+    const current = !fraud ? "" : blocked === "fraud" ? "reject" : pause ? "pause" : "flag";
+    if (current && stricterAction(current, action) !== action) return;
+    fraud = 1;
+    fraudReason = reason;
+    if (action === "pause") pause = true;
+    if (action === "reject") blocked = "fraud";
+  };
+  if (!blocked && row.ip_blocked) applyRule("reject", "blocked-ip");
+  if (!blocked && row.daily_click_cap && row.offer_clicks >= row.daily_click_cap) blocked = "click-cap";
+  if (!blocked && row.access_click_cap && row.publisher_clicks >= row.access_click_cap) blocked = "click-cap";
+  if (!blocked && /bot|spider|crawler|headless/i.test(userAgent)) applyRule(row.bot_action || "", "Bot");
+  if (!blocked && row.burst_action && row.burst_clicks >= (row.burst_limit || 30)) applyRule(row.burst_action, "Click burst");
+  return { blocked, fraud, fraudReason, pause };
+}
+
 async function handleDirect(code: string, ctx: ClickContext) {
-  const link = (await one<{ id: number; code: string; offer_id: number; affiliate_id: number }>(
-    "SELECT * FROM tracking_links WHERE code = ?",
+  const burstStart = new Date(Date.now() - 10 * 60 * 1000).toISOString().slice(0, 19).replace("T", " ");
+  const day = dayStartUtc();
+  const row = await one<DirectRow>(
+    `SELECT t.id AS link_id,
+      o.id AS offer_id, o.advertiser_id, o.name AS offer_name, o.description, o.preview_url, o.offer_url, o.model, o.currency,
+      o.payout, o.revenue, o.status AS offer_status, o.visibility, o.country_mode, o.countries, o.devices, o.attribution_hours,
+      o.schedule_days, o.schedule_start_hour, o.schedule_end_hour, o.daily_click_cap, o.daily_conversion_cap, o.daily_budget_cap,
+      o.fallback_url, o.final_url, o.google_strict, o.created_at AS offer_created, o.updated_at,
+      f.id AS affiliate_id, f.name AS affiliate_name, f.status AS affiliate_status, f.company, f.email, f.postback_url, f.notes AS affiliate_notes, f.created_at AS affiliate_created,
+      a.status AS advertiser_status, x.status AS access_status, x.daily_click_cap AS access_click_cap,
+      (SELECT COUNT(*) FROM blocked_ips b WHERE b.ip = ?) AS ip_blocked,
+      (SELECT COUNT(*) FROM clicks c WHERE c.offer_id = o.id AND c.created_at >= ? AND c.blocked_reason = '' AND c.fraud_flag = 0) AS offer_clicks,
+      (SELECT COUNT(*) FROM clicks c WHERE c.offer_id = o.id AND c.affiliate_id = f.id AND c.created_at >= ? AND c.blocked_reason = '' AND c.fraud_flag = 0) AS publisher_clicks,
+      (SELECT COUNT(*) FROM clicks c WHERE c.ip = ? AND c.offer_id = o.id AND c.created_at >= ?) AS burst_clicks,
+      (SELECT threshold FROM fraud_rules WHERE status = 'active' AND metric = 'burst' ORDER BY id LIMIT 1) AS burst_limit,
+      (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'burst' ORDER BY id LIMIT 1) AS burst_action,
+      (SELECT action FROM fraud_rules WHERE status = 'active' AND metric = 'bot' ORDER BY id LIMIT 1) AS bot_action
+     FROM tracking_links t
+     JOIN offers o ON o.id = t.offer_id
+     JOIN affiliates f ON f.id = t.affiliate_id
+     LEFT JOIN advertisers a ON a.id = o.advertiser_id
+     LEFT JOIN offer_access x ON x.offer_id = o.id AND x.affiliate_id = f.id
+     WHERE t.code = ?`,
+    ctx.ip,
+    day,
+    day,
+    ctx.ip,
+    burstStart,
     code,
-  ));
-  if (!link) return unavailable(ctx.origin);
-  const offer = (await one<Offer>("SELECT * FROM offers WHERE id = ?", link.offer_id));
-  const affiliate = (await one<Affiliate>("SELECT * FROM affiliates WHERE id = ?", link.affiliate_id));
-  if (!offer || !affiliate) return unavailable(ctx.origin);
-  return (await finishClick({ ctx, offer, affiliate, linkId: link.id, smartLinkId: null }));
+  );
+  if (!row) return unavailable(ctx.origin);
+  const offer = offerFromRow(row);
+  const affiliate = affiliateFromRow(row);
+  const { device } = detectClient(ctx.userAgent);
+  let preset = gateFromRow(row, ctx.userAgent);
+  if (!preset.blocked && !deviceAllowed(offer, device)) preset = { ...preset, blocked: "device" };
+  else if (!preset.blocked && !countryAllowed(offer, ctx.country)) preset = { ...preset, blocked: "country" };
+  else if (!preset.blocked && !scheduleOpen({ days: offer.schedule_days || "", startHour: offer.schedule_start_hour, endHour: offer.schedule_end_hour })) preset = { ...preset, blocked: "schedule" };
+  return finishClick({ ctx, offer, affiliate, linkId: row.link_id, smartLinkId: null, preset });
 }
 
 async function handleSmart(code: string, ctx: ClickContext) {
@@ -264,14 +451,21 @@ async function finishClick(input: {
   affiliate: Affiliate;
   linkId: number | null;
   smartLinkId: number | null;
+  preset?: { blocked: string; fraud: number; fraudReason: string; pause: boolean };
 }) {
   const { ctx, offer, affiliate } = input;
   const { device, os } = detectClient(ctx.userAgent);
   let blocked = "";
   let fraud = 0;
   let fraudReason = "";
+  let pause = false;
 
-  if (!(await affiliateCanRun(affiliate, offer))) blocked = "not-approved";
+  if (input.preset) {
+    blocked = input.preset.blocked;
+    fraud = input.preset.fraud;
+    fraudReason = input.preset.fraudReason;
+    pause = input.preset.pause;
+  } else if (!(await affiliateCanRun(affiliate, offer))) blocked = "not-approved";
   else if (!deviceAllowed(offer, device)) blocked = "device";
   else if (!countryAllowed(offer, ctx.country)) blocked = "country";
   else if (!scheduleOpen({ days: offer.schedule_days || "", startHour: offer.schedule_start_hour, endHour: offer.schedule_end_hour })) blocked = "schedule";
@@ -285,7 +479,7 @@ async function finishClick(input: {
     fraud = decision.fraud;
     fraudReason = decision.reason;
     if (decision.blocked) blocked = decision.blocked;
-    if (decision.pause) (await pauseAffiliate(affiliate.id));
+    if (decision.pause) pause = true;
   }
 
   const destination = blocked
@@ -308,7 +502,7 @@ async function finishClick(input: {
     offer_id: String(offer.id),
     offer_name: offer.name,
     payout: String(offer.payout),
-    source: "admexo",
+    source: ctx.source || "admexo",
     ...ctx.subs,
   }) : "";
 
@@ -325,7 +519,7 @@ async function finishClick(input: {
       offer.id,
       affiliate.id,
       ctx.ip,
-      ctx.userAgent,
+      packClickAgent(ctx.userAgent, { city: ctx.city, isp: ctx.isp, p1: ctx.p1, source: ctx.source }),
       ctx.country,
       device,
       os,
@@ -346,6 +540,16 @@ async function finishClick(input: {
       finalDestination,
       createdAt,
     ));
+    const geo = await lookupIp(ctx.ip, { city: ctx.city, country: ctx.country, isp: ctx.isp });
+    if (geo.city || geo.isp || geo.country) {
+      await run(
+        "UPDATE clicks SET user_agent = ?, country = ? WHERE id = ?",
+        packClickAgent(ctx.userAgent, { city: geo.city, isp: geo.isp, p1: ctx.p1, source: ctx.source }),
+        geo.country || ctx.country,
+        clickId,
+      );
+    }
+    if (pause) (await pauseAffiliate(affiliate.id));
     if (!blocked && !fraud) (await addRollup(rollupDay(createdAt), offer.id, affiliate.id, { clicks: 1 }));
   }, (task) => after(() => task));
 
@@ -365,9 +569,12 @@ export type ConversionInput = {
   payout?: number | null;
   revenue?: number | null;
   amount?: number | null;
+  goalValue?: number | null;
   ip?: string;
   advertiserId?: number | null;
   sourceUrl?: string;
+  method?: string;
+  note?: string;
 };
 
 export async function recordConversion(input: ConversionInput) {
@@ -471,6 +678,12 @@ export async function recordConversion(input: ConversionInput) {
   const created = nowUtc();
   const storedPayout = status === "rejected" ? 0 : payout;
   const storedRevenue = status === "rejected" ? 0 : revenue;
+  const fx = Number((await setting("fx_rate", "1")) || "1") || 1;
+  const payoutUser = roundMoney(storedPayout * fx);
+  const elapsed = Math.round(clickAgeMs(click.created_at, Date.parse(`${created.replace(" ", "T")}Z`)) / 1000);
+  const method = clip(input.method || "acquisition", 40).toLowerCase() || "acquisition";
+  const note = clip(input.note || reject, 200);
+  const goalValue = input.goalValue ?? input.amount ?? null;
   try {
     conversionId = await transaction(async () => {
       const inserted = await run(
@@ -489,8 +702,8 @@ export async function recordConversion(input: ConversionInput) {
         status,
         reject,
         txid,
-        clip(input.ip || "", 80),
-        fraudReason,
+        clip(input.ip || click.ip || "", 80),
+        packConversionMeta(fraudReason, { method, note, goal_value: goalValue, elapsed_time: elapsed, payout_user: payoutUser }),
         created,
       );
       return inserted.id;
@@ -650,6 +863,9 @@ export async function readPostbackParams(req: Request) {
     payout: asNumber(pick("payout")),
     revenue: asNumber(pick("revenue")),
     amount: asNumber(pick("amount", "sale_amount", "order_amount")),
+    goalValue: asNumber(pick("goal_value", "goalvalue")),
+    method: pick("method") || "acquisition",
+    note: pick("note", "remark"),
     sourceUrl: url.pathname + url.search,
   };
 }

@@ -1,12 +1,12 @@
-import { saveOffer } from "@/lib/actions";
-import { Field, SelectInput, TextInput, btn, inputClass } from "@/components/ui";
+import { DeskForm, DeskSubmit } from "@/components/desk-form";
+import { Field, SelectInput, TextInput, inputClass } from "@/components/ui";
 import type { Advertiser, Offer } from "@/lib/types";
 
 const macroHint = "Macros: {click_id} {affiliate_id} {offer_id} {sub1} to {sub10}";
 
 export function OfferForm({ advertisers, offer }: { advertisers: Advertiser[]; offer?: Offer }) {
   return (
-    <form action={saveOffer} className="grid gap-4 sm:grid-cols-2">
+    <DeskForm name="saveOffer" className="grid gap-4 sm:grid-cols-2">
       {offer ? <input type="hidden" name="id" value={offer.id} /> : null}
       <TextInput label="Name" name="name" required defaultValue={offer?.name} />
       <SelectInput label="Advertiser" name="advertiser_id" defaultValue={offer ? String(offer.advertiser_id) : ""}>
@@ -68,8 +68,8 @@ export function OfferForm({ advertisers, offer }: { advertisers: Advertiser[]; o
         </Field>
       </div>
       <div className="sm:col-span-2">
-        <button className={btn}>{offer ? "Save offer" : "Create offer"}</button>
+        <DeskSubmit>{offer ? "Save offer" : "Create offer"}</DeskSubmit>
       </div>
-    </form>
+    </DeskForm>
   );
 }

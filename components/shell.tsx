@@ -32,20 +32,15 @@ export function Shell({ user, groups, children }: { user: { name: string; email:
                   const active = item.href === "/dashboard" || item.href === "/portal" || item.href === "/brand"
                     ? pathname === item.href
                     : pathname === item.href || pathname.startsWith(`${item.href}/`);
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`block whitespace-nowrap rounded-sm px-2.5 py-1.5 text-sm ${active ? "bg-surface font-medium text-ink shadow-card" : "text-muted hover:text-ink"}`}
-                    >
-                      {item.label}
-                    </Link>
-                  );
+                  return <NavItem key={item.href} href={item.href} label={item.label} active={active} />;
                 })}
               </div>
             </div>
           ))}
         </nav>
+        <div className="border-t border-border px-3 py-3">
+          <NavItem href="/privacy" label="Privacy" active={pathname === "/privacy"} />
+        </div>
         <form action="/api/logout" method="post" className="hidden border-t border-border px-3 py-3 md:block">
           <p className="truncate px-2 text-[12px] text-muted">{user.name}</p>
           <p className="truncate px-2 text-[11px] text-faint">{user.email}</p>
@@ -56,6 +51,26 @@ export function Shell({ user, groups, children }: { user: { name: string; email:
         <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-7">{children}</div>
       </div>
     </div>
+  );
+}
+
+function NavItem({ href, label, active }: { href: string; label: string; active: boolean }) {
+  const pathname = usePathname();
+  const [pending, setPending] = useState(false);
+  useEffect(() => {
+    setPending(false);
+  }, [pathname]);
+  return (
+    <Link
+      href={href}
+      prefetch
+      onClick={() => {
+        if (!active) setPending(true);
+      }}
+      className={`block whitespace-nowrap rounded-sm px-2.5 py-1.5 text-sm ${active ? "bg-surface font-medium text-ink shadow-card" : pending ? "bg-surface-2 font-medium text-ink" : "text-muted hover:text-ink"}`}
+    >
+      {label}
+    </Link>
   );
 }
 
