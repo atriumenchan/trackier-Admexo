@@ -1,0 +1,22 @@
+import { chromium } from "playwright";
+
+const base = process.env.BASE || "https://www.adcliqx.com";
+const browser = await chromium.launch();
+const page = await browser.newPage();
+await page.goto(`${base}/login`);
+await page.fill('input[name="email"]', "admin@admexo.com");
+await page.fill('input[name="password"]', process.env.ADMIN_PASSWORD || "Admin123");
+await Promise.all([page.waitForURL(/dashboard|portal/), page.click('button:has-text("Sign in")')]);
+await page.goto(`${base}/smart-links`);
+await page.waitForSelector("table");
+const rows = await page.$$eval("tbody tr", (trs) => trs.map((tr) => tr.innerText.replace(/\s+/g, " ").trim()));
+console.log(rows.join("\n"));
+const links = await page.$$eval("a[href*='/s/'], code, td", (els) => [...new Set(els.map((el) => el.textContent || "").filter((t) => t.includes("/s/")))]);
+console.log(links.join("\n"));
+await page.goto(`${base}/offers`);
+await page.waitForSelector("table");
+await page.click('table a:has-text("manychat")').catch(() => {});
+await page.waitForTimeout(1500);
+const strict = await page.$$eval("input, select, textarea", (els) => els.filter((el) => /final_url|google_strict|offer_url/.test(el.getAttribute("name") || "")).map((el) => `${el.getAttribute("name")}=${el.type === "checkbox" ? el.checked : el.value}`));
+console.log(page.url(), strict.join(" | "));
+await browser.close();

@@ -35,6 +35,7 @@ export default function ClickTrackerPage() {
       <p>Google Ads uses one named parameter, redirection_url, and only when that parameter is present. The tracking template is:</p>
       <pre>{"https://www.adcliqx.com/t/kbqfa3tr?force_transparent=true&campaign_id=9&gclid={gclid}&creative={creative}&device={device}&redirection_url={lpurl}"}</pre>
       <p>In that mode the 302 Location is redirection_url after one decode. The offer URL is not used. Invalid targets, private addresses, and uncertified nested trackers are rejected with HTTP 400. If strict matching is on for the offer, the landing host must match the offer Final URL.</p>
+      <p>Smart links (<code>/s/CODE</code>) accept the same Google parameters and behave the same way: with redirection_url present, the Location is that URL, not one of the smart link&apos;s offers.</p>
 
       <h2>Parameters</h2>
       <div className="mt-4 overflow-x-auto rounded-md border border-border">
